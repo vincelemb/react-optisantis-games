@@ -11,14 +11,11 @@
 
 The repository will get you through your React self-learning.
 
-You will have to reproduce the world most famous game: **Optisantis Memory**
+Following a few steps, you will have to reproduce the world most famous game: **Optisantis Memory**
 
 <div align="center">
 <img src="https://i.imgur.com/LZprpWU.png" width=66% >
 </div>
-
-<br/>
-<br/>
 
 To achieve this goal, you will have to respect a few rules:
 
@@ -35,30 +32,69 @@ But, you can, and it is recommended to:
 
 > Your favorites documentation websites: [React](https://fr.reactjs.org/), [Typescript](https://www.typescriptlang.org/), [Mozilla Developer Docs](https://developer.mozilla.org/fr/docs/Web/JavaScript) and [StackOverFlow](https://stackoverflow.com/)
 
+Implement a simple style logic, but do not focus on it.
+
 ## Steps
 
-To achieve the main goal, you will follow steps:
+###### For each step, create a branch from `master`.
 
-#### 1. Render with React ?
+#### 0. Connect ReactDOM
 
-> _Git branch:_ **sprint1/render-with-react**<br/> > _Estimed time:_ **45mn/1h**
+Render a basic `<h1>hello world</h1>` from React in your browser.
 
-React.js offers multiples ways to render virtual **DOM** _(what is DOM?)_.
+#### 1. Pass props
 
-- React Class Component
-- React Functionnal Component
+> _Git branch:_ **sprint1/pass-props**
 
-In this step, you will have to render, in a `Fragment`, the component like below.
+> _Estimed time:_ **40mn**
 
-> Think about your code splitting. Will you use a Class or a function to render your components?
+Create a component (like just below). This component is named `Card` and should receive the number _(12, here)_ as **_prop_**.
+
+<img src="https://i.imgur.com/JcgteeH.png">
+
+#### 2. Mix components
+
+> _Git branch:_ **sprint2/render-with-react**
+
+> _Estimed time:_ **1h**
+
+In this step, you will have to render the component like below. This component is named `LevelCardsContainer` and embeds 5 `Card` components.
 
 <img src="https://i.imgur.com/GO96dab.png" >
+
+> React.js offers multiples ways to render components in virtual **DOM** _(what is DOM?)_.
+>
+> - React Class Component
+> - React Functionnal Component
+
+> Will you use a class or a function to render your components?
+
+> Will you write `<Card/>` 5 times ? **Iteration** is the key 💡
+
+#### 3. Share a state
+
+> _Git branch:_ **sprint3/share-state**
+
+> _Estimed time:_ **1h30**
+
+For this step, you have to create two separate components that share the number of card to display as state.
+
+<img src="https://i.imgur.com/xRVK6US.png" width=77%/>
+<img src="https://i.imgur.com/DtbnFgg.png" width=77%/>
+
+> How can you deal with state, state mutation, state exporting, ... ? [Hooks?](https://fr.reactjs.org/docs/hooks-state.html)
+
+> You can reuse the previous component.
+
+#### 4. Read this -> https://fr.reactjs.org/docs/thinking-in-react.html
+
+_(but you already knew that)_
 
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `yarn start`
+### `npm start`
 
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
