@@ -7,7 +7,7 @@
 <h2 align="center" style="font-family: 'Comfortaa'; color: #ffa700">Memory 2.0</h2>
 <h5 align="center" style="font-family: 'Comfortaa'; color: #152740; font-style: italic">"It was going to be a lonely trip back."</h5>
 
-#### Description
+## Description
 
 The repository will get you through your React self-learning.
 
@@ -33,3 +33,15 @@ But, you can, and it is recommended to:
 - **Read documentation and watch how other developers do on codebase websites**
 
 > Your favorites documentation websites: [React](https://fr.reactjs.org/), [Typescript](https://www.typescriptlang.org/), [Mozilla Developer Docs](https://developer.mozilla.org/fr/docs/Web/JavaScript) and [StackOverFlow](https://stackoverflow.com/)
+
+## Available Scripts
+
+In the project directory, you can run:
+
+### `yarn start`
+
+Runs the app in the development mode.<br />
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+The page will reload if you make edits.<br />
+You will also see any lint errors in the console.
