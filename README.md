@@ -48,7 +48,7 @@ Render a basic `<h1>hello world</h1>` from React in your browser.
 
 > _Estimed time:_ **40mn**
 
-Create a component (like just below). This component is named `Card` and should receive the number _(12, here)_ as **_prop_**.
+Create a component (like just below). This component is named `CardButton` and should receive the number _(12, here)_ as **_prop_**.
 
 <img src="https://i.imgur.com/JcgteeH.png">
 
@@ -58,7 +58,7 @@ Create a component (like just below). This component is named `Card` and should 
 
 > _Estimed time:_ **1h**
 
-In this step, you will have to render the component like below. This component is named `LevelCardsContainer` and embeds 5 `Card` components.
+In this step, you will have to render the component like below. This component is named `SelectLevelContainer` and embeds 5 `CardButton` components.
 
 <img src="https://i.imgur.com/GO96dab.png" >
 
@@ -69,7 +69,7 @@ In this step, you will have to render the component like below. This component i
 
 > Will you use a class or a function to render your components?
 
-> Will you write `<Card/>` 5 times ? **Iteration** is the key 💡
+> Will you write `<CardButton/>` 5 times ? **Iteration** is the key 💡
 
 #### 3. Share a state
 
