@@ -35,6 +35,18 @@ But, you can, and it is recommended to:
 
 Implement a simple style logic, but do not focus on it.
 
+## Available Scripts
+
+In the project directory, you can run:
+
+### `npm start`
+
+Runs the app in the development mode.<br />
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+The page will reload if you make edits.<br />
+You will also see any lint errors in the console.
+
 ## Steps
 
 ###### For each step, create a branch from `master`.
@@ -49,7 +61,8 @@ Render a basic `<h1>hello world</h1>` from React in your browser.
 
 > _Estimed time:_ **40mn**
 
-Create a component (like just below). This component is named `CardButton` and should receive the number _(12, here)_ as **_prop_**.
+Create a component (like just below). This component is named `CardButton`<br />
+and should receive the number _(12, here)_ as **_prop_**.
 
 <img src="https://i.imgur.com/JcgteeH.png">
 
@@ -59,7 +72,8 @@ Create a component (like just below). This component is named `CardButton` and s
 
 > _Estimed time:_ **1h**
 
-In this step, you will have to render the component like below. This component is named `SelectLevelContainer` and embeds 5 `CardButton` components.
+In this step, you will have to render the component like below.<br />
+This component is named `SelectLevelContainer` and embeds 5 `CardButton` components.
 
 <img src="https://i.imgur.com/GO96dab.png" >
 
@@ -78,7 +92,8 @@ In this step, you will have to render the component like below. This component i
 
 > _Estimed time:_ **1h30**
 
-For this step, you have to create two separate components that share the number of card to display as state.
+For this step, you have to create two separate components<br />
+that share the number of displayed card as state.
 
 <img src="https://i.imgur.com/xRVK6US.png" width=77%/>
 <img src="https://i.imgur.com/DtbnFgg.png" width=77%/>
@@ -89,7 +104,7 @@ For this step, you have to create two separate components that share the number 
 
 #### 4. Read this -> https://fr.reactjs.org/docs/thinking-in-react.html
 
-_(but you already knew that)_
+_(but you already knew that, isn't it)_
 
 #### 5. Implement a game logic
 
@@ -97,9 +112,10 @@ _(but you already knew that)_
 
 > _Estimed time:_ **4h**
 
-React is powerfull to generate nice user interface. And why not a game logic?
+React is powerfull to generate nice user interface.<br />And why not a game logic?
 
-Implement a timer that starts on the first card reveal (oh, yes, cards have an image on the back, did you know?). Implement a click counter too, and a _Scoring Board_ when the user finish the game.
+Implement a timer that starts on the first card reveal (oh, yes,<br />cards have an image on the back, did you know?).<br />
+Implement a click counter too, and a _Scoring Board_ when the user finish the game.
 
 <img src="https://i.imgur.com/URM5O8y.png"/>
 
@@ -109,28 +125,19 @@ Implement a timer that starts on the first card reveal (oh, yes, cards have an i
 
 > _Estimed time:_ **3h**
 
-This step wants you to add a theme manager. 5 themes to manage is not an easy thing to do. Make the change as smooth as possible for the user, as clean as possible for developers. Good luck!
+This step wants you to add a theme manager.<br />
+5 themes to manage is not an easy thing to do.<br />
+Make the change as smooth as possible for the user, as clean as possible for developers. Good luck!
 
 <img src="https://i.imgur.com/u79BqLM.png">
 
 #### 7. Record board
 
-> _Git branch:_ **sprint5/record-board**
+> _Git branch:_ **sprint6/record-board**
 
 > _Estimed time:_ **4h**
 
-Create a highest achievement manager in your game. Users should be able to do chrono record and click record.
+Create a highest achievement manager in your game.<br />
+Users should be able to do chrono record and click record.
 
 <img src="https://i.imgur.com/OlXc7Ae.png"/>
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
