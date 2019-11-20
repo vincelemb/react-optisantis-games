@@ -21,7 +21,9 @@ To achieve this goal, you will have to respect a few rules:
 
 - **You cannot watch, read, inspect or copy original sources from _webviews_caa_**
 - **You cannot copy other sources**
+
   > 🚨 Be careful, we'll know it
+
 - For each step, create a branch _(refer to the branch name in the step)_, commit your work for each new _feature_, and push it when you think it is done.
 
 But, you can, and it is recommended to:
