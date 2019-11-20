@@ -91,6 +91,38 @@ For this step, you have to create two separate components that share the number 
 
 _(but you already knew that)_
 
+#### 5. Implement a game logic
+
+> _Git branch:_ **sprint4/game-logic**
+
+> _Estimed time:_ **4h**
+
+React is powerfull to generate nice user interface. And why not a game logic?
+
+Implement a timer that starts on the first card reveal (oh, yes, cards have an image on the back, did you know?). Implement a click counter too, and a _Scoring Board_ when the user finish the game.
+
+<img src="https://i.imgur.com/URM5O8y.png"/>
+
+#### 6. Crossing states
+
+> _Git branch:_ **sprint5/crossing-states**
+
+> _Estimed time:_ **3h**
+
+This step wants you to add a theme manager. 5 themes to manage is not an easy thing to do. Make the change as smooth as possible for the user, as clean as possible for developers. Good luck!
+
+<img src="https://i.imgur.com/u79BqLM.png">
+
+#### 7. Record board
+
+> _Git branch:_ **sprint5/record-board**
+
+> _Estimed time:_ **4h**
+
+Create a highest achievement manager in your game. Users should be able to do chrono record and click record.
+
+<img src="https://i.imgur.com/OlXc7Ae.png"/>
+
 ## Available Scripts
 
 In the project directory, you can run:
