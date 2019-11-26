@@ -12,10 +12,16 @@
     "experimentalDecorators": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "isolatedModules": false,
+    "isolatedModules": true,
     "jsx": "react",
-    "lib": ["dom", "dom.iterable", "es2015", "es6", "esnext"],
-    "module": "es6",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "es2015",
+      "es6",
+      "esnext"
+    ],
+    "module": "esnext",
     "moduleResolution": "node",
     "noEmitOnError": true,
     "noFallthroughCasesInSwitch": true,
@@ -33,7 +39,10 @@
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
     "suppressImplicitAnyIndexErrors": true,
-    "target": "es5"
+    "target": "es5",
+    "skipLibCheck": true
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ]
 }
