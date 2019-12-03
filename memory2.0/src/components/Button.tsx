@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 
 type ButtonProps = {
     label?: string;
@@ -9,14 +9,14 @@ type ButtonProps = {
 
 const Button: React.FC<ButtonProps> = (props: React.PropsWithChildren<ButtonProps>) =>{
 
-    const [active, setActive] = useState<string>('-primary');
+    // const [active, setActive] = useState<string>('-primary');
 
-    function toggleElement() {
-        active === '-primary' ? setActive(" ") : setActive('-primary');
-    }
+    // function toggleElement() {
+    //     active === '-primary' ? setActive(" ") : setActive('-primary');
+    // }
 
     return(
-        <button className={'c-btn ' + active } onClick={ toogleElement() }>
+        <button className={'c-btn'}>
             <span className="_d-block">{props.number}</span>    
             <span className="_d-block">{props.label}</span>    
             {props.children}
