@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Button } from './components'
-import './style.scss'
+import './styles/tailwind.css'
 
 // type MainType = {
 //     name: string;

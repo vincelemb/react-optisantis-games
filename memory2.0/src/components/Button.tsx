@@ -16,7 +16,7 @@ const Button: React.FC<ButtonProps> = (props: React.PropsWithChildren<ButtonProp
     // }
 
     return(
-        <button className={'c-btn'}>
+        <button className='bg-red-800'>
             <span className="_d-block">{props.number}</span>    
             <span className="_d-block">{props.label}</span>    
             {props.children}
