@@ -29,7 +29,7 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": false,
+    "noUnusedParameters": true,
     "noEmit": true,
     "removeComments": true,
     "resolveJsonModule": true,

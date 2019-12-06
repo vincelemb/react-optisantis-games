@@ -3,25 +3,21 @@ import React from 'react'
 type ButtonProps = {
     label?: string;
     number?: number;
-    state?:boolean;
+    activeClass:string;
+    onClick: (event) => void;
 }
 
 
 const Button: React.FC<ButtonProps> = (props: React.PropsWithChildren<ButtonProps>) =>{
 
-    // const [active, setActive] = useState<string>('-primary');
-
-    // function toggleElement() {
-    //     active === '-primary' ? setActive(" ") : setActive('-primary');
-    // }
-
     return(
-        <button className='bg-red-800'>
-            <span className="_d-block">{props.number}</span>    
-            <span className="_d-block">{props.label}</span>    
+        <button className={props.activeClass +' _border-primary _text-primary _leading-normal _border-solid _border _bg-transparent _mx-xxs _rounded-small _shadow-none _py-xxs'} onClick={props.onClick}>
+            <span className="_block">{props.number && props.number }</span>    
+            <span className="_block">{props.label && props.label}</span>    
             {props.children}
         </button>
     )
 }
 
+// _border-primary _text-primary _leading-normal _border-solid _border _bg-transparent _mx-xxs _rounded-small _shadow-none _py-xxs
 export default Button

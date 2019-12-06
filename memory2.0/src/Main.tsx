@@ -1,38 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { Button } from './components'
 import './styles/tailwind.css'
-
-// type MainType = {
-//     name: string;
-//     id: number;
-// }
-
-
 
 const Main = () =>{
 
     let numbers = [12, 16, 20, 24, 26];
 
-    // const [users, setUsers] = useState<MainType[] | null>(null);
+    const [state, setState] = useState<boolean | undefined>(false);
 
-    // fetch('https://jsonplaceholder.typicode.com/users')
-    // .then(response => response.json())
-    // .then(json => {
-    //     setUsers(json)
-    // })
+    function toggleClass(event: any){
+        console.log(event.currentTarget);
+        setState(!state);
+    }
 
-    // return(
-    //     <div>
-    //         {users && users.map((u, index) => {
-    //             return <Button label={u.name} number={u.id} key={index}/>
-    //         })}
-    //     </div>
-    // )
     return(
         <div>
-            {numbers && numbers.map(number => {
-                return <Button label={'cartes'} number={number}/>
+            {numbers && numbers.map((number, index) => {
+                return <Button key={index} label={'cartes'} number={number} activeClass={'test'} onClick={(event) => toggleClass(event)} />
             })}
         </div>
     )
