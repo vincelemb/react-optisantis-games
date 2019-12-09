@@ -7,17 +7,17 @@ const Main = () =>{
 
     let numbers = [12, 16, 20, 24, 26];
 
-    const [state, setState] = useState<boolean | undefined>(false);
+    // On type useState quand il y a deux types possible.
+    const [state, setState] = useState("0");
 
-    function toggleClass(event: any){
-        console.log(event.currentTarget);
-        setState(!state);
+    function toggleClass(index: number){
+        setState(index.toString());
     }
 
     return(
         <div>
             {numbers && numbers.map((number, index) => {
-                return <Button key={index} label={'cartes'} number={number} activeClass={'test'} onClick={(event) => toggleClass(event)} />
+                return <Button key={index} label={'cartes'} number={number} activeClass={ state === index.toString() ? "_bg-primary _text-nearwhite" : "" } onClick={() => toggleClass(index)} />
             })}
         </div>
     )
