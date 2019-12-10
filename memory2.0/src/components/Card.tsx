@@ -3,13 +3,15 @@ import React from 'react';
 type CardProps = {
     // label?: string;
     cardNumber?: number;
+    flipClass?: string;
+    onClick?: (event) => void;
     // activeClass:string;
-    // onClick: (event) => void;
 };
 
 const Card: React.FC<CardProps> = (props: React.PropsWithChildren<CardProps>) => {
+
     return (
-        <button className="card _bg-primary">
+        <button  className={props.flipClass && props.flipClass+" card"} onClick={props.onClick && props.onClick}>
             {/* <img className="_block"></img>     */}
             {props.children}
         </button>
