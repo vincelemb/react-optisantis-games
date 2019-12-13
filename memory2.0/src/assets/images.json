@@ -1,0 +1,57 @@
+{
+
+    "fruits_legumes": [
+        {
+            "id": "banana",
+            "url": "http://localhost:3000/assets/img/fruits_legumes/003-banana.png"
+        },
+        {
+            "id": "avocado",
+            "url": "http://localhost:3000/assets/img/fruits_legumes/002-avocado.png"
+        },
+        {
+            "id": "Bell-pepper",
+            "url": "http://localhost:3000/assets/img/fruits_legumes/004-Bell-pepper.png"
+        },
+        {
+            "id": "broccoli",
+            "url": "http://localhost:3000/assets/img/fruits_legumes/005-broccoli.png"
+        },
+        {
+            "id": "cherry",
+            "url": "http://localhost:3000/assets/img/fruits_legumes/008-cherry.png"
+        },
+        {
+            "id": "corn",
+            "url": "http://localhost:3000/assets/img/fruits_legumes/011-corn.png"
+        },
+        {
+            "id": "eggplant",
+            "url": "http://localhost:3000/assets/img/fruits_legumes/013-eggplant.png"
+        },
+        {
+            "id": "grapes",
+            "url": "http://localhost:3000/assets/img/fruits_legumes/014-grapes.png"
+        },
+        {
+            "id": "lemon",
+            "url": "http://localhost:3000/assets/img/fruits_legumes/016-lemon.png"
+        },
+        {
+            "id": "mushroom",
+            "url": "http://localhost:3000/assets/img/fruits_legumes/018-mushroom.png"
+        },
+        {
+            "id": "onion",
+            "url": "http://localhost:3000/assets/img/fruits_legumes/019-onion.png"
+        },
+        {
+            "id": "lettuce",
+            "url": "http://localhost:3000/assets/img/fruits_legumes/027-lettuce.png"
+        },
+        {
+            "id": "strawberry",
+            "url": "http://localhost:3000/assets/img/fruits_legumes/028-strawberry.png"
+        }
+    ]
+}
