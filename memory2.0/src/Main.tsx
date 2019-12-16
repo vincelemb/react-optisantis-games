@@ -10,12 +10,16 @@ const Main = () => {
     
 
     let numbers = [12, 16, 20, 24, 26];
+    let imgTheme = ["fruits_legumes", "Medical", "Meteo", "Sommeil", "Sport"];
 
     // On type useState quand il y a deux types possible.
     // const [state, setState] = useState("0");
     const [numberCard, setNumberCard] = useState(numbers[0]);
     const [isFlipped, setIsFlipped] = useState(); 
     const [idCards, setIdCards] = useState<any>([]); 
+    // const [images, setImages] = useState<any>(renderImg(memoryImages.fruits_legumes, numberCard)); 
+    // void setImages;
+
     // const [arrayPair, setArrayPair] = useState<number[]>([]); 
     
     function toggleClass(index: number) {
@@ -32,7 +36,7 @@ const Main = () => {
     // }
     // console.log(arrayPair)
 
-    function renderBtns() {
+    function renderLevelBtns() {
         const Buttons: JSX.Element[] = [];
         numbers &&
             numbers.map((number, index) => {
@@ -41,15 +45,40 @@ const Main = () => {
                         key={index}
                         label={'cartes'}
                         number={number}
-                        activeClass={numberCard === numbers[index] ? '_bg-primary _text-nearwhite' : ''}
+                        activeClass={numberCard === numbers[index] ? '_bg-white _text-primary' : '_text-white'}
                         onClick={() => {
                             toggleClass(index);
                         }}
                     />
                 );
             });
-        return <div>{Buttons}</div>;
+        return <div className="_flex _justify-center _px-md _py-sm _mr-sm _rounded-small">{Buttons}</div>;
     }
+
+    function renderThemeBtns() {
+        const ButtonsTheme: JSX.Element[] = [];
+        imgTheme &&
+            imgTheme.map((theme, index) => {
+                // console.log(Object.memo)
+                // ButtonsTheme.push(
+                //     <Button
+                //         key={index}
+                //         label={theme}
+                //         // number={number}
+                //         activeClass={images === imgTheme[index] ? '_bg-white _text-primary' : '_text-white'}
+                //         onClick={() => {
+                            
+                //         }}
+                //     />
+                // );
+            });
+        return <div className="_flex _justify-center _px-md _py-sm _mr-sm _rounded-small">{ButtonsTheme}</div>;
+    }
+
+    // function changeImgTheme(imgCategorie) {
+    //     setImages(renderImg(imgCategorie, numberCard))
+    //     // memoryImages.fruits_legumes
+    // }
 
     /**
      * Permet de rendre  par categorie la moitié d'un nombre d'image définie.
@@ -110,18 +139,53 @@ const Main = () => {
     function renderCards() {
         const Cards: JSX.Element[] = [];
         const Images = renderImg(memoryImages.fruits_legumes, numberCard)
+        // console.log(images)
         
         for (let i = 0; i < numberCard; i++)  {
             // Si au moment ou je click sur le bouton (call de flipCard(i) qui change isFlipped) c'est le meme chiffre que i, alors...
             Cards.push(
-            <Card flipClass={ isFlipped === i ? "_bg-warning" : "_bg-primary"} key={i} id={idCards[i]} onClick={()=> { flipCard(i)}}> 
+            <Card flipClass={ isFlipped === i ? "-isFlipped" : "_bg-white"} key={i} id={idCards[i]} onClick={()=> { flipCard(i)}}> 
             {/* TO DO : ne retroune pas les bon element par rapport a l'ID voir pourquoi  */}
                 {Images[idCards[i]]}
             </Card>)
         };
 
-        return (<div>{Cards}</div>)
+        return (<div className="grid-card">{Cards}</div>)
     }
+
+    return (
+        <div className="memory-bg">
+
+            <div className="panel-container">
+                <div className="_bg-darkenprimary _mr-md _rounded-small">
+                    <h2 className="_text-center _text-white _m-none _pt-sm">Niveau de difficulté</h2>
+                    {renderLevelBtns()}
+                </div>
+                <div className="_bg-darkenprimary _mr-md _rounded-small _mt-sm">
+                    <h2 className="_text-center _text-white _m-none _pt-sm">Thème</h2>
+                    {renderThemeBtns()}
+                </div>
+            </div>
+            <div className="grid-container">{renderCards()}</div>
+            <div><Timer/></div>
+        </div>
+    );
+};
+
+export default Main;
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // /**
     //  * Verifie la correspondance des valeurs des ids lorsque deux items sont selectionnés
@@ -162,15 +226,3 @@ const Main = () => {
     //         });
     //     }
     // }
-
-
-    return (
-        <div>
-            <div>{renderBtns()}</div>
-            <div>{renderCards()}</div>
-            <div><Timer/></div>
-        </div>
-    );
-};
-
-export default Main;

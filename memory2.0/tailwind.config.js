@@ -68,6 +68,7 @@ module.exports = {
       warning: '#e03634',
       success: '#99cc00',
       golden: '#ffce55',
+      white: '#fff',
      
     },
     width: {
