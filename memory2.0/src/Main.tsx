@@ -10,31 +10,34 @@ const Main = () => {
     
 
     let numbers = [12, 16, 20, 24, 26];
-    let imgTheme = ["fruits_legumes", "Medical", "Meteo", "Sommeil", "Sport"];
+    let themes: string[] = ["fruits_legumes", "medical", "meteo", "sommeil", "sport"];
 
     // On type useState quand il y a deux types possible.
     // const [state, setState] = useState("0");
     const [numberCard, setNumberCard] = useState(numbers[0]);
     const [isFlipped, setIsFlipped] = useState(); 
     const [idCards, setIdCards] = useState<any>([]); 
-    // const [images, setImages] = useState<any>(renderImg(memoryImages.fruits_legumes, numberCard)); 
-    // void setImages;
+    const [images, setImages] = useState<any>(themes[0]); 
+    const [imagesArray, setImagesArray] = useState<any>(memoryImages.fruits_legumes); 
 
     // const [arrayPair, setArrayPair] = useState<number[]>([]); 
     
     function toggleClass(index: number) {
         setNumberCard(numbers[index]);
+        renderImg(imagesArray, numbers[index])
+        console.log( )
+    }
+
+    function changetheme(index: number) {
+        setImages(themes[index]);
+        setImagesArray(memoryImages[themes[index]]);
+        renderImg(imagesArray, numberCard)
     }
     
     function flipCard(index: number){
         setIsFlipped(index)
         return index;
     }
-
-    // function addCard(index: number) {
-    //     setArrayPair([...arrayPair, index])
-    // }
-    // console.log(arrayPair)
 
     function renderLevelBtns() {
         const Buttons: JSX.Element[] = [];
@@ -57,28 +60,21 @@ const Main = () => {
 
     function renderThemeBtns() {
         const ButtonsTheme: JSX.Element[] = [];
-        imgTheme &&
-            imgTheme.map((theme, index) => {
-                // console.log(Object.memo)
-                // ButtonsTheme.push(
-                //     <Button
-                //         key={index}
-                //         label={theme}
-                //         // number={number}
-                //         activeClass={images === imgTheme[index] ? '_bg-white _text-primary' : '_text-white'}
-                //         onClick={() => {
-                            
-                //         }}
-                //     />
-                // );
+        themes &&
+            themes.map((theme, index: any) => {
+                ButtonsTheme.push(
+                    <Button
+                        key={index}
+                        label={theme}
+                        activeClass={images === themes[index] ? '_bg-white _text-primary' : '_text-white'}
+                        onClick={() => {
+                            changetheme(index);
+                        }}
+                    />
+                );
             });
         return <div className="_flex _justify-center _px-md _py-sm _mr-sm _rounded-small">{ButtonsTheme}</div>;
     }
-
-    // function changeImgTheme(imgCategorie) {
-    //     setImages(renderImg(imgCategorie, numberCard))
-    //     // memoryImages.fruits_legumes
-    // }
 
     /**
      * Permet de rendre  par categorie la moitié d'un nombre d'image définie.
@@ -87,8 +83,9 @@ const Main = () => {
      */
     function renderImg(categorie: any, number: number){
         const Img: JSX.Element[] = [];
+        let urlArray:string[] = Object.values(categorie)
         for (let index = 0; index < number/2; index++) {
-            Img.push(<img className="_h-full" src={categorie[index].url} key={"image-"+categorie[index].id} alt="ok"></img>)
+            Img.push(<img className="_h-full" src={urlArray[index]} key={"image-"+index} alt="ok"></img>)
         }
         return (Img.slice(0, number/2))
     }
@@ -131,21 +128,15 @@ const Main = () => {
         setIdCards(shuffle(idCards))
         setIdCards(idCards.toString().split(','))
 
-    }, [numberCard])
+    }, [numberCard, imagesArray])
 
-    /**
-     * 
-     */
     function renderCards() {
         const Cards: JSX.Element[] = [];
-        const Images = renderImg(memoryImages.fruits_legumes, numberCard)
-        // console.log(images)
-        
+        const Images: any = renderImg(imagesArray, numberCard);
         for (let i = 0; i < numberCard; i++)  {
             // Si au moment ou je click sur le bouton (call de flipCard(i) qui change isFlipped) c'est le meme chiffre que i, alors...
             Cards.push(
             <Card flipClass={ isFlipped === i ? "-isFlipped" : "_bg-white"} key={i} id={idCards[i]} onClick={()=> { flipCard(i)}}> 
-            {/* TO DO : ne retroune pas les bon element par rapport a l'ID voir pourquoi  */}
                 {Images[idCards[i]]}
             </Card>)
         };
@@ -153,45 +144,11 @@ const Main = () => {
         return (<div className="grid-card">{Cards}</div>)
     }
 
-    return (
-        <div className="memory-bg">
-
-            <div className="panel-container">
-                <div className="_bg-darkenprimary _mr-md _rounded-small">
-                    <h2 className="_text-center _text-white _m-none _pt-sm">Niveau de difficulté</h2>
-                    {renderLevelBtns()}
-                </div>
-                <div className="_bg-darkenprimary _mr-md _rounded-small _mt-sm">
-                    <h2 className="_text-center _text-white _m-none _pt-sm">Thème</h2>
-                    {renderThemeBtns()}
-                </div>
-            </div>
-            <div className="grid-container">{renderCards()}</div>
-            <div><Timer/></div>
-        </div>
-    );
-};
-
-export default Main;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // /**
-    //  * Verifie la correspondance des valeurs des ids lorsque deux items sont selectionnés
-    //  * @param {cards} length - Nombre d'éléments dans le tableau this.pair.
-    //  * @param {Number} length - Nombre d'éléments dans le tableau this.pair.
-    //  */
+    /**
+     * Verifie la correspondance des valeurs des ids lorsque deux items sont selectionnés
+     * @param {cards} length - Nombre d'éléments dans le tableau this.pair.
+     * @param {Number} length - Nombre d'éléments dans le tableau this.pair.
+     */
     // function checkPairs(length, cards) {
     //     if (length === 2) {
     //         // clickNumber++;
@@ -226,3 +183,24 @@ export default Main;
     //         });
     //     }
     // }
+
+    return (
+        <div className="memory-bg">
+
+            <div className="panel-container">
+                <div className="_bg-darkenprimary _mr-md _rounded-small">
+                    <h2 className="_text-center _text-white _m-none _pt-sm">Niveau de difficulté</h2>
+                    {renderLevelBtns()}
+                </div>
+                <div className="_bg-darkenprimary _mr-md _rounded-small _mt-sm">
+                    <h2 className="_text-center _text-white _m-none _pt-sm">Thème</h2>
+                    {renderThemeBtns()}
+                </div>
+            </div>
+            <div className="grid-container">{renderCards()}</div>
+            <div className="grid-timer _py-md"><Timer/></div>
+        </div>
+    );
+};
+
+export default Main;
