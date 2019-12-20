@@ -16,11 +16,14 @@ const Main = () => {
     // const [state, setState] = useState("0");
     const [numberCard, setNumberCard] = useState(numbers[0]);
     const [isFlipped, setIsFlipped] = useState(); 
+    // const [isWin, setIsWin] = useState(false); 
     const [idCards, setIdCards] = useState<any>([]); 
     const [images, setImages] = useState<any>(themes[0]); 
     const [imagesArray, setImagesArray] = useState<any>(memoryImages.fruits_legumes); 
 
-    // const [arrayPair, setArrayPair] = useState<number[]>([]); 
+    const [currentPair, setCurrentPair] = useState<string[]>([]); 
+    const [winPair, setWinPair] = useState<any[]>([]); 
+
     
     function toggleClass(index: number) {
         setNumberCard(numbers[index]);
@@ -36,6 +39,7 @@ const Main = () => {
     
     function flipCard(index: number){
         setIsFlipped(index)
+
         return index;
     }
 
@@ -130,18 +134,71 @@ const Main = () => {
 
     }, [numberCard, imagesArray])
 
+    useEffect(() => {
+        if(currentPair.length == 2){
+            if (currentPair[0] === currentPair[1]) {
+                setWinPair([...winPair, ...currentPair])
+                setCurrentPair([])
+                // setIsWin(true);
+                
+//             this.pair.forEach((pair) => {
+//                 this._setAttributeCard(pair, 'disabled');
+//                 pair.setAttribute('tabindex', '-1');
+//                 pair.classList.add('_pointer-event-none')
+
+//             });
+                } else {
+                    setCurrentPair([])
+        //             setTimeout(() => {
+        //                 cards.forEach((card) => {
+        //                     this._setAttributeCard(card, 'hidden')
+        //                 });
+        //                 this.pair = [];
+
+        //             }, 500);
+                }
+                
+            }
+    }, [currentPair])
+
+    useEffect(() => {
+        console.log("win! ", winPair)
+
+        if (winPair.length === numberCard) {
+            console.log("cest gagné")
+            // this._winGame(this.timeNumber, this.clickNumber);
+        }
+        
+    }, [winPair])
+
     function renderCards() {
         const Cards: JSX.Element[] = [];
         const Images: any = renderImg(imagesArray, numberCard);
+
+
         for (let i = 0; i < numberCard; i++)  {
+
             // Si au moment ou je click sur le bouton (call de flipCard(i) qui change isFlipped) c'est le meme chiffre que i, alors...
             Cards.push(
-            <Card flipClass={ isFlipped === i ? "-isFlipped" : "_bg-white"} key={i} id={idCards[i]} onClick={()=> { flipCard(i)}}> 
+            <Card flipClass={ isFlipped === i ? "-isFlipped" : "_bg-white"} key={i} data-js-id={idCards[i]} 
+            onClick={()=> { 
+                flipCard(i)
+                setCurrentPair([...currentPair, idCards[i].toString()]);
+                checkCard(i)
+            }}> 
                 {Images[idCards[i]]}
             </Card>)
         };
+        // console.log(currentPair)
 
         return (<div className="grid-card">{Cards}</div>)
+    }
+
+    function checkCard(index: number){
+        // win
+        console.log(isFlipped)
+        console.log(index)
+
     }
 
     /**
@@ -154,7 +211,7 @@ const Main = () => {
     //         // clickNumber++;
     //         // this.clickDisplay.textContent = this.clickNumber;
 
-    //         if (arrayPair[0] === arrayPair[1]) {
+    //         if (currentPair[0] === currentPair[1]) {
     //             this.pair.forEach((pair) => {
     //                 this._setAttributeCard(pair, 'disabled');
     //                 pair.setAttribute('tabindex', '-1');

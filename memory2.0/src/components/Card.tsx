@@ -3,7 +3,7 @@ import React from 'react';
 type CardProps = {
     // label?: string;
     cardNumber?: number;
-    flipClass?: string;
+    flipClass?: string | undefined;
     id?: string | undefined;
     onClick?: (event) => void;
     // activeClass:string;
@@ -12,7 +12,7 @@ type CardProps = {
 const Card: React.FC<CardProps> = (props: React.PropsWithChildren<CardProps>) => {
 
     return (
-        <button  className={props.flipClass && props.flipClass+" card"} id={props.id} onClick={props.onClick && props.onClick}>
+        <button  className={props.flipClass && props.flipClass+" card "} id={props.id} onClick={props.onClick && props.onClick}>
             {/* <img className="_block"></img>     */}
             {props.children}
         </button>
