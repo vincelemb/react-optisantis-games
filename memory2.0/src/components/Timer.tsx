@@ -37,7 +37,7 @@ const Timer: React.FC = () => {
     // <span>{props.hours+props.minutes+':'+props.seconds}</span>
     <div>
         <span>{seconds}</span>
-        <button className={`button button-primary button-primary-${isActive ? 'active' : 'inactive'}`} onClick={toggle}>{isActive ? 'Pause' : 'Start'}</button>
+        <button className="button button-primary" onClick={toggle}>{isActive ? 'Pause' : 'Start'}</button>
         <button className="button" onClick={reset}>Reset</button>
 
     </div>

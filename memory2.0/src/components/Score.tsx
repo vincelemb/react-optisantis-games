@@ -1,13 +1,13 @@
 import React from 'react';
 
-type CardProps = {
+type ScoreProps = {
     cardNumber?: number;
     flipClass?: string | undefined;
     id?: string | undefined;
     onClick?: (event: any) => void;
 };
 
-const Card: React.FC<CardProps> = (props: React.PropsWithChildren<CardProps>) => {
+const Score: React.FC<ScoreProps> = (props: React.PropsWithChildren<ScoreProps>) => {
 
     return (
         <button  className={props.flipClass && props.flipClass + " card"} draggable={false} id={props.id} onClick={props.onClick && props.onClick}>
@@ -16,4 +16,4 @@ const Card: React.FC<CardProps> = (props: React.PropsWithChildren<CardProps>) =>
     );
 };
 
-export default Card;
+export default Score;

@@ -2,14 +2,18 @@ import React, { useState, useEffect } from 'react';
 
 
 import memoryImages from './assets/images.json'
-import { Button, Card, Timer } from './components';
+import { Button, Card, Timer, Confetti, Score} from './components';
 import './styles/tailwind.css';
 import './styles/memory.scss';
+import './styles/confetti.scss';
 
 const Main = () => {
+
+    //TO DO : FAIRE LA FONCTIONNALITE RECCORD
+    void(Score)
     
 
-    let numbers = [12, 16, 20, 24, 26];
+    let numbers = [12, 16, 20, 24, 28];
     let themes: string[] = ["fruits_legumes", "medical", "meteo", "sommeil", "sport"];
 
     // On type useState quand il y a deux types possible.
@@ -20,8 +24,6 @@ const Main = () => {
     const [images, setImages] = useState<any>(themes[0]); 
     const [imagesArray, setImagesArray] = useState<any>(memoryImages.fruits_legumes); 
     const [currentPair, setCurrentPair] = useState<string[]>([]); 
-
-    // const [winPair, setWinPair] = useState<any[]>([]);
 
     const Cards: JSX.Element[] = [];
 
@@ -36,11 +38,6 @@ const Main = () => {
         setImagesArray(memoryImages[themes[index]]);
         renderImg(imagesArray, numberCard)
     }
-    
-    function flipCard(index: any){
-        setIsFlipped([...isFlipped, index])
-        return index;
-    }
 
     function renderLevelBtns() {
         const Buttons: JSX.Element[] = [];
@@ -51,7 +48,7 @@ const Main = () => {
                         key={index}
                         label={'cartes'}
                         number={number}
-                        activeClass={numberCard === numbers[index] ? '_bg-white _text-primary' : '_text-white'}
+                        activeClass={numberCard === numbers[index] ? '_bg-primary _text-white' : '_text-primary _border-primary'}
                         onClick={() => {
                             toggleClass(index);
                         }}
@@ -69,7 +66,7 @@ const Main = () => {
                     <Button
                         key={index}
                         label={theme}
-                        activeClass={images === themes[index] ? '_bg-white _text-primary' : '_text-white'}
+                        activeClass={images === themes[index] ? '_bg-white _text-primary' : '_text-white _border-white'}
                         onClick={() => {
                             changetheme(index);
                         }}
@@ -136,11 +133,15 @@ const Main = () => {
      * Check la concordance des deux cards selectionnées
      */
     useEffect(() => {
-        if(currentPair.length == 2){
+        if(isFlipped.length > 2){
+            setIsFlipped([])
+        }
+
+        if(currentPair.length === 2 && isFlipped[0] != isFlipped[1]){
             if (currentPair[0] === currentPair[1]) {
-                setWinPairs( winPairs.concat(isFlipped))
-                console.log(winPairs) // longueur de l'array winPairs
+                setWinPairs(winPairs.concat(currentPair))
                 setCurrentPair([])
+                setIsFlipped([])
                 
             } else {
                 setCurrentPair([])
@@ -148,27 +149,51 @@ const Main = () => {
                     setIsFlipped([])
                 }, 500);
             }
+        }
+        else if(currentPair.length > 2 ){
+            setCurrentPair([])
+        } 
+        else if (isFlipped[0] === isFlipped[1]){
+            setCurrentPair([])
+        }
+    }, [isFlipped])
+
+    /**
+     * Animation confetti lors du remplissage de la victoire de l'utilisateur
+     */
+    function renderConfetti() {
+        const Confettis: JSX.Element[] = [];
+        let i = 300;
+
+        if(winPairs.length === numberCard){
+            console.log("oui")
+            while (i > -1) {
+                Confettis.push(<Confetti confettiClass={"confetti-"+i} key={i}></Confetti>)
+                i--;
+            }
             
         }
-        else {
-            return
-        }
-    }, [currentPair, winPairs])
+        return (<React.Fragment>{Confettis}</React.Fragment>)
+    }
+
+    function activeClass(index){
+        let string:string
+        string = isFlipped.includes(index) ? "-isFlipped" : winPairs.includes(idCards[index]) ? "-isWin" : "_bg-white"
+        return string;
+    }
 
     
-    function renderCards() {
+    const renderCards = () => {
         const Images: any = renderImg(imagesArray, numberCard);
-
 
         for (let i = 0; i < numberCard; i++)  {
 
             // Si au moment ou je click sur le bouton (call de flipCard(i) qui change isFlipped) c'est le meme chiffre que i, alors...
             Cards.push(
-            <Card flipClass={winPairs.includes(i) ? "-isWin" : isFlipped.includes(i) ? "-isFlipped" : "_bg-white" } key={i} data-js-id={idCards[i]} 
-            onClick={(event)=> {
-                flipCard(i)
+            <Card flipClass={activeClass(i)} key={i} data-js-id={idCards[i]} 
+            onClick={()=> {
+                setIsFlipped([...isFlipped, i])
                 setCurrentPair([...currentPair, idCards[i].toString()]);
-                event.preventDefault()
             }}> 
                 {Images[idCards[i]]}
             </Card>)
@@ -178,97 +203,24 @@ const Main = () => {
 
     return (
         <div className="memory-bg">
-
-            <div className="panel-container">
-                <div className="_bg-darkenprimary _mr-md _rounded-small">
-                    <h2 className="_text-center _text-white _m-none _pt-sm">Niveau de difficulté</h2>
-                    {renderLevelBtns()}
+            {renderConfetti()}
+            <div className="memory-panel">
+                <div className="panel-container">
+                    <div className="_bg-darkenprimary _mr-md _rounded-small ">
+                        <h2 className="_text-center _text-white _m-none _pt-sm">Thème</h2>
+                        {renderThemeBtns()}
+                    </div>
+                    <div className="_bg-white _mr-md _rounded-small _mt-sm">
+                        <h2 className="_text-center _text-primary _m-none _pt-sm">Niveau de difficulté</h2>
+                        {renderLevelBtns()}
+                    </div>
+                    
                 </div>
-                <div className="_bg-darkenprimary _mr-md _rounded-small _mt-sm">
-                    <h2 className="_text-center _text-white _m-none _pt-sm">Thème</h2>
-                    {renderThemeBtns()}
-                </div>
+                <div className="grid-container">{renderCards()}</div>
+                <div className="grid-timer _py-md"><Timer/></div>
             </div>
-            <div className="grid-container">{renderCards()}</div>
-            <div className="grid-timer _py-md"><Timer/></div>
         </div>
     );
 };
 
 export default Main;
-
-
-
-
-
-
-
-
-
-
-
-
-// function compareCards(event, index) {
-
-        // console.log(Cards)
-        // console.log(event.currentTarget)
-        // console.log(index)
-
-        
-        // console.log(elementFlipped)
-        // console.log(event.currentTarget, currentPair)
-        // console.log(isFlipped)
-        
-        // setElementFlipped({...event.currentTarget, ...currentPair})
-        // console.log(elementFlipped)
-        // console.log(event.currentTarget)
-
-
-        
-        // let [elementFlipped, setElementFlipped] = useState<{}>({})
-       // CardsButton[] = tableau de mes cartes + index (flipCard())
-       // CardsButton[flipCard()] = element sur lequel je viens de cliquer => id
-       // setElementFlipped(...valeur, CardsButton[flipCard()])
-
-    // }
-
-
-    /**
-     * Verifie la correspondance des valeurs des ids lorsque deux items sont selectionnés
-     * @param {cards} length - Nombre d'éléments dans le tableau this.pair.
-     * @param {Number} length - Nombre d'éléments dans le tableau this.pair.
-     */
-    // function checkPairs(length, cards) {
-    //     if (length === 2) {
-    //         // clickNumber++;
-    //         // this.clickDisplay.textContent = this.clickNumber;
-
-    //         if (currentPair[0] === currentPair[1]) {
-    //             this.pair.forEach((pair) => {
-    //                 this._setAttributeCard(pair, 'disabled');
-    //                 pair.setAttribute('tabindex', '-1');
-    //                 pair.classList.add('_pointer-event-none')
-
-    //             });
-    //             this.checkWin.push(this.pair);
-
-    //             if (this.checkWin.length === this.level / 2) {
-    //                 this._winGame(this.timeNumber, this.clickNumber);
-    //             }
-    //             this.pair = [];
-    //         } else {
-    //             setTimeout(() => {
-    //                 cards.forEach((card) => {
-    //                     this._setAttributeCard(card, 'hidden')
-    //                 });
-    //                 this.pair = [];
-
-    //             }, 500);
-    //         }
-    //     } else if (length > 2) {
-    //         //Securité, pour ne pas a avoir plus de 2 cards dans le tableau "this.pair".
-    //         cards.forEach((card) => {
-    //             this._setAttributeCard(card, 'hidden')
-    //         });
-    //     }
-    // }
