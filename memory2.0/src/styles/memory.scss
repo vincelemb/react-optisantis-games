@@ -2,6 +2,7 @@ body{
     margin: 0;
 }
 
+
 .grid-timer{
     grid-row: 2/3;
     grid-column: 3/4;
@@ -16,7 +17,7 @@ body{
     background-size: cover;
     height: 100vh;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
     grid-template-rows: 1fr auto 1fr 1fr auto auto auto;
 }
 
@@ -49,6 +50,19 @@ body{
     &.-isFlipped{
         transition: .5s ease-in-out all;
         transform: rotateY(180deg);
+        img {
+            transition: .5s ease-in-out all;
+            opacity: 1;
+        }
+    }
+
+    &.-isWin{
+        transition: .5s ease-in-out all;
+        transform: rotateY(180deg);
+        box-shadow: none;
+        pointer-events:none;
+        transition: unset;
+        background-color: red;
         img {
             transition: .5s ease-in-out all;
             opacity: 1;

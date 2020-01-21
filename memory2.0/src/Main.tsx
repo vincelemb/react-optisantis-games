@@ -13,22 +13,22 @@ const Main = () => {
     let themes: string[] = ["fruits_legumes", "medical", "meteo", "sommeil", "sport"];
 
     // On type useState quand il y a deux types possible.
-    // const [state, setState] = useState("0");
-    const [numberCard, setNumberCard] = useState(numbers[0]);
-    const [isFlipped, setIsFlipped] = useState(); 
-    // const [isWin, setIsWin] = useState(false); 
+    const [numberCard, setNumberCard] = useState<number>(numbers[0]);
+    const [isFlipped, setIsFlipped] = useState<number[]>([]); 
+    const [winPairs, setWinPairs] = useState<any[]>([]); 
     const [idCards, setIdCards] = useState<any>([]); 
     const [images, setImages] = useState<any>(themes[0]); 
     const [imagesArray, setImagesArray] = useState<any>(memoryImages.fruits_legumes); 
-
     const [currentPair, setCurrentPair] = useState<string[]>([]); 
-    const [winPair, setWinPair] = useState<any[]>([]); 
+
+    // const [winPair, setWinPair] = useState<any[]>([]);
+
+    const Cards: JSX.Element[] = [];
 
     
     function toggleClass(index: number) {
         setNumberCard(numbers[index]);
         renderImg(imagesArray, numbers[index])
-        console.log( )
     }
 
     function changetheme(index: number) {
@@ -37,9 +37,8 @@ const Main = () => {
         renderImg(imagesArray, numberCard)
     }
     
-    function flipCard(index: number){
-        setIsFlipped(index)
-
+    function flipCard(index: any){
+        setIsFlipped([...isFlipped, index])
         return index;
     }
 
@@ -127,52 +126,37 @@ const Main = () => {
         for (let i = 0; i < numberCard/2; i++)  {
             setIdCards(idCards.push(i))
         };
-
         setIdCards(idCards.push(...idCards))
         setIdCards(shuffle(idCards))
         setIdCards(idCards.toString().split(','))
 
     }, [numberCard, imagesArray])
 
+    /**
+     * Check la concordance des deux cards selectionnées
+     */
     useEffect(() => {
         if(currentPair.length == 2){
             if (currentPair[0] === currentPair[1]) {
-                setWinPair([...winPair, ...currentPair])
+                setWinPairs( winPairs.concat(isFlipped))
+                console.log(winPairs) // longueur de l'array winPairs
                 setCurrentPair([])
-                // setIsWin(true);
                 
-//             this.pair.forEach((pair) => {
-//                 this._setAttributeCard(pair, 'disabled');
-//                 pair.setAttribute('tabindex', '-1');
-//                 pair.classList.add('_pointer-event-none')
-
-//             });
-                } else {
-                    setCurrentPair([])
-        //             setTimeout(() => {
-        //                 cards.forEach((card) => {
-        //                     this._setAttributeCard(card, 'hidden')
-        //                 });
-        //                 this.pair = [];
-
-        //             }, 500);
-                }
-                
+            } else {
+                setCurrentPair([])
+                setTimeout(() => {
+                    setIsFlipped([])
+                }, 500);
             }
-    }, [currentPair])
-
-    useEffect(() => {
-        console.log("win! ", winPair)
-
-        if (winPair.length === numberCard) {
-            console.log("cest gagné")
-            // this._winGame(this.timeNumber, this.clickNumber);
+            
         }
-        
-    }, [winPair])
+        else {
+            return
+        }
+    }, [currentPair, winPairs])
 
+    
     function renderCards() {
-        const Cards: JSX.Element[] = [];
         const Images: any = renderImg(imagesArray, numberCard);
 
 
@@ -180,26 +164,74 @@ const Main = () => {
 
             // Si au moment ou je click sur le bouton (call de flipCard(i) qui change isFlipped) c'est le meme chiffre que i, alors...
             Cards.push(
-            <Card flipClass={ isFlipped === i ? "-isFlipped" : "_bg-white"} key={i} data-js-id={idCards[i]} 
-            onClick={()=> { 
+            <Card flipClass={winPairs.includes(i) ? "-isWin" : isFlipped.includes(i) ? "-isFlipped" : "_bg-white" } key={i} data-js-id={idCards[i]} 
+            onClick={(event)=> {
                 flipCard(i)
                 setCurrentPair([...currentPair, idCards[i].toString()]);
-                checkCard(i)
+                event.preventDefault()
             }}> 
                 {Images[idCards[i]]}
             </Card>)
         };
-        // console.log(currentPair)
-
         return (<div className="grid-card">{Cards}</div>)
     }
 
-    function checkCard(index: number){
-        // win
-        console.log(isFlipped)
-        console.log(index)
+    return (
+        <div className="memory-bg">
 
-    }
+            <div className="panel-container">
+                <div className="_bg-darkenprimary _mr-md _rounded-small">
+                    <h2 className="_text-center _text-white _m-none _pt-sm">Niveau de difficulté</h2>
+                    {renderLevelBtns()}
+                </div>
+                <div className="_bg-darkenprimary _mr-md _rounded-small _mt-sm">
+                    <h2 className="_text-center _text-white _m-none _pt-sm">Thème</h2>
+                    {renderThemeBtns()}
+                </div>
+            </div>
+            <div className="grid-container">{renderCards()}</div>
+            <div className="grid-timer _py-md"><Timer/></div>
+        </div>
+    );
+};
+
+export default Main;
+
+
+
+
+
+
+
+
+
+
+
+
+// function compareCards(event, index) {
+
+        // console.log(Cards)
+        // console.log(event.currentTarget)
+        // console.log(index)
+
+        
+        // console.log(elementFlipped)
+        // console.log(event.currentTarget, currentPair)
+        // console.log(isFlipped)
+        
+        // setElementFlipped({...event.currentTarget, ...currentPair})
+        // console.log(elementFlipped)
+        // console.log(event.currentTarget)
+
+
+        
+        // let [elementFlipped, setElementFlipped] = useState<{}>({})
+       // CardsButton[] = tableau de mes cartes + index (flipCard())
+       // CardsButton[flipCard()] = element sur lequel je viens de cliquer => id
+       // setElementFlipped(...valeur, CardsButton[flipCard()])
+
+    // }
+
 
     /**
      * Verifie la correspondance des valeurs des ids lorsque deux items sont selectionnés
@@ -240,24 +272,3 @@ const Main = () => {
     //         });
     //     }
     // }
-
-    return (
-        <div className="memory-bg">
-
-            <div className="panel-container">
-                <div className="_bg-darkenprimary _mr-md _rounded-small">
-                    <h2 className="_text-center _text-white _m-none _pt-sm">Niveau de difficulté</h2>
-                    {renderLevelBtns()}
-                </div>
-                <div className="_bg-darkenprimary _mr-md _rounded-small _mt-sm">
-                    <h2 className="_text-center _text-white _m-none _pt-sm">Thème</h2>
-                    {renderThemeBtns()}
-                </div>
-            </div>
-            <div className="grid-container">{renderCards()}</div>
-            <div className="grid-timer _py-md"><Timer/></div>
-        </div>
-    );
-};
-
-export default Main;

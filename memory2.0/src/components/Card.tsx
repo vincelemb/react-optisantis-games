@@ -5,14 +5,14 @@ type CardProps = {
     cardNumber?: number;
     flipClass?: string | undefined;
     id?: string | undefined;
-    onClick?: (event) => void;
+    onClick?: (event: any) => void;
     // activeClass:string;
 };
 
 const Card: React.FC<CardProps> = (props: React.PropsWithChildren<CardProps>) => {
 
     return (
-        <button  className={props.flipClass && props.flipClass+" card "} id={props.id} onClick={props.onClick && props.onClick}>
+        <button  className={props.flipClass && props.flipClass + " card"} id={props.id} onClick={props.onClick && props.onClick}>
             {/* <img className="_block"></img>     */}
             {props.children}
         </button>
