@@ -20,6 +20,10 @@
   background-color: #006675
 }
 
+._bg-darkengolden {
+  background-color: #846700
+}
+
 ._bg-nearwhite {
   background-color: #f5f5f5
 }
@@ -56,6 +60,10 @@
   background-color: #006675
 }
 
+.hover\:_bg-darkengolden:hover {
+  background-color: #846700
+}
+
 .hover\:_bg-nearwhite:hover {
   background-color: #f5f5f5
 }
@@ -90,6 +98,10 @@
 
 .focus\:_bg-darkenprimary:focus {
   background-color: #006675
+}
+
+.focus\:_bg-darkengolden:focus {
+  background-color: #846700
 }
 
 .focus\:_bg-nearwhite:focus {
@@ -206,6 +218,10 @@
 
 ._border-darkenprimary {
   border-color: #006675
+}
+
+._border-darkengolden {
+  border-color: #846700
 }
 
 ._border-nearwhite {
@@ -2000,8 +2016,16 @@
   box-shadow: none
 }
 
-._fill-current {
-  fill: currentColor
+._fill-primary {
+  fill: #007d8f
+}
+
+._fill-darkengolden {
+  fill: #846700
+}
+
+._fill-golden {
+  fill: #ffce55
 }
 
 ._stroke-current {
@@ -2046,6 +2070,10 @@
 
 ._text-darkenprimary {
   color: #006675
+}
+
+._text-darkengolden {
+  color: #846700
 }
 
 ._text-nearwhite {
@@ -4088,8 +4116,16 @@
     left: auto
   }
 
-  .sm\:_fill-current {
-    fill: currentColor
+  .sm\:_fill-primary {
+    fill: #007d8f
+  }
+
+  .sm\:_fill-darkengolden {
+    fill: #846700
+  }
+
+  .sm\:_fill-golden {
+    fill: #ffce55
   }
 
   .sm\:_stroke-current {
@@ -6129,8 +6165,16 @@
     left: auto
   }
 
-  .md\:_fill-current {
-    fill: currentColor
+  .md\:_fill-primary {
+    fill: #007d8f
+  }
+
+  .md\:_fill-darkengolden {
+    fill: #846700
+  }
+
+  .md\:_fill-golden {
+    fill: #ffce55
   }
 
   .md\:_stroke-current {
@@ -8170,8 +8214,16 @@
     left: auto
   }
 
-  .lg\:_fill-current {
-    fill: currentColor
+  .lg\:_fill-primary {
+    fill: #007d8f
+  }
+
+  .lg\:_fill-darkengolden {
+    fill: #846700
+  }
+
+  .lg\:_fill-golden {
+    fill: #ffce55
   }
 
   .lg\:_stroke-current {

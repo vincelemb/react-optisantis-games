@@ -1,7 +1,6 @@
 import Button from './Button'
 import Card from './Card'
-import Timer from './Timer'
 import Confetti from './Confetti'
-import Score from './Score'
+import ScoreClick from './ScoreClick'
 
-export { Button, Card, Timer, Confetti, Score }
+export { Button, Card, Confetti, ScoreClick }

@@ -22,6 +22,11 @@ module.exports = {
     accessibility:false,
   },
   theme: {
+    fill: theme => ({
+      'primary': theme('colors.primary'),
+      'darkengolden': theme('colors.darkengolden'),
+      'golden': theme('colors.golden'),
+    }),
     screens: {
       sm : {'min': '576px', 'max': '575px'},
       md : {'min': '768px', 'max': '767px'},
@@ -64,6 +69,7 @@ module.exports = {
       primary : '#007d8f',
       lightprimary: '#f1f6f6',
       darkenprimary: '#006675',
+      darkengolden: '#846700',
       nearwhite : '#f5f5f5',
       warning: '#e03634',
       success: '#99cc00',
