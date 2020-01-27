@@ -1,13 +1,29 @@
+//HOOKS
 import React, { useState, useEffect, useContext } from 'react';
 
+//ASSETS
 import memoryImages from './assets/images.json';
+import memoryClick from './assets/memory/clics.svg'
+import memoryTime from './assets/memory/time.svg'
+
+//COMPONENTS
 import { Button, Card, Confetti, ScoreClick } from './components';
+
+//TYPES
 import memoryType from './type/memoryType';
+
+//STYLE
 import './styles/tailwind.css';
 import './styles/memory.scss';
 import './styles/confetti.scss';
+
+//LOGICS
 import useScoreTimer from './logics/useScoreTimer';
+
+//UTILS
 import TimeFormat from './utils/TimeFormat';
+
+//UseContext
 import { TimerContext } from './context/TimerContext';
 
 const Main = () => {
@@ -24,7 +40,8 @@ const Main = () => {
     const [currentPair, setCurrentPair] = useState<string[]>([]);
     const [count, setCount] = useState<number>(0);
     const [timeActive, setTimeActive] = useState<boolean>(false);
-    const [saveScore, setSaveScore] = useState<memoryType[]>([]);
+    const [saveScore, setSaveScore] = useState<memoryType[] | any>([]);
+    const [indexLevel, setIndexLevel] = useState<number>(saveScore.findIndex((index) => index.level === numberCard));
 
     let timerInterval: NodeJS.Timeout | undefined = undefined;
     const { seconds } = useScoreTimer(timeActive, timerInterval);
@@ -32,6 +49,7 @@ const Main = () => {
 
     // const [displayScore, setDisplayScore] = useState<any>()
     // TO DO : AFFICHER LE SCORE DE NOMBRE DE CLICK ET REUSSIR A RECUPERER LE TEMPS POUR POUVOIR LE COMPARER AUSSI.
+
 
     const Cards: JSX.Element[] = [];
 
@@ -44,16 +62,6 @@ const Main = () => {
         setImages(themes[index]);
         setImagesArray(memoryImages[themes[index]]);
         renderImg(imagesArray, numberCard);
-    }
-
-    function renderScoreClick() {
-        const Scores: JSX.Element[] = [];
-        Scores.push(
-            <>
-                <ScoreClick isIcon iconPosition="left" count={count}></ScoreClick>
-            </>
-        );
-        return <div className="_flex _justify-center _px-md _py-sm">{Scores}</div>;
     }
 
     function reset() {
@@ -125,21 +133,21 @@ const Main = () => {
      * @param {Array} array
      */
     function shuffle(array) {
-        let counter = array.length;
+        // let counter = array.length;
 
-        // While there are elements in the array
-        while (counter > 0) {
-            // Pick a random index
-            let index = Math.floor(Math.random() * counter);
+        // // While there are elements in the array
+        // while (counter > 0) {
+        //     // Pick a random index
+        //     let index = Math.floor(Math.random() * counter);
 
-            // Decrease counter by 1
-            counter--;
+        //     // Decrease counter by 1
+        //     counter--;
 
-            // And swap the last element with it
-            let temp = array[counter];
-            array[counter] = array[index];
-            array[index] = temp;
-        }
+        //     // And swap the last element with it
+        //     let temp = array[counter];
+        //     array[counter] = array[index];
+        //     array[index] = temp;
+        // }
         return array;
     }
 
@@ -188,37 +196,35 @@ const Main = () => {
     useEffect(() => {
         if (winPairs.length === numberCard) {
             timerStatus(false); // Arrete le Timer
-            const indexLevel = saveScore.findIndex((index) => index.level === numberCard);
 
             if (indexLevel !== -1) {
                 // La, on créer un "saveScore" temporaire en lui passant les nouvelle valeurs qui viennent d'être joué. Pour ensuite comparer saveScore et tempSaveScore
-                const tempSaveScore = [...saveScore];
-                tempSaveScore.splice(indexLevel, 1, { level: numberCard, click: count, time: seconds });
+                const tempSaveScore:any[] = [...saveScore];
+               
+                if (count < saveScore[indexLevel].click) {
+                    /*Ici, on dit a tempSaveScore -> à l'élement de indexLevel (ici 12) tu vas suprimer 1 element, et le remplacer par 
+                    l'objet tempSaveScore à l'indexLevel dont la valeur click cahnge pour le nouveau count (il changer automatiquement pour la nouvel clé "click").
+                    */
+                    tempSaveScore.splice(indexLevel, 1, {...tempSaveScore[indexLevel], click: count })
+                }
+                if (seconds < saveScore[indexLevel].time) {
+                    tempSaveScore.splice(indexLevel, 1, {...tempSaveScore[indexLevel], time: seconds})
+                }
 
-                if (tempSaveScore[indexLevel].click < saveScore[indexLevel].click) {
-                    setSaveScore(tempSaveScore);
-                    console.log('new reccord de click');
-                } else {
-                    setSaveScore([...saveScore]);
-                }
-                if (tempSaveScore[indexLevel].time < saveScore[indexLevel].time) {
-                    setSaveScore(tempSaveScore);
-                    console.log('new reccord de temps');
-                } else {
-                    setSaveScore([...saveScore]);
-                }
+                if (count < saveScore[indexLevel].click || seconds < saveScore[indexLevel].time) setSaveScore(tempSaveScore)
             } else {
-                console.log("le niveau n'existe pas");
                 setSaveScore([...saveScore, { level: numberCard, click: count, time: seconds }]);
             }
         }
     }, [winPairs]);
 
     useEffect(() => {
-        console.log('saveScore : ', saveScore);
-        // console.log("saveScore : ", saveScore[indexLevel].click)
+        console.log(saveScore)
     }, [saveScore]);
-    // }, [winPairs.length === numberCard])
+
+    useEffect(() => {
+        setIndexLevel(saveScore.findIndex((index) => index.level === numberCard));
+    }, [reset]);
 
     /**
      * Animation confetti lors du remplissage de la victoire de l'utilisateur
@@ -289,7 +295,29 @@ const Main = () => {
                     <div className="_bg-darkenprimary _mt-sm _rounded-small ">
                         <h2 className="_text-center _text-white _m-none _pt-sm">Score</h2>
                         <span className="_text-center _text-white _block _mt-xxs">{'(' + numberCard + ' cartes)'}</span>
-                        {renderScoreClick()}
+                        <div className="_flex _justify-center _py-xs">
+                            {/* <ScoreClick isIcon iconPosition="left" count={saveScore[indexLevel].click === null ? '00' : saveScore[indexLevel].click }></ScoreClick> */}
+                            <div className="_m-xs">
+                                <div className="_d-flex _items-center _mb-xs">
+                                    <img src={memoryTime} className="_h-full _w-lg _mr-xs" alt=""/>
+                                    <span className="_text-white">Temps</span>
+                                </div>
+                                <div className="_flex _justify-start">
+                                    <ScoreClick isIcon iconPosition="left" count={saveScore[indexLevel] ? TimeFormat(saveScore[indexLevel].time) : '00:00'}></ScoreClick>
+                                </div>    
+                            </div>
+   
+                            <div className="_m-xs">
+                                <div className="_d-flex _items-center _mb-xs">
+                                    <span className="_mr-xs"><img src={memoryClick} className="_h-full _w-lg" alt=""/></span>
+                                    <span className="_text-white">Clics</span>
+                                </div>
+                                <div className="_flex _justify-start">
+                                    <ScoreClick isIcon iconPosition="left" count={saveScore[indexLevel] ? saveScore[indexLevel].click : '00'}></ScoreClick>
+                                </div>    
+                            </div>
+   
+                        </div>
                     </div>
                 </div>
 

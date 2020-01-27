@@ -3,7 +3,7 @@ import memoryStar from '../assets/memory/star.svg'
 
 type ScoreClickProps = {
     onClick?: (event: any) => void;
-    count: number;
+    count: number | string;
     isIcon?: boolean;
     iconPosition?: string;
 };
@@ -25,13 +25,13 @@ const ScoreClick: React.FC<ScoreClickProps> = (props: React.PropsWithChildren<Sc
     }, [positionIcon])
     
     return (
-        <div className={`${positionIcon} _flex _px-xs _py-xxs _bg-golden _rounded-rounded _items-center`} onClick={props.onClick && props.onClick}>
+        <div className={`${positionIcon} _flex _px-xs _py-xxs _bg-golden _rounded-rounded`} onClick={props.onClick && props.onClick}>
             {props.isIcon && (
-            <div className="_block">
-                <img src={memoryStar} className="_w-20" alt=""/>
+            <div className="_items-center _flex">
+                <img src={memoryStar} className="_h-full _w-sm _mr-xs" alt=""/>
             </div>
             )}
-            <div className="_text-center _block">
+            <div className="_text-center _text-darkengolden">
                 {props.count}
             </div>
         </div>
