@@ -46,7 +46,7 @@ const Main = () => {
     const [count, setCount] = useState<number>(0);
     const [timeActive, setTimeActive] = useState<boolean>(false);
     const [saveScore, setSaveScore] = useState<memoryType[] | any>([]);
-    const [hideModal, setHideModal] = useState<boolean>(false);
+    const [isModlaHide, setIsModlaHide] = useState<boolean>(true);
     const [indexLevel, setIndexLevel] = useState<number>(saveScore.findIndex((index) => index.level === numberCard));
 
     let timerInterval: NodeJS.Timeout | undefined = undefined;
@@ -102,7 +102,7 @@ const Main = () => {
 
     useEffect(() => {
         if (winPairs.length === numberCard) {
-            setHideModal(true);
+            setIsModlaHide(false);
             timerStatus(false); // Arrete le Timer
 
             if (indexLevel !== -1) {
@@ -151,7 +151,7 @@ const Main = () => {
         setCount(0);
         setSeconds(0);
         setMinutes(0);
-        setHideModal(false);
+        setIsModlaHide(true);
     }
 
     function renderLevelBtns() {
@@ -289,6 +289,10 @@ const Main = () => {
         );
     };
 
+    // const displayWinSentence = (type:any) =>{
+    //     return saveScore[indexLevel] ? saveScore[indexLevel].type === count ? '_block ' : '_hidden' : "_hidden"
+    // }
+
     return (
         <div className="memory-bg">
             {renderConfetti()}
@@ -373,14 +377,14 @@ const Main = () => {
                             </div>
                         </div>
                         <div className="_flex _items-center _justify-center">
-                            <Popup title="Partie terminée" isShow={hideModal}>
+                            <Popup title="Partie terminée" displayPopup={isModlaHide}>
                                 <span className={` _text-golden ${saveScore[indexLevel] ? saveScore[indexLevel].click === count ? '_block ' : '_hidden' : "_hidden"}`}>Nouveaux record de clics</span>
                                 <span className={` _text-golden ${saveScore[indexLevel] ? saveScore[indexLevel].time === seconds ? '_block ' : '_hidden' : "_hidden"}`}>Nouveaux record de temps</span>
                                 <div className="_bg-darkenprimary _rounded-small _w-3/4 _mt-xs">
                                     <div className="_flex _flex-wrap _justify-around">
                                         <div className="_m-xs">
                                             <div className="_flex _items-center ">
-                                                <img src={memoryTime} className="_h-full _w-lg _mr-xs" alt="" />
+                                                <img src={memoryTime} className="_h-full _w-lg _mr-xs"/>
                                                 <span className="_text-white">Temps</span>
                                             </div>
                                             <span className="_text-xl _text-white"> {TimeFormat(seconds)}</span>
