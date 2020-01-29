@@ -28,9 +28,9 @@ module.exports = {
       'golden': theme('colors.golden'),
     }),
     screens: {
-      sm : {'min': '576px', 'max': '575px'},
-      md : {'min': '768px', 'max': '767px'},
-      lg : {'min': '992px', 'max': '991px'},
+      sm : {'max': '575px'},
+      md : {'max': '767px'},
+      lg : {'max': '991px'},
     },
     fontFamily: {
       display: ['Gilroy', 'sans-serif'],

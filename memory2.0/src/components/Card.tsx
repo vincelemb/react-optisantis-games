@@ -7,10 +7,12 @@ type CardProps = {
     onClick?: (event: any) => void;
 };
 
+
+
 const Card: React.FC<CardProps> = (props: React.PropsWithChildren<CardProps>) => {
 
     return (
-        <button  className={props.flipClass && props.flipClass + " card"}  draggable={false} id={props.id} onClick={props.onClick && props.onClick}>
+        <button className={props.flipClass && props.flipClass + " card"}  draggable={false} id={props.id} onClick={props.onClick && props.onClick}>
             {props.children}
         </button>
     );
