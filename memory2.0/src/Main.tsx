@@ -10,7 +10,6 @@ import { Button, Card, Confetti, ScoreClick, Popup, Container, Layout, Tab } fro
 //SVG COOMPONENTS
 import { ClickSvg, TimeSvg } from './components/svg';
 
-
 //TYPES
 import memoryType from './type/memoryType';
 
@@ -45,7 +44,7 @@ const Main = () => {
     const [images, setImages] = useState<any>(themes.fruits_legumes);
     const [imagesArray, setImagesArray] = useState<any>(memoryImages.fruits_legumes);
     const [currentPair, setCurrentPair] = useState<string[]>([]);
-    const [count, setCount] = useState<number>(0);
+    const [click, setClick] = useState<number>(0);
     const [timeActive, setTimeActive] = useState<boolean>(false);
     const [saveScore, setSaveScore] = useState<memoryType[] | any>([]);
     const [isModlaHide, setIsModlaHide] = useState<boolean>(true);
@@ -84,7 +83,7 @@ const Main = () => {
         }
 
         if (currentPair.length === 2 && isFlipped[0] !== isFlipped[1]) {
-            setCount(count + 1);
+            setClick(click + 1);
             if (currentPair[0] === currentPair[1]) {
                 setWinPairs(winPairs.concat(currentPair));
                 setCurrentPair([]);
@@ -111,19 +110,19 @@ const Main = () => {
                 // La, on créer un "saveScore" temporaire en lui passant les nouvelle valeurs qui viennent d'être joué. Pour ensuite comparer saveScore et tempSaveScore
                 const tempSaveScore: any[] = [...saveScore];
 
-                if (count < saveScore[indexLevel].click) {
+                if (click < saveScore[indexLevel].click) {
                     /*Ici, on dit a tempSaveScore -> à l'élement de indexLevel (ici 12) tu vas suprimer 1 element, et le remplacer par 
-                    l'objet tempSaveScore à l'indexLevel dont la valeur click cahnge pour le nouveau count (il changer automatiquement pour la nouvel clé "click").
+                    l'objet tempSaveScore à l'indexLevel dont la valeur click cahnge pour le nouveau click (il changer automatiquement pour la nouvel clé "click").
                     */
-                    tempSaveScore.splice(indexLevel, 1, { ...tempSaveScore[indexLevel], click: count });
+                    tempSaveScore.splice(indexLevel, 1, { ...tempSaveScore[indexLevel], click: click });
                 }
-                if (seconds < saveScore[indexLevel].time) {
-                    tempSaveScore.splice(indexLevel, 1, { ...tempSaveScore[indexLevel], time: seconds });
+                if (seconds < saveScore[indexLevel].seconds) {
+                    tempSaveScore.splice(indexLevel, 1, { ...tempSaveScore[indexLevel], seconds: seconds });
                 }
-                if (count < saveScore[indexLevel].click || seconds < saveScore[indexLevel].time)
+                if (click < saveScore[indexLevel].click || seconds < saveScore[indexLevel].seconds)
                     setSaveScore(tempSaveScore);
             } else {
-                setSaveScore([...saveScore, { level: numberCard, click: count, time: seconds }]);
+                setSaveScore([...saveScore, { level: numberCard, click: click, seconds: seconds }]);
             }
         }
     }, [winPairs]);
@@ -150,7 +149,7 @@ const Main = () => {
         setWinPairs([]);
         setIsFlipped([]);
         setCurrentPair([]);
-        setCount(0);
+        setClick(0);
         setSeconds(0);
         setMinutes(0);
         setIsModlaHide(true);
@@ -292,7 +291,7 @@ const Main = () => {
     };
 
     // const displayWinSentence = (type:any) =>{
-    //     return saveScore[indexLevel] ? saveScore[indexLevel].type === count ? '_block ' : '_hidden' : "_hidden"
+    //     return saveScore[indexLevel] ? saveScore[indexLevel].type === type ? '_block ' : '_hidden' : "_hidden"
     // }
 
     return (
@@ -317,8 +316,8 @@ const Main = () => {
                 </Tab>
             </div>
             <Container maxWidth="991px" isCenteredX>
-
                 <div className="_flex _px-sm">
+                    {/* Options Panel */}
                     <section className={`_mr-md lg:_mr-none _my-xl _w-full ${pannelLeft ? '_block' : 'lg:_hidden '}`}>
                         <div className="_bg-darkenprimary _rounded-small ">
                             <h2 className="_text-center _text-white _m-none _pt-sm">Thème</h2>
@@ -330,9 +329,7 @@ const Main = () => {
                         </div>
                         <div className="_bg-darkenprimary _mt-sm _rounded-small ">
                             <h2 className="_text-center _text-white _m-none _pt-sm">Score</h2>
-                            <span className="_text-center _text-white _block _mt-xxs">
-                                {'(' + numberCard + ' cartes)'}
-                            </span>
+                            <span className="_text-center _text-white _block _mt-xxs">{`(${numberCard} cartes)`}</span>
                             <div className="_flex _justify-center _py-xs">
                                 <div className="_m-xs">
                                     <div className="_flex _items-center _mb-xs">
@@ -344,7 +341,9 @@ const Main = () => {
                                             isIcon
                                             iconPosition="left"
                                             count={
-                                                saveScore[indexLevel] ? TimeFormat(saveScore[indexLevel].time) : '00:00'
+                                                saveScore[indexLevel]
+                                                    ? TimeFormat(saveScore[indexLevel].seconds)
+                                                    : '00:00'
                                             }></ScoreClick>
                                     </div>
                                 </div>
@@ -367,7 +366,10 @@ const Main = () => {
                         </div>
                     </section>
 
-                    <section className={`_flex _flex-col _w-full ${pannelLeft === false ? '_block' : 'lg:_hidden'} _items-center _relative _my-xl`}>
+                    {/* Game Panel */}
+                    <section className={`_flex _flex-col _w-full ${
+                            pannelLeft === false ? '_block' : 'lg:_hidden'
+                        } _items-center _relative _my-xl`}>
                         <div className="_mx-xxs _flex _justify-between _w-full _items-center _text-white _pb-xs">
                             <div className="_flex _items-center ">
                                 <span>Temps : </span>
@@ -375,13 +377,18 @@ const Main = () => {
                             </div>
                             <div className="_flex _items-center">
                                 <span className="_mr-xxs">Clics :</span>
-                                <span className="_text-xl">{count}</span>
+                                <span className="_text-xl">{click}</span>
                             </div>
                         </div>
                         <div className="_flex _items-center _justify-center">
+                            {/* Popup Panel */}
                             <Popup title="Partie terminée" displayPopup={isModlaHide}>
-                                <span className={` _text-golden ${saveScore[indexLevel] ? saveScore[indexLevel].click === count ? '_block ' : '_hidden' : "_hidden"}`}>Nouveaux record de clics</span>
-                                <span className={` _text-golden ${saveScore[indexLevel] ? saveScore[indexLevel].time === seconds ? '_block ' : '_hidden' : "_hidden"}`}>Nouveaux record de temps</span>
+                                {saveScore[indexLevel] && saveScore[indexLevel].click === click && (
+                                    <span className="_text-golden">Nouveaux record de clics</span>
+                                )}
+                                {saveScore[indexLevel] && saveScore[indexLevel].seconds === seconds && (
+                                    <span className="_text-golden">Nouveaux record de temps</span>
+                                )}
                                 <div className="_bg-darkenprimary _rounded-small _w-3/4 _mt-xs">
                                     <div className="_flex _flex-wrap _justify-around">
                                         <div className="_m-xs">
@@ -396,7 +403,7 @@ const Main = () => {
                                                     iconPosition="left"
                                                     count={
                                                         saveScore[indexLevel]
-                                                            ? TimeFormat(saveScore[indexLevel].time)
+                                                            ? TimeFormat(saveScore[indexLevel].seconds)
                                                             : '00:00'
                                                     }></ScoreClick>
                                             </div>
@@ -407,7 +414,7 @@ const Main = () => {
                                                 <ClickSvg svgWidth="25px"></ClickSvg>
                                                 <span className="_ml-xs _text-white">Clics</span>
                                             </div>
-                                            <span className="_text-xl _text-white">{count}</span>
+                                            <span className="_text-xl _text-white">{click}</span>
                                             <div className="_flex _justify-start">
                                                 <ScoreClick
                                                     isIcon
@@ -427,6 +434,7 @@ const Main = () => {
                                     </button>
                                 </section>
                             </Popup>
+                            {/* Cards */}
                             {renderCards()}
                         </div>
                     </section>

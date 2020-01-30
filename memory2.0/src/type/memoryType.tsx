@@ -1,7 +1,7 @@
 
 export type memory = {
     level?: number;
-    time?: number;
+    seconds?: number;
     click?: number;
 };
 
