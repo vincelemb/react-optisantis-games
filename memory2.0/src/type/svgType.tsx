@@ -8,7 +8,7 @@ export type svgType = {
     bgFillColor?:string;
     fillColor?:string;
     svgHeight?:string;
-    svgWidth:string;
+    svgWidth?:string;
 
 }
 

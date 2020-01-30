@@ -8,7 +8,7 @@ import memoryImages from './assets/images.json';
 import { Button, Card, Confetti, ScoreClick, Popup, Container, Layout, Tab } from './components';
 
 //SVG COOMPONENTS
-import { ClickSvg, TimeSvg } from './components/svg';
+import { ClickSvg, TimeSvg, ReloadSvg } from './components/svg';
 
 //TYPES
 import memoryType from './type/memoryType';
@@ -153,6 +153,7 @@ const Main = () => {
         setSeconds(0);
         setMinutes(0);
         setIsModlaHide(true);
+        setTimeActive(false)
     }
 
     function renderLevelBtns() {
@@ -215,21 +216,21 @@ const Main = () => {
      * @param {Array} array
      */
     function shuffle(array) {
-        // let counter = array.length;
+        let counter = array.length;
 
-        // // While there are elements in the array
-        // while (counter > 0) {
-        //     // Pick a random index
-        //     let index = Math.floor(Math.random() * counter);
+        // While there are elements in the array
+        while (counter > 0) {
+            // Pick a random index
+            let index = Math.floor(Math.random() * counter);
 
-        //     // Decrease counter by 1
-        //     counter--;
+            // Decrease counter by 1
+            counter--;
 
-        //     // And swap the last element with it
-        //     let temp = array[counter];
-        //     array[counter] = array[index];
-        //     array[index] = temp;
-        // }
+            // And swap the last element with it
+            let temp = array[counter];
+            array[counter] = array[index];
+            array[index] = temp;
+        }
         return array;
     }
 
@@ -436,7 +437,13 @@ const Main = () => {
                             </Popup>
                             {/* Cards */}
                             {renderCards()}
+                            
                         </div>
+                            <div className="_mt-sm _mb-lg _w-full _text-right">
+                                <button className="_bg-white _rounded-rounded _w-xxl _h-xxl _border-none _p-xs _cursor-pointer _outline-none" onClick={() => reset()}>
+                                    <ReloadSvg></ReloadSvg>
+                                </button>
+                            </div>
                     </section>
                 </div>
             </Container>

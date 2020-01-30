@@ -13,7 +13,7 @@ export default function TimeFormat(seconds) {
     displayMinutes = minutes < 10 ? '0' + minutes : minutes;
     if(displaySeconds > 59){
         setSeconds(0)
-        displayMinutes = setMinutes(1);
+        displayMinutes = setMinutes(minutes + 1);
     }
 
     return (`${displayMinutes}:${displaySeconds}`)
