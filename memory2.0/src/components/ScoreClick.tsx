@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import memoryStar from '../assets/memory/star.svg'
+
+import { StarSvg } from './svg';
 
 type ScoreClickProps = {
     onClick?: (event: any) => void;
@@ -23,12 +24,13 @@ const ScoreClick: React.FC<ScoreClickProps> = (props: React.PropsWithChildren<Sc
                 break;
         }
     }, [positionIcon])
+
     
     return (
         <div className={`${positionIcon} _flex _px-xs _py-xxs _bg-golden _rounded-rounded`} onClick={props.onClick && props.onClick}>
             {props.isIcon && (
-            <div className="_items-center _flex">
-                <img src={memoryStar} className="_h-full _w-sm _mr-xs" alt=""/>
+            <div className="_items-center _flex _mr-xs">
+                <StarSvg svgWidth="15px"></StarSvg>
             </div>
             )}
             <div className="_text-center _text-darkengolden">

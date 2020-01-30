@@ -1,6 +1,7 @@
 {
     "fruits_legumes": 
     { 
+        "apple": "http://localhost:3000/assets/img/fruits_legumes/001-apple.png",
         "cherry": "http://localhost:3000/assets/img/fruits_legumes/008-cherry.png",
         "banana": "http://localhost:3000/assets/img/fruits_legumes/003-banana.png",
         "avocado": "http://localhost:3000/assets/img/fruits_legumes/002-avocado.png",

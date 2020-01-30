@@ -3,11 +3,13 @@ import React, { useState, useEffect, useContext } from 'react';
 
 //ASSETS
 import memoryImages from './assets/images.json';
-import memoryClick from './assets/memory/clics.svg';
-import memoryTime from './assets/memory/time.svg';
 
 //COMPONENTS
 import { Button, Card, Confetti, ScoreClick, Popup, Container, Layout, Tab } from './components';
+
+//SVG COOMPONENTS
+import { ClickSvg, TimeSvg } from './components/svg';
+
 
 //TYPES
 import memoryType from './type/memoryType';
@@ -296,7 +298,7 @@ const Main = () => {
     return (
         <div className="memory-bg">
             {renderConfetti()}
-            <div className="_rounded-small _border _border-solid _border-primary _mt-md _mx-md _justify-around _hidden lg:_flex">
+            <div className="_rounded-small _border _border-solid _border-primary _mt-md _mx-sm _justify-around _hidden lg:_flex _cursor-pointer">
                 <Tab
                     isActive={activeTab}
                     toogleTab={() => {
@@ -334,8 +336,8 @@ const Main = () => {
                             <div className="_flex _justify-center _py-xs">
                                 <div className="_m-xs">
                                     <div className="_flex _items-center _mb-xs">
-                                        <img src={memoryTime} className="_h-full _w-lg _mr-xs" alt="" />
-                                        <span className="_text-white">Temps</span>
+                                        <TimeSvg svgWidth="25px"></TimeSvg>
+                                        <span className="_ml-xs _text-white">Temps</span>
                                     </div>
                                     <div className="_flex _justify-start">
                                         <ScoreClick
@@ -349,8 +351,8 @@ const Main = () => {
 
                                 <div className="_m-xs">
                                     <div className="_flex _items-center _mb-xs">
-                                        <img src={memoryClick} className="_h-full _w-lg _mr-xs" alt="" />
-                                        <span className="_text-white">Clics</span>
+                                        <ClickSvg svgWidth="25px"></ClickSvg>
+                                        <span className="_ml-xs _text-white">Clics</span>
                                     </div>
                                     <div className="_flex _justify-start">
                                         <ScoreClick
@@ -384,8 +386,8 @@ const Main = () => {
                                     <div className="_flex _flex-wrap _justify-around">
                                         <div className="_m-xs">
                                             <div className="_flex _items-center ">
-                                                <img src={memoryTime} className="_h-full _w-lg _mr-xs"/>
-                                                <span className="_text-white">Temps</span>
+                                                <TimeSvg svgWidth="25px"></TimeSvg>
+                                                <span className="_ml-xs _text-white">Temps</span>
                                             </div>
                                             <span className="_text-xl _text-white"> {TimeFormat(seconds)}</span>
                                             <div className="_flex _justify-start">
@@ -402,8 +404,8 @@ const Main = () => {
 
                                         <div className="_m-xs">
                                             <div className="_flex _items-center">
-                                                <img src={memoryClick} className="_h-full _w-lg _mr-xs" alt="" />
-                                                <span className="_text-white">Clics</span>
+                                                <ClickSvg svgWidth="25px"></ClickSvg>
+                                                <span className="_ml-xs _text-white">Clics</span>
                                             </div>
                                             <span className="_text-xl _text-white">{count}</span>
                                             <div className="_flex _justify-start">
