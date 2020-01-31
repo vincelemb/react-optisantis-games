@@ -48,10 +48,12 @@ const Main = () => {
     const [timeActive, setTimeActive] = useState<boolean>(false);
     const [saveScore, setSaveScore] = useState<memoryType[] | any>([]);
     const [isModlaHide, setIsModlaHide] = useState<boolean>(true);
+    const [winClickSentence, setWinClickSentence] = useState<boolean>(true);
+    const [winTimeSentence, setWinTimeSentence] = useState<boolean>(true);
+    const [isConfetti, setIsConfetti] = useState<boolean>(true);
     const [indexLevel, setIndexLevel] = useState<number>(saveScore.findIndex((index) => index.level === numberCard));
 
-    let timerInterval: NodeJS.Timeout | undefined = undefined;
-    const { seconds } = useScoreTimer(timeActive, timerInterval);
+    const { seconds } = useScoreTimer(timeActive);
     const { setSeconds, setMinutes } = useContext(TimerContext);
 
     const [activeTab, setActiveTab] = useState<boolean>(true);
@@ -107,6 +109,9 @@ const Main = () => {
             timerStatus(false); // Arrete le Timer
 
             if (indexLevel !== -1) {
+                setIsConfetti(false);
+                setWinClickSentence(false);
+                setWinTimeSentence(false);
                 // La, on créer un "saveScore" temporaire en lui passant les nouvelle valeurs qui viennent d'être joué. Pour ensuite comparer saveScore et tempSaveScore
                 const tempSaveScore: any[] = [...saveScore];
 
@@ -115,20 +120,26 @@ const Main = () => {
                     l'objet tempSaveScore à l'indexLevel dont la valeur click cahnge pour le nouveau click (il changer automatiquement pour la nouvel clé "click").
                     */
                     tempSaveScore.splice(indexLevel, 1, { ...tempSaveScore[indexLevel], click: click });
+                    setWinClickSentence(true)
                 }
                 if (seconds < saveScore[indexLevel].seconds) {
                     tempSaveScore.splice(indexLevel, 1, { ...tempSaveScore[indexLevel], seconds: seconds });
+                    setWinTimeSentence(true)
+
                 }
-                if (click < saveScore[indexLevel].click || seconds < saveScore[indexLevel].seconds)
+                if (click < saveScore[indexLevel].click || seconds < saveScore[indexLevel].seconds){
+                    setIsConfetti(true)
                     setSaveScore(tempSaveScore);
+                }
             } else {
+                setIsConfetti(true)
                 setSaveScore([...saveScore, { level: numberCard, click: click, seconds: seconds }]);
             }
         }
     }, [winPairs]);
 
     // useEffect(() => {
-    //     console.log(saveScore)
+    //     //TO DO : QUAND LE TIMER PASSE A UNE MINUTE le formater avec l'affichage et l'enregistrement dans le tableau
     // }, [saveScore]);
 
     useEffect(() => {
@@ -154,6 +165,7 @@ const Main = () => {
         setMinutes(0);
         setIsModlaHide(true);
         setTimeActive(false)
+        setIsConfetti(false)
     }
 
     function renderLevelBtns() {
@@ -174,8 +186,9 @@ const Main = () => {
                         }}
                     />
                 );
+                return numbers
             });
-        return <div className="_flex _flex-wrap _justify-center _px-md _py-sm _rounded-small">{Buttons}</div>;
+        return (<div className="_flex _flex-wrap _justify-center _px-md _py-sm _rounded-small">{Buttons}</div>);
     }
 
     function renderThemeBtns() {
@@ -193,6 +206,7 @@ const Main = () => {
                     }}
                 />
             );
+            return themes;
         });
         return <div className="_flex _justify-center _px-md _py-sm _rounded-small _flex-wrap">{ButtonsTheme}</div>;
     }
@@ -216,21 +230,21 @@ const Main = () => {
      * @param {Array} array
      */
     function shuffle(array) {
-        let counter = array.length;
+        // let counter = array.length;
 
-        // While there are elements in the array
-        while (counter > 0) {
-            // Pick a random index
-            let index = Math.floor(Math.random() * counter);
+        // // While there are elements in the array
+        // while (counter > 0) {
+        //     // Pick a random index
+        //     let index = Math.floor(Math.random() * counter);
 
-            // Decrease counter by 1
-            counter--;
+        //     // Decrease counter by 1
+        //     counter--;
 
-            // And swap the last element with it
-            let temp = array[counter];
-            array[counter] = array[index];
-            array[index] = temp;
-        }
+        //     // And swap the last element with it
+        //     let temp = array[counter];
+        //     array[counter] = array[index];
+        //     array[index] = temp;
+        // }
         return array;
     }
 
@@ -241,7 +255,7 @@ const Main = () => {
         const Confettis: JSX.Element[] = [];
         let i = 300;
 
-        if (winPairs.length === numberCard) {
+        if (saveScore[indexLevel] && isConfetti) {
             while (i > -1) {
                 Confettis.push(<Confetti confettiClass={'confetti-' + i} key={i}></Confetti>);
                 i--;
@@ -384,12 +398,12 @@ const Main = () => {
                         <div className="_flex _items-center _justify-center">
                             {/* Popup Panel */}
                             <Popup title="Partie terminée" displayPopup={isModlaHide}>
-                                {saveScore[indexLevel] && saveScore[indexLevel].click === click && (
+                                {winClickSentence === true && (
                                     <span className="_text-golden">Nouveaux record de clics</span>
                                 )}
-                                {saveScore[indexLevel] && saveScore[indexLevel].seconds === seconds && (
+                                {winTimeSentence === true && (
                                     <span className="_text-golden">Nouveaux record de temps</span>
-                                )}
+                                )}                               
                                 <div className="_bg-darkenprimary _rounded-small _w-3/4 _mt-xs">
                                     <div className="_flex _flex-wrap _justify-around">
                                         <div className="_m-xs">

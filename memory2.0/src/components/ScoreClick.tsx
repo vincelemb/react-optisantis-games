@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import { StarSvg } from './svg';
 
@@ -12,18 +12,15 @@ type ScoreClickProps = {
 
 const ScoreClick: React.FC<ScoreClickProps> = (props: React.PropsWithChildren<ScoreClickProps>) => {
     
-    // console.log(memoryStar)
     const [positionIcon, setPositionIcon] = useState<string>()
 
-    useEffect(() => {
-        switch (props.iconPosition) {
-            case "right":
-                setPositionIcon('_flex-row-reverse')
-                break;
-            default:
-                break;
-        }
-    }, [positionIcon])
+    switch (props.iconPosition && props.iconPosition) {
+        case "right":
+            setPositionIcon('_flex-row-reverse')
+            break;
+        default:
+            break;
+    }
 
     
     return (
