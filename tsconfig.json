@@ -43,6 +43,6 @@
     "skipLibCheck": true
   },
   "include": [
-    "src"
+    "memory/src",
   ]
 }

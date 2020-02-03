@@ -3,9 +3,10 @@ import React, { useState, useEffect, useContext } from 'react';
 
 //ASSETS
 import memoryImages from './assets/images.json';
+// import memoryBg from './assets/img/lake.jpg';
 
 //COMPONENTS
-import { Button, Card, Confetti, ScoreClick, Popup, Container, Layout, Tab } from './components';
+import { Button, Card, Confetti, ScoreClick, Popup, Container, Layout, Tab, BgImage } from './components';
 
 //SVG COOMPONENTS
 import { ClickSvg, TimeSvg, ReloadSvg } from './components/svg';
@@ -14,9 +15,7 @@ import { ClickSvg, TimeSvg, ReloadSvg } from './components/svg';
 import memoryType from './type/memoryType';
 
 //STYLE
-import './styles/tailwind.css';
-import './styles/memory.scss';
-import './styles/confetti.scss';
+import './styles/index.scss';
 
 //LOGICS
 import useScoreTimer from './logics/useScoreTimer';
@@ -310,7 +309,10 @@ const Main = () => {
     // }
 
     return (
-        <div className="memory-bg">
+        <BgImage imageUrl={"./assets/img/lake.jpg"}>
+
+        
+        {/* <div className="memory-bg"> */}
             {renderConfetti()}
             <div className="_rounded-small _border _border-solid _border-primary _mt-md _mx-sm _justify-around _hidden lg:_flex _cursor-pointer">
                 <Tab
@@ -461,7 +463,8 @@ const Main = () => {
                     </section>
                 </div>
             </Container>
-        </div>
+        {/* </div> */}
+        </BgImage>
     );
 };
 

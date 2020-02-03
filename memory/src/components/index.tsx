@@ -1,3 +1,4 @@
+import BgImage from './BgImage'
 import Button from './Button'
 import Card from './Card'
 import Confetti from './Confetti'
@@ -7,4 +8,4 @@ import Tab from './Tab'
 import ScoreClick from './ScoreClick'
 import Popup from './Popup'
 
-export { Button, Card, Confetti, Container, ScoreClick, Layout, Tab, Popup }
+export { BgImage, Button, Card, Confetti, Container, ScoreClick, Layout, Tab, Popup }
