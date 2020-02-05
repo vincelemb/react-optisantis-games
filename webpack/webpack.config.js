@@ -3,6 +3,10 @@ export const PROJECTS = {
         entryPath: 'memory/src',
         entryPoint: 'index.tsx',
     },
+    Chrono: {
+        entryPath: 'chrono/src',
+        entryPoint: 'index.tsx',
+    },
 };
 
 const buildEntries = () => {

@@ -6,10 +6,10 @@ import memoryImages from './assets/images.json';
 // import memoryBg from './assets/img/lake.jpg';
 
 //COMPONENTS
-import { Button, Card, Confetti, ScoreClick, Popup, Container, Layout, Tab, BgImage } from './components';
+import { Button, Card, Confetti, ScoreClick, Popup, Container, Layout, Tab, BgImage } from '../../components';
 
 //SVG COOMPONENTS
-import { ClickSvg, TimeSvg, ReloadSvg } from './components/svg';
+import { ClickSvg, TimeSvg, ReloadSvg } from '../../components/svg';
 
 //TYPES
 import memoryType from './type/memoryType';

@@ -53,6 +53,7 @@ module.exports = {
       small :'3px',
       md :'10px',
       rounded  :'100px',
+      circle : '50%',
     },
     fontSize:{
       xs: '11px',

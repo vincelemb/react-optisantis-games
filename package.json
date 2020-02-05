@@ -1,8 +1,7 @@
 {
-  "name": "memory",
   "version": "0.1.0",
   "private": true,
-  "homepage": "memory/public",
+  "homepage": "./",
   "dependencies": {
     "@types/jest": "24.0.23",
     "@types/node": "12.12.9",
@@ -19,7 +18,7 @@
     "start": "npm run start:dev",
     "start:dev": "webpack-dev-server --config ./webpack/webpack.dev.babel.js",
     "start:prod": "webpack --config ./webpack/webpack.prod.babel.js",
-    "tailwind:css": "tailwind build memory/src/styles/tailwind.css -c  tailwind.config.js -o memory/src/styles/tailwind.css",
+    "tailwind:css": "tailwind build tailwind.css -c  tailwind.config.js -o tailwind.css",
     "build": "npm run tailwind:css && react-scripts build"
   },
   "eslintConfig": {
