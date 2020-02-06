@@ -319,8 +319,6 @@ const Main = () => {
     return (
         <BgImage imageUrl={"./assets/img/lake.jpg"}>
 
-        
-        {/* <div className="memory-bg"> */}
             {renderConfetti()}
             <div className="_rounded-small _border _border-solid _border-primary _mt-md _mx-sm _justify-around _hidden lg:_flex _cursor-pointer">
                 <Tab
@@ -471,7 +469,7 @@ const Main = () => {
                     </section>
                 </div>
             </Container>
-        {/* </div> */}
+
         </BgImage>
     );
 };

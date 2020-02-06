@@ -1,3 +1,8 @@
+
+body{
+    overflow: hidden;
+}
+
 $baseWidth: 100%;
 
 @for $i from 1 through 7 {
