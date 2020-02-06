@@ -5,7 +5,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { CircleGrow, Container, Tab, BgImage, Modal } from '../../components';
 
 //SVG COOMPONENTS
-import { PlaySvg, PauseSvg, SoundOnSvg } from '../../components/svg';
+import { PlaySvg, PauseSvg, SoundOnSvg, InfoSvg } from '../../components/svg';
 
 //TYPES
 import chronoType from './type/chronoType';
@@ -143,10 +143,13 @@ const Main = () => {
                         } _items-center _relative _my-xl`}>
                         {/* <div className="_flex _items-center _justify-center"> */}
                             {/* Popup Panel */}
-                            <Modal title="Partie terminée" hideModal={true} isOverlay={true}>                               
+                            <Modal title="Partie terminée" hideModal={false} isOverlay={true}>                               
                                 <span className="_text-white">Début dans :</span>
                                 <span className="_text-xxl _text-white _py-sm">timer</span>
-                                <div className="_w-4/5 _bg-white _rounded-small _border-solid _border-2 _p-sm _border-white" style={{backgroundColor:"rgba(255,255,255,.3)"}}>
+                                <div className="_w-4/5 _bg-white _rounded-small _border-solid _border-2 _p-sm _border-white _flex" style={{backgroundColor:"rgba(255,255,255,.3)"}}>
+                                    <div className="_mr-xs">
+                                        <InfoSvg fillColor="#fff" svgWidth="20px" svgHeight="20px"></InfoSvg>
+                                    </div>
                                     <span className="_text-white">Essayez de respirer par le ventre pendant cet exercice</span>
 
                                 </div>
