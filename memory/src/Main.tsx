@@ -1,6 +1,8 @@
 //HOOKS
 import React, { useState, useEffect, useContext } from 'react';
 
+//GLOBAL CONST
+import imgPath from '../../consts'
 //ASSETS
 import memoryImages from './assets/images.json';
 // import memoryBg from './assets/img/lake.jpg';
@@ -16,6 +18,7 @@ import memoryType from './type/memoryType';
 
 //STYLE
 import './styles/index.scss';
+import '../../styles/index.scss';
 
 //LOGICS
 import useScoreTimer from './logics/useScoreTimer';
@@ -41,6 +44,7 @@ const Main = () => {
     const [winPairs, setWinPairs] = useState<any[]>([]);
     const [idCards, setIdCards] = useState<any>([]);
     const [images, setImages] = useState<any>(themes.fruits_legumes);
+    const [imagesTheme, setImagesTheme] = useState<string>("fruits_legumes");
     const [imagesArray, setImagesArray] = useState<any>(memoryImages.fruits_legumes);
     const [currentPair, setCurrentPair] = useState<string[]>([]);
     const [click, setClick] = useState<number>(0);
@@ -150,10 +154,14 @@ const Main = () => {
         renderImg(imagesArray, numbers[index]);
     }
 
-    function changetheme(value: string) {
-        setImagesArray(memoryImages[value]);
+    function changetheme(imageTheme: string) {
+        setImagesTheme(imageTheme)
+        setImagesArray(memoryImages[imageTheme]);
         renderImg(imagesArray, numberCard);
     }
+    
+    useEffect(() => {
+    }, [imagesArray])
 
     function reset() {
         setWinPairs([]);
@@ -219,7 +227,7 @@ const Main = () => {
         const Img: JSX.Element[] = [];
         let urlArray: string[] = Object.values(categorie);
         for (let index = 0; index < number / 2; index++) {
-            Img.push(<img className="_h-full" src={urlArray[index]} key={'image-' + index} alt="ok"></img>);
+            Img.push(<img className="_h-full" src={imgPath+imagesTheme+'/'+urlArray[index]} key={'image-' + index} ></img>);
         }
         return Img.slice(0, number / 2);
     }

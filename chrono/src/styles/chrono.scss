@@ -1,9 +1,3 @@
-body{
-    margin: 0;
-    overflow: hidden;
-    font-family: Open Sans; 
-}
-
 .c-chrono-player{
     width: 300px;
     height: 300px;
@@ -35,49 +29,7 @@ body{
         height: 251px;
         background-color: rgba(255,255,255,.2);
     }
-    
-    // @mixin transition($color) {
-    //     transition: border-color 0.7s;
-    //     border-color: color($color);
-    // }
-    
-    // >.circle-overlay.color1{
-    //     @include transition('blue-midnight-chrono');
-    // }
-    
-    // >.circle-overlay.color2{
-    //     @include transition('purple-chrono');
-    // }
-    
-    // >.circle-overlay.color3{
-    //     @include transition('green-chrono');
-    // }
-    
-    
-    // Animation grow cirlce chronometre
-    
-    // > .circle{
-    //     transform-origin: center; /* or transform-origin: 50% */
-    //     transform-box: fill-box;        
-    //     transform: scale(1);
-        
-    // }
-    
-    // > .circle.is-played{
-    //     transform: scale(0.5);
-    // }
-    
-    // > .circle.is-animated {
-    //     animation: 4s zoomCircle1 linear;
-    // }
-    // > .circle.is-animated2{
-    //     animation: 7s linear;
-    //     transform: scale(1);
-    // }
-    // > .circle.is-animated3{
-    //     animation: zoomCircle3 8s linear;
-    // }
-    
+
 }
 
 @keyframes zoomCircle1 {

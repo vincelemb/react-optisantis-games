@@ -17,9 +17,6 @@ import '../../styles/index.scss';
 //LOGICS
 import useScoreTimer from './logics/useScoreTimer';
 
-//UTILS
-import TimeFormat from './utils/TimeFormat';
-
 //UseContext
 import { TimerContext } from './context/TimerContext';
 
