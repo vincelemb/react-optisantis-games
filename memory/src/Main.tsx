@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 
 //GLOBAL CONST
-import imgPath from '../../consts'
+import Path from '../../consts'
 //ASSETS
 import memoryImages from './assets/images.json';
 // import memoryBg from './assets/img/lake.jpg';
@@ -227,7 +227,7 @@ const Main = () => {
         const Img: JSX.Element[] = [];
         let urlArray: string[] = Object.values(categorie);
         for (let index = 0; index < number / 2; index++) {
-            Img.push(<img className="_h-full" src={imgPath+imagesTheme+'/'+urlArray[index]} key={'image-' + index} ></img>);
+            Img.push(<img className="_h-full" src={Path.imgPath+imagesTheme+'/'+urlArray[index]} key={'image-' + index} alt="Memory Images"></img>);
         }
         return Img.slice(0, number / 2);
     }
