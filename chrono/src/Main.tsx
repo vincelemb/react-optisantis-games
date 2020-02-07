@@ -1,6 +1,9 @@
 //HOOKS
 import React, { useState, useEffect, useContext } from 'react';
 
+//GLOBAL CONST
+import Path from '../../consts'
+
 //COMPONENTS
 import { Audio, CircleGrow, Container, Tab, BgImage, Modal } from '../../components';
 
@@ -24,7 +27,6 @@ import { CountdownContext } from '../../context/CountdownContext';
 
 import useAudioPlayer from '../../logics/useAudioPlayer';
 
-
 const Main = () => {
     const [timeActive, setTimeActive] = useState<boolean>(false);
     const [isModal, setIsModal] = useState<boolean>(false);
@@ -40,7 +42,7 @@ const Main = () => {
     const { seconds } = useScoreTimer(timeActive);
     const { setSeconds } = useContext(TimerContext);
 
-    const { audioPlaying, setAudioPlaying, resetAudio, setResetAudio } = useAudioPlayer();
+    const { audioPlaying, setAudioPlaying, setResetAudio } = useAudioPlayer();
 
     const { countdownSeconds } = useCountdown(isModal);
     const { setCountdownSeconds } = useContext(CountdownContext);
@@ -94,16 +96,11 @@ const Main = () => {
         setTimeActive(false);
         setAnimationState('paused');
         setResetAudio(true);
-        setAudioPlaying(false)
+        setAudioPlaying(false);
     }
 
-    useEffect(() => {
-        console.log(audioPlaying);
-    }, [audioPlaying])
-
     return (
-        <BgImage imageUrl={'./assets/img/lake.jpg'}>
-            {/* <div className="memory-bg"> */}
+        <BgImage imageUrl={`${Path.imgPath}lake.jpg`}>
             <div className="_rounded-small _border _border-solid _border-primary _mt-md _mx-sm _justify-around _hidden lg:_flex _cursor-pointer">
                 <Tab
                     isActive={activeTab}
@@ -125,58 +122,61 @@ const Main = () => {
             <Container maxWidth="991px" isCenteredX>
                 <div className="_flex _px-sm">
                     {/* Options Panel */}
-                    <section
-                        className={`_p-sm _bg-white _mr-md lg:_mr-none _my-xl _w-full ${
+                    <aside
+                        className={`_bg-white _my-xl _h-full _w-full ${
                             pannelLeft ? '_block' : 'lg:_hidden '
                         }`}>
-                        <div className="_rounded-small _border _border-solid _border-primary _mt-md _mx-sm _justify-around _flex _cursor-pointer">
-                            <Tab
-                                isActive={activeSubTab}
-                                toogleTab={() => {
-                                    setSubPannelLeft(true);
-                                    return !activeSubTab ? setActiveSubTab(!activeSubTab) : null;
-                                }}>
-                                <span>Options</span>
-                            </Tab>
-                            <Tab
-                                isActive={!activeSubTab}
-                                toogleTab={() => {
-                                    setSubPannelLeft(false);
-                                    return activeSubTab ? setActiveSubTab(!activeSubTab) : null;
-                                }}>
-                                <span>Jouer</span>
-                            </Tab>
+                        <nav>
+                            <ul className="_justify-around _flex _cursor-pointer _p-sm _m-none">
+                                <Tab
+                                    isActive={activeSubTab}
+                                    borderBottomStyle={true}
+                                    toogleTab={() => {
+                                        setSubPannelLeft(true);
+                                        return !activeSubTab ? setActiveSubTab(!activeSubTab) : null;
+                                    }}>
+                                    <span className="_uppercase">Étapes</span>
+                                </Tab>
+                                <Tab
+                                    isActive={!activeSubTab}
+                                    borderBottomStyle={true}
+                                    toogleTab={() => {
+                                        setSubPannelLeft(false);
+                                        return activeSubTab ? setActiveSubTab(!activeSubTab) : null;
+                                    }}>
+                                    <span className="_uppercase">Le Saviez-vous ?</span>
+                                </Tab>
+                            </ul>
+                        </nav>
+                        <div className="_p-sm">
+                            { subPannelLeft=== true && (
+                                <section
+                                    className="_flex _flex-col _w-full _relative">
+                                    <ol className="_m-none">
+                                        <li>Fermez la bouche et inspirez tranquillement par le nez en comptant jusqu'à 4.</li>
+                                        <li>Retenez votre souffle en comptant jusqu'à 7.</li>
+                                        <li>
+                                            Expirez bruyamment par la bouche en comptant jusqu'à 8 et en faisant le son
+                                            "whoosh".
+                                        </li>
+                                    </ol>
+                                    <h3 className="_mb-none _mt-lg _text-primary">AVANT DE COMMENCER :</h3>
+                                    <p className="_mt-none">
+                                        Fermez les yeux et expirez tout l'air de vos poumons.
+                                        Touchez votre palais du bout de la langue, juste derrière les incisives, et conservez
+                                        cette position pendant l'exercice.
+                                    </p>
+                                </section>
+                            )}
+                            {subPannelLeft === false && (
+                                <p className="_m-none">
+                                    Cet exercice permet de diminuer le stress, et peut également vous aider à vous endormir.
+                                    Idéalement, mettez-vous assis le dos bien droit, les pieds à plat au sol. Vous pouvez
+                                    également pratiquer cet exercice debout, ou couché dans votre lit.
+                                </p>
+                            )}
                         </div>
-                        <section
-                            className={`_flex _flex-col _w-full ${
-                                subPannelLeft ? '_block' : '_hidden '
-                            } _items-center _relative _my-xl`}>
-                            <ol>
-                                <li>Fermez la bouche et inspirez tranquillement par le nez en comptant jusqu'à 4.</li>
-                                <li>Retenez votre souffle en comptant jusqu'à 7.</li>
-                                <li>
-                                    Expirez bruyamment par la bouche en comptant jusqu'à 8 et en faisant le son
-                                    "whoosh".
-                                </li>
-                            </ol>
-                            <h2>AVANT DE COMMENCER :</h2>
-                            <p>
-                                Fermez les yeux et expirez tout l'air de vos poumons.<br></br>
-                                Touchez votre palais du bout de la langue, juste derrière les incisives, et conservez
-                                cette position pendant l'exercice.
-                            </p>
-                        </section>
-                        <section
-                            className={`_flex _flex-col _w-full ${
-                                subPannelLeft === false ? '_block' : '_hidden'
-                            } _items-center _relative _my-xl`}>
-                            <p>
-                                Cet exercice permet de diminuer le stress, et peut également vous aider à vous endormir.
-                                Idéalement, mettez-vous assis le dos bien droit, les pieds à plat au sol. Vous pouvez
-                                également pratiquer cet exercice debout, ou couché dans votre lit.
-                            </p>
-                        </section>
-                    </section>
+                    </aside>
 
                     {/* Game Panel */}
                     <section
@@ -269,8 +269,13 @@ const Main = () => {
                                 )}
                             </button>
 
-                            <Audio audioFile={'Soul-Colors.mp3'} isPlaying={audioPlaying} toggleMusic={()=>{setResetAudio(false); setAudioPlaying(!audioPlaying)}} ></Audio>
-                    
+                            <Audio
+                                audioFile={'Soul-Colors.mp3'}
+                                isPlaying={audioPlaying}
+                                toggleMusic={() => {
+                                    setResetAudio(false);
+                                    setAudioPlaying(!audioPlaying);
+                                }}></Audio>
                         </div>
                     </section>
                 </div>

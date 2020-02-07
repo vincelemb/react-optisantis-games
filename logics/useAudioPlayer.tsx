@@ -13,5 +13,5 @@ export default function useAudioPlayer() {
         }
     });
     
-    return { audioPlaying, setAudioPlaying, resetAudio, setResetAudio};
+    return { audioPlaying, setAudioPlaying, setResetAudio};
 }
