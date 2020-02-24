@@ -22,7 +22,7 @@ import useScoreTimer from './logics/useScoreTimer';
 import useCountdown from '../../logics/useCountdown';
 
 //UseContext
-import { TimerContext } from './context/TimerContext';
+import { TimerContext } from '../../context/TimerContext';
 import { CountdownContext } from '../../context/CountdownContext';
 
 import useAudioPlayer from '../../logics/useAudioPlayer';
@@ -32,7 +32,7 @@ const Main = () => {
     const [isModal, setIsModal] = useState<boolean>(false);
 
     const chronoStep: chronoType = {
-        stepSeconds: [4, 7, 8],
+        stepSeconds: [40, 70, 80],
         stepName: ['Inspirez', 'Retenez', 'Expirez'],
         stepColor: ['primary', 'warning', 'golden'],
     };
@@ -52,6 +52,7 @@ const Main = () => {
     const [pannelLeft, setPannelLeft] = useState<boolean>(true);
     const [activeSubTab, setActiveSubTab] = useState<boolean>(true);
     const [subPannelLeft, setSubPannelLeft] = useState<boolean>(true);
+    const [changeDataCountdown, setChangeDataCountdown] = useState<boolean>(false);
 
     const [play, setPlay] = useState<boolean>(null);
     const [animationState, setAnimationState] = useState<string>('paused');
@@ -77,6 +78,7 @@ const Main = () => {
             if (isModal && countdownSeconds === 0) {
                 setAnimationState('running');
                 setIsModal(false);
+                setChangeDataCountdown(true);
                 setTimeActive(!timeActive);
             }
         }
@@ -89,6 +91,11 @@ const Main = () => {
         }
     }, [play]);
 
+    function displayCount(count){
+        let res = count / 10;
+        return Math.ceil(res);
+    }
+
     function reset() {
         setPlay(null);
         setStep(0);
@@ -97,6 +104,7 @@ const Main = () => {
         setAnimationState('paused');
         setResetAudio(true);
         setAudioPlaying(false);
+        setChangeDataCountdown(false);
     }
 
     return (
@@ -150,17 +158,22 @@ const Main = () => {
                         </nav>
                         <div className="_p-sm">
                             { subPannelLeft=== true && (
-                                <section
+                                <section    
                                     className="_flex _flex-col _w-full _relative">
-                                    <ol className="_m-none">
-                                        <li>Fermez la bouche et inspirez tranquillement par le nez en comptant jusqu'à 4.</li>
-                                        <li>Retenez votre souffle en comptant jusqu'à 7.</li>
-                                        <li>
-                                            Expirez bruyamment par la bouche en comptant jusqu'à 8 et en faisant le son
-                                            "whoosh".
+                                    <ol className="_m-none _list-none _p-none">
+                                        <li className="_flex _p-sm"> 
+                                            <span className={`_mr-sm _w-lg _rounded-rounded _text-white _leading-loose _text-center _min-w-lg _max-h-lg _bg-${chronoStep.stepColor[0]}`}>1</span>
+                                            <p className="_m-none">Fermez la bouche et inspirez tranquillement par le nez en comptant jusqu'à 4.</p> 
+                                        </li>
+                                        <li className="_flex _p-sm">
+                                            <span className={`_mr-sm _w-lg _rounded-rounded _text-white _leading-loose _text-center _min-w-lg _max-h-lg _bg-${chronoStep.stepColor[1]}`}>2</span>
+                                            <p className="_m-none">Retenez votre souffle en comptant jusqu'à 7.</p> </li>
+                                        <li className="_flex _p-sm">
+                                        <span className={`_mr-sm _w-lg _rounded-rounded _text-white _leading-loose _text-center _min-w-lg _max-h-lg _bg-${chronoStep.stepColor[2]}`}>3</span>
+                                            <p className="_m-none">Expirez bruyamment par la bouche en comptant jusqu'à 8 et en faisant le son "whoosh".</p>
                                         </li>
                                     </ol>
-                                    <h3 className="_mb-none _mt-lg _text-primary">AVANT DE COMMENCER :</h3>
+                                    <h3 className="_mb-none _mt-lg _text-primary _text-lg _font-normal">AVANT DE COMMENCER :</h3>
                                     <p className="_mt-none">
                                         Fermez les yeux et expirez tout l'air de vos poumons.
                                         Touchez votre palais du bout de la langue, juste derrière les incisives, et conservez
@@ -191,7 +204,7 @@ const Main = () => {
                             onCloseBtnClick={() => {
                                 setCountdownSeconds(0);
                             }}>
-                            <span className="_text-white">Début dans :</span>
+                            <span className="_text-white">{changeDataCountdown === false ? "Début dans :" : "Reprise dans :"}</span>
                             <span className="_text-xxl _text-white _py-sm">{countdownSeconds}</span>
                             <div
                                 className="_w-4/5 _bg-white _rounded-small _border-solid _border-2 _p-sm _border-white _flex"
@@ -223,7 +236,7 @@ const Main = () => {
                                         borderColor={chronoStep.stepColor[step]}
                                         playingState={animationState}></CircleGrow>
                                     {play !== null && (
-                                        <span className="_text-center _text-xxl _text-primary _z-10">{seconds}</span>
+                                        <span className="_text-center _text-xxl _text-primary _z-10">{displayCount(seconds)}</span>
                                     )}
                                     {play === null && (
                                         <span
@@ -248,7 +261,8 @@ const Main = () => {
                             <button
                                 className="_bg-white _rounded-rounded _w-xxxl _h-xxxl _border-none _cursor-pointer _outline-none _mx-sm _p-none"
                                 onClick={() => {
-                                    setCountdownSeconds(5);
+                                    
+                                    setCountdownSeconds(changeDataCountdown ? 3 : 5);
                                     setPlay(!play);
                                     setResetAudio(false);
                                 }}>
@@ -256,6 +270,7 @@ const Main = () => {
                                     <div className="_ml-xxs _flex _items-center _justify-center">
                                         <PlaySvg svgWidth="25px"></PlaySvg>
                                     </div>
+                                    
                                 )}
                                 {play === false && (
                                     <div className="_ml-xxs _flex _items-center _justify-center">
@@ -263,6 +278,7 @@ const Main = () => {
                                     </div>
                                 )}
                                 {play === true && (
+                                    
                                     <div className="_flex _items-center _justify-center">
                                         <PauseSvg svgWidth="25px"></PauseSvg>
                                     </div>
@@ -280,7 +296,6 @@ const Main = () => {
                     </section>
                 </div>
             </Container>
-            {/* </div> */}
         </BgImage>
     );
 };

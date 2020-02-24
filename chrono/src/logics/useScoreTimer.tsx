@@ -1,5 +1,5 @@
 import { useEffect, useContext } from 'react';
-import { TimerContext } from '../context/TimerContext';
+import { TimerContext } from '../../../context/TimerContext';
 
 export default function useScoreTimer(timeActive: boolean) {
     const { seconds, setSeconds} = useContext(TimerContext);
@@ -11,7 +11,7 @@ export default function useScoreTimer(timeActive: boolean) {
             if (timeActive) {
                 timerInterval = setInterval(() => {
                     setSeconds(seconds => seconds + 1);
-                }, 1000);
+                }, 100);
             } else if (!timeActive && seconds !== 0 && timerInterval) {
                 clearInterval(timerInterval);
             }

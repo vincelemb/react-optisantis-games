@@ -27,7 +27,7 @@ import useScoreTimer from './logics/useScoreTimer';
 import TimeFormat from './utils/TimeFormat';
 
 //UseContext
-import { TimerContext } from './context/TimerContext';
+import { TimerContext } from '../../context/TimerContext';
 
 const Main = () => {
     let numbers = [12, 16, 20, 24, 28];

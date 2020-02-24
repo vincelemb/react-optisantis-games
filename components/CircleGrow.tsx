@@ -13,7 +13,7 @@ const CircleGrow: React.FC<CircleGrowProps> = (props: React.PropsWithChildren<Ci
 
     const animatedClass = props.isPlaying === true || props.isPlaying === false ?  'is-animated' : '';
     const animatedStep = props.playingStep && props.playingStep === 2 ? props.playingStep + ' is-played' : props.playingStep 
-    // style={!props.isPlaying === "is-animated" ? {animationPlayState : 'running'} : {animationPlayState : 'paused'}}
+    
     return(
         <React.Fragment>
             <div className={`box-circle _absolute _bg-white _rounded-circle _flex _items-center _justify-center ${animatedClass}${animatedStep}`}

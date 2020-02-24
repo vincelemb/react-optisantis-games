@@ -1,5 +1,5 @@
 import { useEffect, useContext } from 'react';
-import { TimerContext } from '../context/TimerContext';
+import { TimerContext } from '../../../context/TimerContext';
 
 export default function useScoreTimer(timeActive: boolean) {
     const { seconds, setSeconds} = useContext(TimerContext);
