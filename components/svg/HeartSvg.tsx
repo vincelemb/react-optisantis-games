@@ -2,7 +2,7 @@ import React from 'react'
 import svgType from '../../type/svgType';
 
 const HeartSvg:React.FC<svgType> = (props: React.PropsWithChildren<svgType>) =>{
-
+      
     return(
 
         <svg

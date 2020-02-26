@@ -38,76 +38,31 @@
         border-radius: 50px;
         background-color: #fff;
     }
-
-    // > .content {
-    //     @include size(70%, 100%);
-    //     @include position(absolute, 0 15% null null);
-        
-    //     z-index: 5;
-    // }
-
-    // >.content > .less{
-    //     @include size(45px);
-
-    //     &::before{
-    //         @include size(15px, 1.5px);
-    //         @include position(absolute, 22px null null 14px);
-
-    //         display: block; 
-    //         content: '';
-    //         border-radius: 50px;
-    //         background-color:color('white');
-    //     }
-    // }
-
-    // >.content > .more{
-    //     @include size(45px);
-
-    //     &::before{
-    //         @include size(15px, 1.5px);
-    //         @include position(absolute, 22px null null 15px);
-
-
-    //         display: block;
-    //         content: '';
-    //         border-radius: 50px;
-    //         background-color:color('white');
-    //     }
-    //     &::after{
-    //         @include size(1.5px, 15px);
-    //         @include position(absolute, 16px null null 22px);
-
-    //         display: block; 
-    //         content: '';
-    //         border-radius: 50px;
-    //         background-color:color('white');
-    //     }
-    // }
-    
-    // > .heart{
-    //     @include size(280px, 280px);
-        
-    //     background-image:url($imgPath + "outils/cardiaque/heart-shape.svg");
-    //     // opacity: 0.6; pour changer l'opacité du coeur blanc, simplement exporter le svg avec une opacité réduite et remplacer le background
-    // }
 }
 
 .c-cardio-player > svg{
-    
-    &.is-animated{
-        animation: 10s linear 0s infinite zoomHeart;
-
+    &.is-animated-1{
+        animation:5s linear 0s zoomHeart1 forwards;
+    }
+    &.is-animated-2{
+        animation:5s linear 0s zoomHeart2 forwards;
     }
 }
 
-
-@keyframes zoomHeart {
+@keyframes zoomHeart1 {
     0% {
         transform: scale(0.6);
         stroke-dashoffset: 0px;
     }
 
-    50% {
+    100% {
+        transform: scale(1);
+        stroke-dashoffset: 0px;
+    }
+}
+
+@keyframes zoomHeart2 {
+    0% {
         transform: scale(1);
         stroke-dashoffset: 0px;
     }
@@ -117,56 +72,3 @@
         stroke-dashoffset: 0px;
     }
 }
-
-// .c-cardio-player{
-//     width: 300px;
-//     height: 300px;
-    
-//     > .box-circle{
-//         width: 250px;
-//         height: 250px;
-//         transform-origin: center; /* or transform-origin: 50% */
-//         transform-box: fill-box;
-//     }
-    
-//     > .box-circle.is-played{
-//         transform: scale(0.5);
-//     }
-    
-//     > .box-circle.is-animated0 {
-//         animation: 4s zoomCircle1 linear;
-//     }
-//     > .box-circle.is-animated1{
-//         animation: 7s linear;
-//         transform: scale(1);
-//     }
-//     > .box-circle.is-animated2{
-//         animation: zoomCircle3 8s linear;
-//     }
-    
-//     > .circle-overlay{
-//         width: 251px;
-//         height: 251px;
-//         background-color: rgba(255,255,255,.2);
-//     }
-
-// }
-
-// @keyframes zoomCircle1 {
-//     0%{
-//         transform: scale(0.5);
-//     }
-//     100%{
-//         transform: scale(1);
-//     }
-// }
-
-// @keyframes zoomCircle3{
-//     0%{
-//         transform: scale(1);
-//     }
-//     100%{
-//         transform: scale(0.5);
-//     }
-// }
-

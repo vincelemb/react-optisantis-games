@@ -24,10 +24,7 @@ export default function useAudioPlayer() {
         //Audio
         if(audio){
             if (audioPlaying) audio.play();
-            else {
-                audio.pause();
-                audio.currentTime = 0;
-            }
+
             if (resetAudio) {
                 audio.pause();
                 audio.currentTime = 0;

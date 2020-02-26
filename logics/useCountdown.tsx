@@ -11,7 +11,7 @@ export default function useCountdown(active: boolean) {
             if (active) {
                 timerInterval = setInterval(() => {
                     setCountdownSeconds(countdownSeconds - 1)
-                }, 1000);
+                }, 100);
             }
             return () => {
                 if (timerInterval) clearInterval(timerInterval);

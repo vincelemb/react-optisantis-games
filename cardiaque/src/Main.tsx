@@ -17,10 +17,8 @@ import '../../styles/index.scss';
 //LOGICS
 import useCountdownOverlay from '../../logics/useCountdownOverlay';
 import useCountdown from '../../logics/useCountdown';
-import useScoreTimer from './logics/useScoreTimer';
 
 //UseContext
-import { TimerContext } from '../../context/TimerContext';
 import { CountdownContext } from '../../context/CountdownContext';
 
 import useAudioPlayer from '../../logics/useAudioPlayer';
@@ -29,7 +27,7 @@ const Main = () => {
     const [timeActive, setTimeActive] = useState<boolean>(false);
     const [isModal, setIsModal] = useState<boolean>(false);
 
-    const [stepCardio, setStepCardio] = useState<string>("Inspirez");
+    const [stepCardio, setStepCardio] = useState<string>('Inspirez');
 
     const { setAudioPlaying, musicPlaying, setMusicPlaying, setResetMusic } = useAudioPlayer();
 
@@ -44,18 +42,19 @@ const Main = () => {
     const [subPannelLeft, setSubPannelLeft] = useState<boolean>(true);
     const [changeDataCountdown, setChangeDataCountdown] = useState<boolean>(false);
 
+    const [stepAnimation, setStepAnimation] = useState<number>(1);
     const [timeNumber, setTimeNumber] = useState<number>(5);
     const [play, setPlay] = useState<boolean>(null);
     const [animationState, setAnimationState] = useState<string>('paused');
 
     useEffect(() => {
-
         if (play === null) {
-            setCountdownSeconds(timeNumber * 60);
+            setCountdownSeconds(timeNumber * 600);
         }
         if (play === true) {
             setIsModal(true);
             if (isModal && countdownOverlaySeconds === 0) {
+                setAudioPlaying(true);
                 setAnimationState('running');
                 setChangeDataCountdown(true);
                 setIsModal(false);
@@ -69,27 +68,29 @@ const Main = () => {
 
     useEffect(() => {
         if (play === true) {
-            if (countdownSeconds % 10 === 5){
+            if ((countdownSeconds / 10) % 10 === 5) {
                 setAudioPlaying(true);
-                setStepCardio("Expirez")
-            } else if (countdownSeconds % 10 === 0){
+                setStepAnimation(2);
+                setStepCardio('Expirez');
+            } else if ((countdownSeconds / 10) % 10 === 0) {
                 setAudioPlaying(true);
-                setStepCardio("Inspirez")
-            }
-            else setAudioPlaying(false);
+                setStepAnimation(1);
+                setStepCardio('Inspirez');
+            } else setAudioPlaying(false);
 
-            if(countdownSeconds === 0){
+            if (countdownSeconds === 0) {
                 reset();
             }
         }
     }, [countdownSeconds]);
 
     function secondsToTime(seconds) {
-        return new Date(seconds * 1000).toISOString().substr(14, 5);
+        return new Date(seconds * 100).toISOString().substr(14, 5);
     }
 
     function reset() {
         setPlay(null);
+        setStepAnimation(1);
         setAnimationState('paused');
         setTimeActive(false);
         setResetMusic(true);
@@ -209,7 +210,9 @@ const Main = () => {
                             onCloseBtnClick={() => {
                                 setCountdownOverlaySeconds(0);
                             }}>
-                            <span className="_text-white">{changeDataCountdown === false ? "Début dans :" : "Reprise dans :"}</span>
+                            <span className="_text-white">
+                                {changeDataCountdown === false ? 'Début dans :' : 'Reprise dans :'}
+                            </span>
                             <span className="_text-xxl _text-white _py-sm">{countdownOverlaySeconds}</span>
                             <div
                                 className="_w-4/5 _bg-white _rounded-small _border-solid _border-2 _p-sm _border-white _flex"
@@ -235,7 +238,10 @@ const Main = () => {
                                     </span>
                                 )}
                                 <div className="c-cardio-player _relative _flex _justify-center _items-center">
-                                    <HeartBeat isPlaying={play} playingState={animationState}></HeartBeat>
+                                    <HeartBeat
+                                        playingStep={stepAnimation}
+                                        isPlaying={play}
+                                        playingState={animationState}></HeartBeat>
                                     {play !== null && (
                                         <span className="_text-center _text-xxl _text-white _z-10">{`${secondsToTime(
                                             countdownSeconds
@@ -287,8 +293,6 @@ const Main = () => {
                                 onClick={() => {
                                     setCountdownOverlaySeconds(changeDataCountdown ? 3 : 5);
                                     setPlay(!play);
-                                    //a envlever aprés
-                                    // setIsModal(!play);
                                 }}>
                                 {play === null && (
                                     <div className="_ml-xxs _flex _items-center _justify-center">
