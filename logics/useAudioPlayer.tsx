@@ -4,14 +4,37 @@ export default function useAudioPlayer() {
     const [audioPlaying, setAudioPlaying] = useState(false);
     const [resetAudio, setResetAudio] = useState(false);
 
-    useEffect(() => {
-        const audio:HTMLMediaElement & any  = document.getElementById("audio");
-        audioPlaying ? audio.play() : audio.pause();
+    const [musicPlaying, setMusicPlaying] = useState(false);
+    const [resetMusic, setResetMusic] = useState(false);
 
-        if(resetAudio === true){
-            audio.currentTime = 0 
+    useEffect(() => {
+        const audio: HTMLMediaElement & any = document.getElementById('audio');
+
+        const music: HTMLMediaElement & any = document.getElementById('music');
+
+        //Music
+        if(music){
+            musicPlaying ? music.play() : music.pause();
+            if (resetMusic) {
+                music.pause();
+                music.currentTime = 0;
+            }
         }
-    });
-    
-    return { audioPlaying, setAudioPlaying, setResetAudio};
+
+        //Audio
+        if(audio){
+            if (audioPlaying) audio.play();
+            else {
+                audio.pause();
+                audio.currentTime = 0;
+            }
+            if (resetAudio) {
+                audio.pause();
+                audio.currentTime = 0;
+            }
+        }
+
+    }, [audioPlaying, musicPlaying]);
+
+    return { audioPlaying, setAudioPlaying, setResetAudio, musicPlaying, setMusicPlaying, setResetMusic};
 }

@@ -9,6 +9,8 @@ export type svgType = {
     fillColor?:string;
     svgHeight?:string;
     svgWidth?:string;
+    customSvgClass?:string;
+    svgAnimationState?:string;
 
 }
 

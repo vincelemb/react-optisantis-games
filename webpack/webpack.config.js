@@ -7,6 +7,10 @@ export const PROJECTS = {
         entryPath: 'chrono/src',
         entryPoint: 'index.tsx',
     },
+    Cardiaque: {
+        entryPath: 'cardiaque/src',
+        entryPoint: 'index.tsx',
+    },
 };
 
 const buildEntries = () => {

@@ -5,7 +5,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import Path from '../../consts'
 
 //COMPONENTS
-import { Audio, CircleGrow, Container, Tab, BgImage, Modal } from '../../components';
+import { AudioButton, CircleGrow, Container, Tab, BgImage, Modal } from '../../components';
 
 //SVG COOMPONENTS
 import { PlaySvg, PauseSvg, InfoSvg } from '../../components/svg';
@@ -19,7 +19,7 @@ import '../../styles/index.scss';
 
 //LOGICS
 import useScoreTimer from './logics/useScoreTimer';
-import useCountdown from '../../logics/useCountdown';
+import useCountdownOverlay from '../../logics/useCountdownOverlay';
 
 //UseContext
 import { TimerContext } from '../../context/TimerContext';
@@ -42,10 +42,10 @@ const Main = () => {
     const { seconds } = useScoreTimer(timeActive);
     const { setSeconds } = useContext(TimerContext);
 
-    const { audioPlaying, setAudioPlaying, setResetAudio } = useAudioPlayer();
+    const { musicPlaying, setMusicPlaying, setResetMusic } = useAudioPlayer();
 
-    const { countdownSeconds } = useCountdown(isModal);
-    const { setCountdownSeconds } = useContext(CountdownContext);
+    const { countdownOverlaySeconds } = useCountdownOverlay(isModal);
+    const { setCountdownOverlaySeconds } = useContext(CountdownContext);
 
     // CHRONO
     const [activeTab, setActiveTab] = useState<boolean>(true);
@@ -75,14 +75,14 @@ const Main = () => {
     useEffect(() => {
         if (play === true) {
             setIsModal(true);
-            if (isModal && countdownSeconds === 0) {
+            if (isModal && countdownOverlaySeconds === 0) {
                 setAnimationState('running');
                 setIsModal(false);
                 setChangeDataCountdown(true);
                 setTimeActive(!timeActive);
             }
         }
-    }, [play, countdownSeconds]);
+    }, [play, countdownOverlaySeconds]);
 
     useEffect(() => {
         if (play === false) {
@@ -102,8 +102,8 @@ const Main = () => {
         setSeconds(1);
         setTimeActive(false);
         setAnimationState('paused');
-        setResetAudio(true);
-        setAudioPlaying(false);
+        setResetMusic(true);
+        setMusicPlaying(false);
         setChangeDataCountdown(false);
     }
 
@@ -154,7 +154,7 @@ const Main = () => {
                                     }}>
                                     <span className="_uppercase">Le Saviez-vous ?</span>
                                 </Tab>
-                            </ul>
+                            </ul>       
                         </nav>
                         <div className="_p-sm">
                             { subPannelLeft=== true && (
@@ -169,7 +169,7 @@ const Main = () => {
                                             <span className={`_mr-sm _w-lg _rounded-rounded _text-white _leading-loose _text-center _min-w-lg _max-h-lg _bg-${chronoStep.stepColor[1]}`}>2</span>
                                             <p className="_m-none">Retenez votre souffle en comptant jusqu'à 7.</p> </li>
                                         <li className="_flex _p-sm">
-                                        <span className={`_mr-sm _w-lg _rounded-rounded _text-white _leading-loose _text-center _min-w-lg _max-h-lg _bg-${chronoStep.stepColor[2]}`}>3</span>
+                                            <span className={`_mr-sm _w-lg _rounded-rounded _text-white _leading-loose _text-center _min-w-lg _max-h-lg _bg-${chronoStep.stepColor[2]}`}>3</span>
                                             <p className="_m-none">Expirez bruyamment par la bouche en comptant jusqu'à 8 et en faisant le son "whoosh".</p>
                                         </li>
                                     </ol>
@@ -202,10 +202,10 @@ const Main = () => {
                             isModal={isModal}
                             isOverlay={true}
                             onCloseBtnClick={() => {
-                                setCountdownSeconds(0);
+                                setCountdownOverlaySeconds(0);
                             }}>
                             <span className="_text-white">{changeDataCountdown === false ? "Début dans :" : "Reprise dans :"}</span>
-                            <span className="_text-xxl _text-white _py-sm">{countdownSeconds}</span>
+                            <span className="_text-xxl _text-white _py-sm">{countdownOverlaySeconds}</span>
                             <div
                                 className="_w-4/5 _bg-white _rounded-small _border-solid _border-2 _p-sm _border-white _flex"
                                 style={{ backgroundColor: 'rgba(255,255,255,.3)' }}>
@@ -262,9 +262,9 @@ const Main = () => {
                                 className="_bg-white _rounded-rounded _w-xxxl _h-xxxl _border-none _cursor-pointer _outline-none _mx-sm _p-none"
                                 onClick={() => {
                                     
-                                    setCountdownSeconds(changeDataCountdown ? 3 : 5);
+                                    setCountdownOverlaySeconds(changeDataCountdown ? 3 : 5);
                                     setPlay(!play);
-                                    setResetAudio(false);
+                                    setResetMusic(false);
                                 }}>
                                 {play === null && (
                                     <div className="_ml-xxs _flex _items-center _justify-center">
@@ -285,13 +285,14 @@ const Main = () => {
                                 )}
                             </button>
 
-                            <Audio
+                            <AudioButton
+                                id="music"
                                 audioFile={'Soul-Colors.mp3'}
-                                isPlaying={audioPlaying}
+                                isPlaying={musicPlaying}
                                 toggleMusic={() => {
-                                    setResetAudio(false);
-                                    setAudioPlaying(!audioPlaying);
-                                }}></Audio>
+                                    setResetMusic(false);
+                                    setMusicPlaying(!musicPlaying);
+                                }}></AudioButton>
                         </div>
                     </section>
                 </div>
