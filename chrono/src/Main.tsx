@@ -131,7 +131,7 @@ const Main = () => {
                 <div className="_flex _px-sm">
                     {/* Options Panel */}
                     <aside
-                        className={`_bg-white _my-xl _h-full _w-full ${
+                        className={`_bg-white _my-xl _h-full _w-full _rounded-small ${
                             pannelLeft ? '_block' : 'lg:_hidden '
                         }`}>
                         <nav>
@@ -143,7 +143,7 @@ const Main = () => {
                                         setSubPannelLeft(true);
                                         return !activeSubTab ? setActiveSubTab(!activeSubTab) : null;
                                     }}>
-                                    <span className="_uppercase">Étapes</span>
+                                    <span className="_uppercase _text-center">Étapes</span>
                                 </Tab>
                                 <Tab
                                     isActive={!activeSubTab}
@@ -152,7 +152,7 @@ const Main = () => {
                                         setSubPannelLeft(false);
                                         return activeSubTab ? setActiveSubTab(!activeSubTab) : null;
                                     }}>
-                                    <span className="_uppercase">Le Saviez-vous ?</span>
+                                    <span className="_uppercase _text-center">Le Saviez-vous ?</span>
                                 </Tab>
                             </ul>       
                         </nav>
@@ -234,18 +234,21 @@ const Main = () => {
                                         isPlaying={play}
                                         playingStep={step}
                                         borderColor={chronoStep.stepColor[step]}
-                                        playingState={animationState}></CircleGrow>
+                                        playingState={animationState}>
+
+                                        </CircleGrow>
+                                        {play === null && (
+                                            <span
+                                                className="_text-lg _text-primary _p-xs _text-center _z-10"
+                                                role="status"
+                                                aria-live="polite">
+                                                Cliquez sur lecture pour commencer
+                                            </span>
+                                        )}
                                     {play !== null && (
                                         <span className="_text-center _text-xxl _text-primary _z-10">{displayCount(seconds)}</span>
                                     )}
-                                    {play === null && (
-                                        <span
-                                            className="_text-lg _text-primary _p-xs _text-center _z-10"
-                                            role="status"
-                                            aria-live="polite">
-                                            Cliquez sur lecture pour commencer
-                                        </span>
-                                    )}
+                                    
                                 </div>
                             </div>
                         </section>

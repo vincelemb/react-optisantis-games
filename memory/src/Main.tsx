@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 
 //GLOBAL CONST
-import Path from '../../consts'
+import Path from '../../consts';
 //ASSETS
 import memoryImages from './assets/images.json';
 // import memoryBg from './assets/img/lake.jpg';
@@ -44,7 +44,7 @@ const Main = () => {
     const [winPairs, setWinPairs] = useState<any[]>([]);
     const [idCards, setIdCards] = useState<any>([]);
     const [images, setImages] = useState<any>(themes.fruits_legumes);
-    const [imagesTheme, setImagesTheme] = useState<string>("fruits_legumes");
+    const [imagesTheme, setImagesTheme] = useState<string>('fruits_legumes');
     const [imagesArray, setImagesArray] = useState<any>(memoryImages.fruits_legumes);
     const [currentPair, setCurrentPair] = useState<string[]>([]);
     const [click, setClick] = useState<number>(0);
@@ -123,19 +123,18 @@ const Main = () => {
                     l'objet tempSaveScore à l'indexLevel dont la valeur click cahnge pour le nouveau click (il changer automatiquement pour la nouvel clé "click").
                     */
                     tempSaveScore.splice(indexLevel, 1, { ...tempSaveScore[indexLevel], click: click });
-                    setWinClickSentence(true)
+                    setWinClickSentence(true);
                 }
                 if (seconds < saveScore[indexLevel].seconds) {
                     tempSaveScore.splice(indexLevel, 1, { ...tempSaveScore[indexLevel], seconds: seconds });
-                    setWinTimeSentence(true)
-
+                    setWinTimeSentence(true);
                 }
-                if (click < saveScore[indexLevel].click || seconds < saveScore[indexLevel].seconds){
-                    setIsConfetti(true)
+                if (click < saveScore[indexLevel].click || seconds < saveScore[indexLevel].seconds) {
+                    setIsConfetti(true);
                     setSaveScore(tempSaveScore);
                 }
             } else {
-                setIsConfetti(true)
+                setIsConfetti(true);
                 setSaveScore([...saveScore, { level: numberCard, click: click, seconds: seconds }]);
             }
         }
@@ -155,13 +154,12 @@ const Main = () => {
     }
 
     function changetheme(imageTheme: string) {
-        setImagesTheme(imageTheme)
+        setImagesTheme(imageTheme);
         setImagesArray(memoryImages[imageTheme]);
         renderImg(imagesArray, numberCard);
     }
-    
-    useEffect(() => {
-    }, [imagesArray])
+
+    useEffect(() => {}, [imagesArray]);
 
     function reset() {
         setWinPairs([]);
@@ -171,8 +169,8 @@ const Main = () => {
         setSeconds(0);
         setMinutes(0);
         setIsModlaHide(true);
-        setTimeActive(false)
-        setIsConfetti(false)
+        setTimeActive(false);
+        setIsConfetti(false);
     }
 
     function renderLevelBtns() {
@@ -193,9 +191,9 @@ const Main = () => {
                         }}
                     />
                 );
-                return numbers
+                return numbers;
             });
-        return (<div className="_flex _flex-wrap _justify-center _px-md _py-sm _rounded-small">{Buttons}</div>);
+        return <div className="_flex _flex-wrap _justify-center _px-md _py-sm _rounded-small">{Buttons}</div>;
     }
 
     function renderThemeBtns() {
@@ -227,7 +225,13 @@ const Main = () => {
         const Img: JSX.Element[] = [];
         let urlArray: string[] = Object.values(categorie);
         for (let index = 0; index < number / 2; index++) {
-            Img.push(<img className="_h-full" src={Path.imgPath+imagesTheme+'/'+urlArray[index]} key={'image-' + index} alt="Memory Images"></img>);
+            Img.push(
+                <img
+                    className="_h-full"
+                    src={Path.imgPath + imagesTheme + '/' + urlArray[index]}
+                    key={'image-' + index}
+                    alt="Memory Images"></img>
+            );
         }
         return Img.slice(0, number / 2);
     }
@@ -317,8 +321,7 @@ const Main = () => {
     // }
 
     return (
-        <BgImage imageUrl={"./assets/img/lake.jpg"}>
-
+        <BgImage imageUrl={'./assets/img/lake.jpg'}>
             {renderConfetti()}
             <div className="_rounded-small _border _border-solid _border-primary _mt-md _mx-sm _justify-around _hidden lg:_flex _cursor-pointer">
                 <Tab
@@ -390,7 +393,8 @@ const Main = () => {
                     </section>
 
                     {/* Game Panel */}
-                    <section className={`_flex _flex-col _w-full ${
+                    <section
+                        className={`_flex _flex-col _w-full ${
                             pannelLeft === false ? '_block' : 'lg:_hidden'
                         } _items-center _relative _my-xl`}>
                         <div className="_mx-xxs _flex _justify-between _w-full _items-center _text-white _pb-xs">
@@ -411,7 +415,7 @@ const Main = () => {
                                 )}
                                 {winTimeSentence === true && (
                                     <span className="_text-golden">Nouveaux record de temps</span>
-                                )}                               
+                                )}
                                 <div className="_bg-darkenprimary _rounded-small _w-3/4 _mt-xs">
                                     <div className="_flex _flex-wrap _justify-around">
                                         <div className="_m-xs">
@@ -459,17 +463,17 @@ const Main = () => {
                             </Popup>
                             {/* Cards */}
                             {renderCards()}
-                            
                         </div>
-                            <div className="_mt-sm _mb-lg _w-full _text-right">
-                                <button className="_bg-white _rounded-rounded _w-xxl _h-xxl _border-none _p-xs _cursor-pointer _outline-none" onClick={() => reset()}>
-                                    <ReloadSvg></ReloadSvg>
-                                </button>
-                            </div>
+                        <div className="_mt-sm _mb-lg _w-full _text-right">
+                            <button
+                                className="_bg-white _rounded-rounded _w-xxl _h-xxl _border-none _p-xs _cursor-pointer _outline-none"
+                                onClick={() => reset()}>
+                                <ReloadSvg></ReloadSvg>
+                            </button>
+                        </div>
                     </section>
                 </div>
             </Container>
-
         </BgImage>
     );
 };

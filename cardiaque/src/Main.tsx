@@ -8,7 +8,7 @@ import Path from '../../consts';
 import { AudioButton, Audio, Container, Tab, BgImage, Modal, HeartBeat } from '../../components';
 
 //SVG COOMPONENTS
-import { PlaySvg, PauseSvg, InfoSvg } from '../../components/svg';
+import { PauseSvg, PlaySvg, InfoSvg } from '../../components/svg';
 
 //STYLE
 import './styles/index.scss';
@@ -42,6 +42,7 @@ const Main = () => {
     const [subPannelLeft, setSubPannelLeft] = useState<boolean>(true);
     const [changeDataCountdown, setChangeDataCountdown] = useState<boolean>(false);
 
+    const [firstBip, setFirstBip] = useState<number>(0);
     const [stepAnimation, setStepAnimation] = useState<number>(1);
     const [timeNumber, setTimeNumber] = useState<number>(5);
     const [play, setPlay] = useState<boolean>(null);
@@ -54,7 +55,6 @@ const Main = () => {
         if (play === true) {
             setIsModal(true);
             if (isModal && countdownOverlaySeconds === 0) {
-                setAudioPlaying(true);
                 setAnimationState('running');
                 setChangeDataCountdown(true);
                 setIsModal(false);
@@ -67,7 +67,12 @@ const Main = () => {
     }, [play, timeNumber, countdownOverlaySeconds]);
 
     useEffect(() => {
+        setAudioPlaying(false);
         if (play === true) {
+            if (firstBip === 0) {
+                setAudioPlaying(true);
+                setFirstBip(1);
+            }
             if ((countdownSeconds / 10) % 10 === 5) {
                 setAudioPlaying(true);
                 setStepAnimation(2);
@@ -76,7 +81,7 @@ const Main = () => {
                 setAudioPlaying(true);
                 setStepAnimation(1);
                 setStepCardio('Inspirez');
-            } else setAudioPlaying(false);
+            }
 
             if (countdownSeconds === 0) {
                 reset();
@@ -89,6 +94,7 @@ const Main = () => {
     }
 
     function reset() {
+        setFirstBip(0);
         setPlay(null);
         setStepAnimation(1);
         setAnimationState('paused');
@@ -122,7 +128,7 @@ const Main = () => {
             <Container maxWidth="991px" isCenteredX>
                 <div className="_flex _px-sm">
                     {/* Options Panel */}
-                    <aside className={`_bg-white _my-xl _h-full _w-full ${pannelLeft ? '_block' : 'lg:_hidden '}`}>
+                    <aside className={`_bg-white _my-xl _h-full _w-full _rounded-small ${pannelLeft ? '_block' : 'lg:_hidden '}`}>
                         <nav>
                             <ul className="_justify-around _flex _cursor-pointer _p-sm _m-none">
                                 <Tab
@@ -132,7 +138,7 @@ const Main = () => {
                                         setSubPannelLeft(true);
                                         return !activeSubTab ? setActiveSubTab(!activeSubTab) : null;
                                     }}>
-                                    <span className="_uppercase">Étapes</span>
+                                    <span className="_uppercase _text-center">Étapes</span>
                                 </Tab>
                                 <Tab
                                     isActive={!activeSubTab}
@@ -141,7 +147,7 @@ const Main = () => {
                                         setSubPannelLeft(false);
                                         return activeSubTab ? setActiveSubTab(!activeSubTab) : null;
                                     }}>
-                                    <span className="_uppercase">Le Saviez-vous ?</span>
+                                    <span className="_uppercase _text-center">Le Saviez-vous ?</span>
                                 </Tab>
                             </ul>
                         </nav>
@@ -294,21 +300,9 @@ const Main = () => {
                                     setCountdownOverlaySeconds(changeDataCountdown ? 3 : 5);
                                     setPlay(!play);
                                 }}>
-                                {play === null && (
-                                    <div className="_ml-xxs _flex _items-center _justify-center">
-                                        <PlaySvg svgWidth="25px"></PlaySvg>
-                                    </div>
-                                )}
-                                {play === false && (
-                                    <div className="_ml-xxs _flex _items-center _justify-center">
-                                        <PlaySvg svgWidth="25px"></PlaySvg>
-                                    </div>
-                                )}
-                                {play === true && (
-                                    <div className="_flex _items-center _justify-center">
-                                        <PauseSvg svgWidth="25px"></PauseSvg>
-                                    </div>
-                                )}
+                                <div className="_flex _items-center _justify-center">
+                                    {play ? <PauseSvg svgWidth="25px"></PauseSvg> : <PlaySvg svgWidth="25px"></PlaySvg>}
+                                </div>
                             </button>
 
                             <AudioButton
