@@ -108,7 +108,7 @@ const Main = () => {
     }
 
     return (
-        <BgImage imageUrl={`${Path.imgPath}lake.jpg`}>
+        <BgImage imageUrl={`${Path.imgPath}hero.jpg`}>
             <div className="_rounded-small _border _border-solid _border-primary _mt-md _mx-sm _justify-around _hidden lg:_flex _cursor-pointer">
                 <Tab
                     isActive={activeTab}
