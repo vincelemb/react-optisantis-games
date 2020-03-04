@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Tab } from '.';
+
+type SubContentType = {
+    title?: string;
+    content: string | React.ReactElement;
+};
 
 type TabsGroupContent = {
     title: string;
-    content: string | React.Element | array;
-    active: boolean;
+    subcontent: string | SubContentType[] | React.ReactElement;
 };
 
 interface TabsGroupProps {
@@ -16,16 +20,25 @@ const TabsGroup: React.FC<TabsGroupProps> = ({ contents }) => {
 
     const setActive = (idx: number): void => setIdActive(idx);
 
-    const navigation = contents.map(({ title, active }, idx) => (
+    const navigation = contents.map(({ title }, idx) => (
         <Tab key={idx} isActive={idActive === idx} borderBottomStyle={true} toogleTab={() => setActive(idx)}>
             <span className="_uppercase _text-center">{title}</span>
         </Tab>
     ));
 
-    const content = contents.map(({ content, active }, idx) => {
+    const content = contents.map(({ subcontent }, idx) => {
+        let returnedContent = Array.isArray(subcontent)
+            ? subcontent.map(({ title, content }) => (
+                  <>
+                      {title && <h3 className="_mb-none _mt-lg _text-primary _text-lg _font-normal">{title}</h3>}
+                      <p className="_mt-none">{content}</p>
+                  </>
+              ))
+            : subcontent;
+
         return (
-            <div key={idx} className={idActive === idx ? '_block' : 'lg:_hidden'}>
-                {content}
+            <div key={idx} className={idActive === idx ? '_block' : '_hidden'}>
+                {returnedContent}
             </div>
         );
     });
@@ -38,11 +51,6 @@ const TabsGroup: React.FC<TabsGroupProps> = ({ contents }) => {
             <div className="_p-sm">
                 <section className="_flex _flex-col _w-full _relative">
                     {content}
-                    {/* <h3 className="_mb-none _mt-lg _text-primary _text-lg _font-normal">AVANT DE COMMENCER :</h3>
-                    <p className="_mt-none">
-                        Fermez les yeux et expirez tout l'air de vos poumons. Touchez votre palais du bout de la langue,
-                        juste derrière les incisives, et conservez cette position pendant l'exercice.
-                    </p> */}
                 </section>
             </div>
         </aside>
