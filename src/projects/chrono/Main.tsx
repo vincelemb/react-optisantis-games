@@ -1,30 +1,13 @@
-//HOOKS
 import React, { useState, useEffect, useContext } from 'react';
-
-//GLOBAL CONST
-import Path from '../../consts'
-
-//COMPONENTS
+import '../../config'
 import { AudioButton, CircleGrow, Container, Tab, BgImage, Modal } from '../../components';
-
-//SVG COOMPONENTS
 import { PlaySvg, PauseSvg, InfoSvg } from '../../components/svg';
-
-//TYPES
 import chronoType from './type/chronoType';
-
-//STYLE
 import './styles/index.scss';
-import '../../styles/index.scss';
-
-//LOGICS
 import useScoreTimer from './logics/useScoreTimer';
 import useCountdownOverlay from '../../logics/useCountdownOverlay';
-
-//UseContext
 import { TimerContext } from '../../context/TimerContext';
 import { CountdownContext } from '../../context/CountdownContext';
-
 import useAudioPlayer from '../../logics/useAudioPlayer';
 
 const Main = () => {

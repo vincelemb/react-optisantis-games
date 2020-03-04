@@ -1,26 +1,11 @@
-//HOOKS
 import React, { useState, useEffect, useContext } from 'react';
-
-//GLOBAL CONST
-import Path from '../../consts';
-
-//COMPONENTS
+import '../../config'
 import { AudioButton, Audio, Container, Tab, BgImage, Modal, HeartBeat } from '../../components';
-
-//SVG COOMPONENTS
 import { PauseSvg, PlaySvg, InfoSvg } from '../../components/svg';
-
-//STYLE
 import './styles/index.scss';
-import '../../styles/index.scss';
-
-//LOGICS
 import useCountdownOverlay from '../../logics/useCountdownOverlay';
 import useCountdown from '../../logics/useCountdown';
-
-//UseContext
 import { CountdownContext } from '../../context/CountdownContext';
-
 import useAudioPlayer from '../../logics/useAudioPlayer';
 
 const Main = () => {
