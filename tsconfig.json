@@ -43,6 +43,6 @@
     "skipLibCheck": true
   },
   "include": [
-    "memory/src", "type/svgType.tsx", "components",
+    "src/projects/memory", "src/type/svgType.tsx", "src/components",
   ]
 }

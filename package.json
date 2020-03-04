@@ -14,11 +14,12 @@
     "react-scripts": "3.2.0",
     "typescript": "3.7.2"
   },
+  "workspaces": ["src/projects"],
   "scripts": {
     "start": "npm run start:dev",
     "start:dev": "webpack-dev-server --config ./webpack/webpack.dev.babel.js",
     "start:prod": "webpack --config ./webpack/webpack.prod.babel.js",
-    "tailwind:css": "tailwind build tailwind.css -c  tailwind.config.js -o tailwind.css",
+    "tailwind:css": "tailwind build src/tailwind.css -c  tailwind.config.js -o src/tailwind.css",
     "build": "npm run tailwind:css && react-scripts build"
   },
   "eslintConfig": {

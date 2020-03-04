@@ -1,14 +1,14 @@
 export const PROJECTS = {
     Memory: {
-        entryPath: 'memory/src',
+        entryPath: 'src/projects/memory',
         entryPoint: 'index.tsx',
     },
     Chrono: {
-        entryPath: 'chrono/src',
+        entryPath: 'src/projects/chrono',
         entryPoint: 'index.tsx',
     },
     Cardiaque: {
-        entryPath: 'cardiaque/src',
+        entryPath: 'src/projects/cardiaque',
         entryPoint: 'index.tsx',
     },
 };

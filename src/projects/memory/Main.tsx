@@ -4,7 +4,7 @@ import React, { useState, useEffect, useContext } from 'react';
 //GLOBAL CONST
 import Path from '../../consts';
 //ASSETS
-import memoryImages from './assets/images.json';
+import memoryImages from './assets/images.json.js';
 // import memoryBg from './assets/img/lake.jpg';
 
 //COMPONENTS
