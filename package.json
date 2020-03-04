@@ -13,8 +13,7 @@
         "start": "yarn start:dev",
         "start:dev": "webpack-dev-server --config ./webpack/webpack.dev.babel.js",
         "start:prod": "webpack --config ./webpack/webpack.prod.babel.js",
-        "build:css": "tailwind build global/tailwind.css -c  tailwind.config.js -o global/tailwind.css",
-        "build": "yarn build:css && react-scripts build"
+        "build:css": "tailwind build global/tailwind.css -c tailwind.config.js -o global/tailwind.css"
     },
     "eslintConfig": {
         "extends": "react-app"
@@ -75,9 +74,8 @@
         "react-hot-loader": "^4.12.19",
         "resolve-url-loader": "^3.1.1",
         "sass-loader": "^8.0.2",
-        "react-scripts": "3.4.0",
-        "tailwindcss": "^1.1.4",
         "terser-webpack-plugin": "^2.3.4",
+        "tailwindcss": "^1.1.4",
         "typescript": "3.7.2",
         "webpack": "^4.42.0",
         "webpack-build-notifier": "^2.0.0",

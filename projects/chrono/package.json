@@ -7,11 +7,9 @@
         "react-dom": "^16.12.0"
     },
     "scripts": {
-        "build:css": "tailwind build ../../global/tailwind.css -c ../../tailwind.config.js -o ../../global/tailwind.css",
-        "build": "yarn build:css && react-scripts build"
+        "build": "react-scripts build"
     },
     "devDependencies": {
-        "react-scripts": "3.4.0",
-        "tailwindcss": "^1.1.4"
+        "react-scripts": "3.4.0"
     }
 }
