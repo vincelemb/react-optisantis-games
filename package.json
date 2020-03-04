@@ -10,10 +10,9 @@
         "projects/*"
     ],
     "scripts": {
-        "start": "yarn start:dev",
-        "start:dev": "webpack-dev-server --config ./webpack/webpack.dev.babel.js",
-        "start:prod": "webpack --config ./webpack/webpack.prod.babel.js",
-        "build:css": "tailwind build global/tailwind.css -c tailwind.config.js -o global/tailwind.css"
+        "dev": "webpack-dev-server --config ./webpack/webpack.dev.babel.js",
+        "prod": "webpack --config ./webpack/webpack.prod.babel.js",
+        "css": "tailwind build global/tailwind.css -c tailwind.config.js -o global/tailwind.css"
     },
     "eslintConfig": {
         "extends": "react-app"
