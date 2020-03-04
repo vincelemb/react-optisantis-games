@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Path } from '@optisantis/outil-global/config';
-import { Audio, ButtonsGroup, CircleGrow, Container, Tab, BgImage, Modal } from '@optisantis/outil-global/components';
-import { PlaySvg, PauseSvg, InfoSvg } from '@optisantis/outil-global/components/svg';
+import { Audio, PlayerControls, CircleGrow, Container, Tab, BgImage, Modal } from '@optisantis/outil-global/components';
+import { InfoSvg } from '@optisantis/outil-global/components/svg';
 import chronoType from './type/chronoType';
 import './styles/index.scss';
 import useScoreTimer from './logics/useScoreTimer';
@@ -254,7 +254,7 @@ const Main = () => {
                             </div>
                         </section>
 
-                        <ButtonsGroup
+                        <PlayerControls
                             play={play}
                             isPlaying={musicPlaying}
                             audioFile={'Soul-Colors.mp3'}

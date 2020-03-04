@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Path } from '@optisantis/outil-global/config';
-import { Container, Tab, BgImage, Modal, HeartBeat, ButtonsGroup, Audio } from '@optisantis/outil-global/components';
+import { Container, Tab, BgImage, Modal, HeartBeat, PlayerControls, Audio } from '@optisantis/outil-global/components';
 import { InfoSvg } from '@optisantis/outil-global/components/svg';
 import './styles/index.scss';
 import useCountdownOverlay from '@optisantis/outil-global/logics/useCountdownOverlay';
@@ -273,7 +273,7 @@ const Main = () => {
                                 </div>
                             </div>
                         </section>
-                        <ButtonsGroup
+                        <PlayerControls
                             play={play}
                             isPlaying={musicPlaying}
                             audioFile={'Wind.mp3'}
