@@ -9,6 +9,7 @@ import {
     BgImage,
     Modal,
     TabsGroup,
+    OrderedList,
 } from '@optisantis/outil-global/components';
 import { InfoSvg } from '@optisantis/outil-global/components/svg';
 import chronoType from './type/chronoType';
@@ -121,13 +122,41 @@ const Main = () => {
             </div>
             <Container maxWidth="991px" isCenteredX>
                 <div className="_flex _px-sm">
-                    {/* Options Panel */}
                     <TabsGroup
                         contents={[
-                            { title: 'étapes', content: 'kjsdhfjksqhdfjkh', active: true },
+                            {
+                                title: 'étapes',
+                                content: (
+                                    <OrderedList
+                                        contents={[
+                                            {
+                                                color: chronoStep.stepColor && chronoStep.stepColor[0],
+                                                content: `Fermez la bouche et inspirez tranquillement par le nez en comptant jusqu'à 4.`,
+                                            },
+                                            {
+                                                color: chronoStep.stepColor && chronoStep.stepColor[1],
+                                                content: `Retenez votre souffle en comptant jusqu'à 7.`,
+                                            },
+                                            {
+                                                color: chronoStep.stepColor && chronoStep.stepColor[2],
+                                                content: `Expirez bruyamment par la bouche en comptant jusqu'à 8 et en faisant le son "whoosh".`,
+                                            },
+                                        ]}
+                                    />
+                                ),
+                                active: true,
+                            },
                             {
                                 title: 'le saviez-vous ?',
-                                content: `Cet exercice permet de diminuer le stress, et peut également vous aider à vous endormir. Idéalement, mettez-vous assis le dos bien droit, les pieds à plat au sol. Vous pouvez également pratiquer cet exercice debout, ou couché dans votre lit.`,
+                                content: [
+                                    {
+                                        content: `Cet exercice permet de diminuer le stress, et peut également vous aider à vous endormir. Idéalement, mettez-vous assis le dos bien droit, les pieds à plat au sol. Vous pouvez également pratiquer cet exercice debout, ou couché dans votre lit.`,
+                                    },
+                                    {
+                                        title: 'Avant de commencer',
+                                        content: `Fermez les yeux et expirez tout l'air de vos poumons. Touchez votre palais du bout de la langue, juste derrière les incisives, et conservez cette position pendant l'exercice`,
+                                    },
+                                ],
                                 active: false,
                             },
                         ]}

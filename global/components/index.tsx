@@ -14,6 +14,8 @@ import ScoreClick from './ScoreClick';
 import Popup from './Popup';
 import PlayerControls from './PlayerControls';
 import TabsGroup from './TabsGroup';
+import OrderedList from './OrderedList';
+
 
 export {
     Audio,
@@ -32,4 +34,5 @@ export {
     Popup,
     PlayerControls,
     TabsGroup,
+    OrderedList,
 };
