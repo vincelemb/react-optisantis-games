@@ -13,6 +13,7 @@ import Tab from './Tab';
 import ScoreClick from './ScoreClick';
 import Popup from './Popup';
 import PlayerControls from './PlayerControls';
+import TabsGroup from './TabsGroup';
 
 export {
     Audio,
@@ -30,4 +31,5 @@ export {
     Tab,
     Popup,
     PlayerControls,
+    TabsGroup,
 };
