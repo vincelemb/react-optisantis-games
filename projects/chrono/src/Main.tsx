@@ -256,7 +256,7 @@ const Main = () => {
 
                         <ButtonsGroup
                             play={play}
-                            musicPlaying={musicPlaying}
+                            isPlaying={musicPlaying}
                             audioFile={'Soul-Colors.mp3'}
                             onClick={{
                                 reset: () => reset(),
