@@ -275,7 +275,7 @@ const Main = () => {
                         </section>
                         <ButtonsGroup
                             play={play}
-                            musicPlaying={musicPlaying}
+                            isPlaying={musicPlaying}
                             audioFile={'Wind.mp3'}
                             onClick={{
                                 reset: () => reset(),
