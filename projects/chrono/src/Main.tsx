@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Path } from '../../../global/config'
-import { AudioButton, CircleGrow, Container, Tab, BgImage, Modal } from '../../../global/components';
-import { PlaySvg, PauseSvg, InfoSvg } from '../../../global/components/svg';
+import { Path } from '@optisantis/outil-global/config'
+import { AudioButton, CircleGrow, Container, Tab, BgImage, Modal } from '@optisantis/outil-global/components';
+import { PlaySvg, PauseSvg, InfoSvg } from '@optisantis/outil-global/components/svg';
 import chronoType from './type/chronoType';
 import './styles/index.scss';
 import useScoreTimer from './logics/useScoreTimer';
-import useCountdownOverlay from '../../../global/logics/useCountdownOverlay';
-import { TimerContext } from '../../../global/context/TimerContext';
-import { CountdownContext } from '../../../global/context/CountdownContext';
-import useAudioPlayer from '../../../global/logics/useAudioPlayer';
+import useCountdownOverlay from '@optisantis/outil-global/logics/useCountdownOverlay';
+import { TimerContext } from '@optisantis/outil-global/context/TimerContext';
+import { CountdownContext } from '@optisantis/outil-global/context/CountdownContext';
+import useAudioPlayer from '@optisantis/outil-global/logics/useAudioPlayer';
 
 const Main = () => {
     const [timeActive, setTimeActive] = useState<boolean>(false);

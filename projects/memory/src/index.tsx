@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import Main from './Main';
-import { TimerProvider } from '../../../global/context/TimerContext';
+import { TimerProvider } from '@optisantis/outil-global/context/TimerContext';
 
 function App() {
     return (

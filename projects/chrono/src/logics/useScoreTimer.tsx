@@ -1,5 +1,5 @@
 import { useEffect, useContext } from 'react';
-import { TimerContext } from '../../../../global/context/TimerContext';
+import { TimerContext } from '@optisantis/outil-global/context/TimerContext';
 
 export default function useScoreTimer(timeActive: boolean) {
     const { seconds, setSeconds} = useContext(TimerContext);

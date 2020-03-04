@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Path } from '../../../global/config';
+import { Path } from '@optisantis/outil-global/config';
 import memoryImages from './assets/images.json';
-import { Button, Card, Confetti, ScoreClick, Popup, Container, Layout, Tab, BgImage } from '../../../global/components';
-import { ClickSvg, TimeSvg, ReloadSvg } from '../../../global/components/svg';
+import { Button, Card, Confetti, ScoreClick, Popup, Container, Layout, Tab, BgImage } from '@optisantis/outil-global/components';
+import { ClickSvg, TimeSvg, ReloadSvg } from '@optisantis/outil-global/components/svg';
 import memoryType from './type/memoryType';
 import './styles/index.scss';
 import useScoreTimer from './logics/useScoreTimer';
 import TimeFormat from './utils/TimeFormat';
-import { TimerContext } from '../../../global/context/TimerContext';
+import { TimerContext } from '@optisantis/outil-global/context/TimerContext';
 
 const Main = () => {
     let numbers = [12, 16, 20, 24, 28];
