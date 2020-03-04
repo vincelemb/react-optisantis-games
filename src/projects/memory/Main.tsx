@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import '../../config'
+import { Path } from '../../config'
 import memoryImages from './assets/images.json';
 import { Button, Card, Confetti, ScoreClick, Popup, Container, Layout, Tab, BgImage } from '../../components';
 import { ClickSvg, TimeSvg, ReloadSvg } from '../../components/svg';

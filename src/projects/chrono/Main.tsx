@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import '../../config'
+import { Path } from '../../config'
 import { AudioButton, CircleGrow, Container, Tab, BgImage, Modal } from '../../components';
 import { PlaySvg, PauseSvg, InfoSvg } from '../../components/svg';
 import chronoType from './type/chronoType';

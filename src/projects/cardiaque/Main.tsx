@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import '../../config'
+import { Path } from '../../config'
 import { AudioButton, Audio, Container, Tab, BgImage, Modal, HeartBeat } from '../../components';
 import { PauseSvg, PlaySvg, InfoSvg } from '../../components/svg';
 import './styles/index.scss';
