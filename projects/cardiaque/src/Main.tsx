@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Path } from '@optisantis/outil-global/config';
-import { AudioButton, Audio, Container, Tab, BgImage, Modal, HeartBeat } from '@optisantis/outil-global/components';
-import { PauseSvg, PlaySvg, InfoSvg } from '@optisantis/outil-global/components/svg';
+import { Container, Tab, BgImage, Modal, HeartBeat, ButtonsGroup, Audio } from '@optisantis/outil-global/components';
+import { InfoSvg } from '@optisantis/outil-global/components/svg';
 import './styles/index.scss';
 import useCountdownOverlay from '@optisantis/outil-global/logics/useCountdownOverlay';
 import useCountdown from '@optisantis/outil-global/logics/useCountdown';
@@ -273,37 +273,23 @@ const Main = () => {
                                 </div>
                             </div>
                         </section>
-
-                        <div className="_mt-sm _mb-lg _w-full _flex _justify-center _items-center">
-                            <button
-                                className="_bg-white _rounded-rounded _w-xxl _h-xxl _border-none _p-xs _cursor-pointer _outline-none _flex _items-center _justify-center"
-                                onClick={() => {
-                                    reset();
-                                }}>
-                                <div className="_w-sm _h-sm _bg-warning"></div>
-                            </button>
-                            <button
-                                className="_bg-white _rounded-rounded _w-xxxl _h-xxxl _border-none _cursor-pointer _outline-none _mx-sm _p-none"
-                                onClick={() => {
+                        <ButtonsGroup
+                            play={play}
+                            musicPlaying={musicPlaying}
+                            audioFile={'Wind.mp3'}
+                            onClick={{
+                                reset: () => reset(),
+                                pause: () => {
                                     setCountdownOverlaySeconds(changeDataCountdown ? 3 : 5);
                                     setPlay(!play);
-                                }}>
-                                <div className="_flex _items-center _justify-center">
-                                    {play ? <PauseSvg svgWidth="25px"></PauseSvg> : <PlaySvg svgWidth="25px"></PlaySvg>}
-                                </div>
-                            </button>
-
-                            <AudioButton
-                                id="music"
-                                audioFile={'Wind.mp3'}
-                                isPlaying={musicPlaying}
-                                toggleMusic={() => {
+                                },
+                                audio: () => {
                                     setResetMusic(false);
                                     setMusicPlaying(!musicPlaying);
-                                }}></AudioButton>
-
-                            <Audio id="audio" audioFile={'bip.mp3'}></Audio>
-                        </div>
+                                },
+                            }}
+                        />
+                        <Audio id="audio" audioFile={'bip.mp3'}></Audio>
                     </section>
                 </div>
             </Container>
