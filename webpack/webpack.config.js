@@ -15,7 +15,7 @@ export const PROJECTS = {
 
 const buildEntries = () => {
     const entries = {};
-
+    
     for (const project in PROJECTS) {
         entries[project] = `./${PROJECTS[project].entryPath}/${PROJECTS[project].entryPoint}`;
     }
