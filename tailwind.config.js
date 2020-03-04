@@ -115,7 +115,6 @@ module.exports = {
   },
   variants: {
     borderColor: [''],
-    backgroundColor: [''],
     fontWeight: [''],
     opacity: [''],
     boxShadow: [''],

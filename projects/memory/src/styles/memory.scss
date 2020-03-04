@@ -1,0 +1,67 @@
+
+body{
+    overflow: hidden;
+}
+
+$baseWidth: 100%;
+
+@for $i from 1 through 7 {
+    .Grid._col-#{$i} > * {
+        width: calc(#{$baseWidth / $i} - 10px);
+    }
+    .Grid._col-#{$i} > * > * {
+        width: 100%;
+    }
+}
+
+.Grid{
+    flex-wrap: wrap;   
+}
+
+// import 'memoryImages' from './assets/images.json';
+
+.memory-bg{
+    overflow: auto;
+    background-image:url('http://localhost:8089/assets/img/lake.jpg') ;
+    background-size: cover;
+    height: 100vh;
+}
+
+.card {
+    background-color: white;
+    border: none;
+    box-shadow: 0 6px 11px -2px rgba(0, 0, 0, 0.54);
+    transform-style: preserve-3d;
+    overflow: hidden;
+    transition: .5s ease-in-out all;
+    outline-width: 0;
+    
+    img {
+        width: 100%;
+        transition: .2s ease-in-out all;
+        pointer-events:none;
+        opacity: 0;
+    }
+    
+    &.-isFlipped{
+        transition: .5s ease-in-out all;
+        transform: rotateY(180deg);
+        img {
+            transition: .5s ease-in-out all;
+            opacity: 1;
+        }
+    }
+
+    &.-isWin{
+        transition: .5s ease-in-out all;
+        transform: rotateY(180deg);
+        box-shadow: none;
+        pointer-events:none;
+        transition: unset;
+        background-color: #f5f5f5;
+        img {
+            transition: .5s ease-in-out all;
+            opacity: 1;
+        }
+    }
+}

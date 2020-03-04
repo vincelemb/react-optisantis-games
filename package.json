@@ -7,14 +7,14 @@
         "react-dom": "^16.12.0"
     },
     "workspaces": [
-        "src/projects/*"
+        "projects/*"
     ],
     "scripts": {
         "start": "yarn start:dev",
         "start:dev": "webpack-dev-server --config ./webpack/webpack.dev.babel.js",
         "start:prod": "webpack --config ./webpack/webpack.prod.babel.js",
-        "build:css": "tailwind build src/tailwind.css -c  tailwind.config.js -o src/tailwind.css",
-        "build": "yarn tailwind:css && react-scripts build"
+        "build:css": "tailwind build global/tailwind.css -c  tailwind.config.js -o global/tailwind.css",
+        "build": "yarn build:css && react-scripts build"
     },
     "eslintConfig": {
         "extends": "react-app"

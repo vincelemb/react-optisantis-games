@@ -1,0 +1,17 @@
+{
+    "version": "1.0.0",
+    "name": "@optisantis/outils-chrono",
+    "homepage": "./",
+    "dependencies": {
+        "react": "^16.12.0",
+        "react-dom": "^16.12.0"
+    },
+    "scripts": {
+        "build:css": "tailwind build ../../global/tailwind.css -c ../../tailwind.config.js -o ../../global/tailwind.css",
+        "build": "yarn build:css && react-scripts build"
+    },
+    "devDependencies": {
+        "react-scripts": "3.4.0",
+        "tailwindcss": "^1.1.4"
+    }
+}
