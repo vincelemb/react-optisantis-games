@@ -36,5 +36,5 @@
         "strictPropertyInitialization": true,
         "suppressImplicitAnyIndexErrors": true
     },
-    "include": ["projects/*", "global/*"]
+    "include": ["projects/*", "global/*, enzymeSetup.ts"]
 }
