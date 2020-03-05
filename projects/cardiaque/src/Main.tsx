@@ -1,6 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Path } from '@optisantis/outil-global/config';
-import { Container, Tab, BgImage, Modal, HeartBeat, ButtonsGroup, Audio } from '@optisantis/outil-global/components';
+import {
+    Container,
+    Tab,
+    BgImage,
+    Modal,
+    HeartBeat,
+    PlayerControls,
+    Audio,
+    TabsGroup,
+    OrderedList,
+} from '@optisantis/outil-global/components';
 import { InfoSvg } from '@optisantis/outil-global/components/svg';
 import './styles/index.scss';
 import useCountdownOverlay from '@optisantis/outil-global/logics/useCountdownOverlay';
@@ -23,8 +33,6 @@ const Main = () => {
 
     const [activeTab, setActiveTab] = useState<boolean>(true);
     const [pannelLeft, setPannelLeft] = useState<boolean>(true);
-    const [activeSubTab, setActiveSubTab] = useState<boolean>(true);
-    const [subPannelLeft, setSubPannelLeft] = useState<boolean>(true);
     const [changeDataCountdown, setChangeDataCountdown] = useState<boolean>(false);
 
     const [firstBip, setFirstBip] = useState<number>(0);
@@ -112,83 +120,36 @@ const Main = () => {
             </div>
             <Container maxWidth="991px" isCenteredX>
                 <div className="_flex _px-sm">
-                    {/* Options Panel */}
-                    <aside
-                        className={`_bg-white _my-xl _h-full _w-full _rounded-small ${
-                            pannelLeft ? '_block' : 'lg:_hidden '
-                        }`}>
-                        <nav>
-                            <ul className="_justify-around _flex _cursor-pointer _p-sm _m-none">
-                                <Tab
-                                    isActive={activeSubTab}
-                                    borderBottomStyle={true}
-                                    toogleTab={() => {
-                                        setSubPannelLeft(true);
-                                        return !activeSubTab ? setActiveSubTab(!activeSubTab) : null;
-                                    }}>
-                                    <span className="_uppercase _text-center">Étapes</span>
-                                </Tab>
-                                <Tab
-                                    isActive={!activeSubTab}
-                                    borderBottomStyle={true}
-                                    toogleTab={() => {
-                                        setSubPannelLeft(false);
-                                        return activeSubTab ? setActiveSubTab(!activeSubTab) : null;
-                                    }}>
-                                    <span className="_uppercase _text-center">Le Saviez-vous ?</span>
-                                </Tab>
-                            </ul>
-                        </nav>
-                        <div className="_p-sm">
-                            {subPannelLeft === true && (
-                                <section className="_flex _flex-col _w-full _relative">
-                                    <ol className="_m-none _list-none _p-none">
-                                        <li className="_flex _p-sm">
-                                            <span
-                                                className={`_mr-sm _w-lg _rounded-rounded _text-white _leading-loose _text-center _min-w-lg _max-h-lg _bg-primary`}>
-                                                1
-                                            </span>
-                                            <p className="_m-none">
-                                                Faites l'exercice <strong className="_text-primary">3</strong> fois par
-                                                jour, de préférence assis, les yeux ouverts ou fermés, le dos bien droit
-                                                et les pieds posés à plat au sol.
-                                            </p>
-                                        </li>
-                                        <li className="_flex _p-sm">
-                                            <span
-                                                className={`_mr-sm _w-lg _rounded-rounded _text-white _leading-loose _text-center _min-w-lg _max-h-lg _bg-primary`}>
-                                                2
-                                            </span>
-                                            <p className="_m-none">
-                                                Respirez <strong className="_text-primary">6</strong> fois par minute :
-                                                inspirez en comptant jusqu'à 5, puis expirez en comptant jusqu'à 5. Le
-                                                signal sonore vous aide à vous repérer.
-                                            </p>{' '}
-                                        </li>
-                                        <li className="_flex _p-sm">
-                                            <span
-                                                className={`_mr-sm _w-lg _rounded-rounded _text-white _leading-loose _text-center _min-w-lg _max-h-lg _bg-primary`}>
-                                                3
-                                            </span>
-                                            <p className="_m-none">
-                                                Idéalement, pratiquez cet exercice pendant{' '}
-                                                <strong className="_text-primary">5</strong> minutes.
-                                            </p>
-                                        </li>
-                                    </ol>
-                                </section>
-                            )}
-                            {subPannelLeft === false && (
-                                <p className="_m-none">
-                                    Cette technique de relaxation se base sur des exercices de respiration pour
-                                    atteindre un état d'équilibre du système nerveux autonome (notre "pilote
-                                    automatique"). En agissant sur la variabilité du rythme cardiaque, il est possible
-                                    de gérer son état émotionnel et d’améliorer son bien-être physique et psychique :
-                                    moins de stress, meilleur sommeil, meilleure concentration…
-                                </p>
-                            )}
-                        </div>
-                    </aside>
+                    <TabsGroup
+                        contents={[
+                            {
+                                title: 'étapes',
+                                subcontent: (
+                                    <OrderedList
+                                        lists={[
+                                            {
+                                                content: `Faites l'exercice 3 fois par jour, de préférence assis, les yeux ouverts ou fermés, le dos bien droit et les pieds posés à plat au sol.`,
+                                            },
+                                            {
+                                                content: `Respirez 6 fois par minute : inspirez en comptant jusqu'à 5, puis expirez en comptant jusqu'à 5. Le signal sonore vous aide à vous repérer.`,
+                                            },
+                                            {
+                                                content: `Idéalement, pratiquez cet exercice pendant 5 minutes`,
+                                            },
+                                        ]}
+                                    />
+                                ),
+                            },
+                            {
+                                title: 'le saviez-vous ?',
+                                subcontent: `Cette technique de relaxation se base sur des exercices de respiration pour
+                                atteindre un état d'équilibre du système nerveux autonome (notre "pilote
+                                automatique"). En agissant sur la variabilité du rythme cardiaque, il est possible
+                                de gérer son état émotionnel et d’améliorer son bien-être physique et psychique :
+                                moins de stress, meilleur sommeil, meilleure concentration…`,
+                            },
+                        ]}
+                    />
 
                     {/* Game Panel */}
                     <section
@@ -273,7 +234,8 @@ const Main = () => {
                                 </div>
                             </div>
                         </section>
-                        <ButtonsGroup
+
+                        <PlayerControls
                             play={play}
                             isPlaying={musicPlaying}
                             audioFile={'Wind.mp3'}

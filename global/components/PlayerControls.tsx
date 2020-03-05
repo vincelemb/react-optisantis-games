@@ -2,20 +2,20 @@ import React from 'react';
 import { AudioButton } from '.';
 import { PauseSvg, PlaySvg } from './svg';
 
-type ClickButtonsGroup = {
+type ClickPlayerControls = {
     reset: () => any;
     pause: () => any;
     audio: () => any;
 };
 
-interface ButtonsGroupProps {
+interface PlayerControlsProps {
     play: boolean | undefined;
-    onClick: ClickButtonsGroup;
+    onClick: ClickPlayerControls;
     isPlaying: boolean | undefined;
     audioFile: string;
 }
 
-const ButtonsGroup: React.FC<ButtonsGroupProps> = ({ play, onClick, ...audioProps }) => (
+const PlayerControls: React.FC<PlayerControlsProps> = ({ play, onClick, ...audioProps }) => (
     <div className="_mt-sm _mb-lg _w-full _flex _justify-center _items-center">
         <button
             className="_bg-white _rounded-rounded _w-xxl _h-xxl _border-none _p-xs _cursor-pointer _outline-none _flex _items-center _justify-center"
@@ -25,7 +25,7 @@ const ButtonsGroup: React.FC<ButtonsGroupProps> = ({ play, onClick, ...audioProp
         <button
             className="_bg-white _rounded-rounded _w-xxxl _h-xxxl _border-none _cursor-pointer _outline-none _mx-sm _p-none"
             onClick={onClick.pause}>
-            <div className="_flex _items-center _justify-center">
+            <div className="_flex _items-center _justify-center _ml-xxs">
                 {play ? <PauseSvg svgWidth="25px"></PauseSvg> : <PlaySvg svgWidth="25px"></PlaySvg>}
             </div>
         </button>
@@ -33,4 +33,4 @@ const ButtonsGroup: React.FC<ButtonsGroupProps> = ({ play, onClick, ...audioProp
     </div>
 );
 
-export default ButtonsGroup;
+export default PlayerControls;
