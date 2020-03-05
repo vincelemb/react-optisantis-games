@@ -4,11 +4,11 @@
 
 `🎯 Prévu`, `🚧 En cours`, `🎉 Terminé`
 
-| Outils                    | Status       | Livraison   |
-| ------------------------- | ------------ | ----------- |
-| **Memory**                | `🚧 En cours` | `à definir` |
-| **Chrono**                | `🚧 En cours` | `à definir` |
-| **Cardiaque**             | `🚧 En cours` | `à definir` |
+| Outils                    | Status        | Livraison   |
+| ------------------------- | ------------- | ----------- |
+| **Memory**                | `🚧 En cours` | `20 mars`   |
+| **Chrono**                | `🚧 En cours` | `20 mars`   |
+| **Cardiaque**             | `🚧 En cours` | `20 mars`   |
 | **Portitions de la main** | `🎯 Prévu`    | `à definir` |
 
 ## Installation
