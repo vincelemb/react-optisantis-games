@@ -28,11 +28,11 @@ const TabsGroup: React.FC<TabsGroupProps> = ({ contents }) => {
 
     const content = contents.map(({ subcontent }, idx) => {
         let returnedContent = Array.isArray(subcontent)
-            ? subcontent.map(({ title, content }) => (
-                  <>
+            ? subcontent.map(({ title, content }, idx) => (
+                  <React.Fragment key={idx}>
                       {title && <h3 className="_mb-none _mt-lg _text-primary _text-lg _font-normal">{title}</h3>}
-                      <p className="_mt-none">{content}</p>
-                  </>
+                      {content}
+                  </React.Fragment>
               ))
             : subcontent;
 
