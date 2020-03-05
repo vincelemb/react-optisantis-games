@@ -12,7 +12,9 @@ import Modal from './Modal';
 import Tab from './Tab';
 import ScoreClick from './ScoreClick';
 import Popup from './Popup';
-import ButtonsGroup from './ButtonsGroup';
+import PlayerControls from './PlayerControls';
+import TabsGroup from './TabsGroup';
+import OrderedList from './OrderedList';
 
 export {
     Audio,
@@ -29,5 +31,7 @@ export {
     Modal,
     Tab,
     Popup,
-    ButtonsGroup,
+    PlayerControls,
+    TabsGroup,
+    OrderedList,
 };
