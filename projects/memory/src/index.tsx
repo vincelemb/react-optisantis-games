@@ -1,12 +1,21 @@
 import React from 'react';
 import ReactDom from 'react-dom';
+import './styles/index.scss';
+
 import Main from './Main';
+
 import { TimerProvider } from '@optisantis/outil-global/context/TimerContext';
+import { ThemeProvider } from './contexts/ThemeContext';
+import { LevelProvider } from './contexts/LevelContext';
 
 function App() {
     return (
         <TimerProvider>
-            <Main />
+            <LevelProvider>
+                <ThemeProvider>
+                    <Main />
+                </ThemeProvider>
+            </LevelProvider>
         </TimerProvider>
     );
 }

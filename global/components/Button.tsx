@@ -1,16 +1,14 @@
 import React from 'react';
 
 type ButtonProps = {
-    activeClass?: string;
-    onClick: (event) => void;
+    isActive?: boolean;
+    theme: 'dark' | 'light';
+    onClick: () => void;
 };
 
-const Button: React.FC<ButtonProps> = ({ children, activeClass, onClick }: React.PropsWithChildren<ButtonProps>) => (
+const Button: React.FC<ButtonProps> = ({ children, theme, isActive, onClick }: React.PropsWithChildren<ButtonProps>) => (
     <button
-        className={
-            activeClass &&
-            activeClass +
-                ' _cursor-pointer _outline-none _leading-normal _border-solid _border _bg-transparent _m-xxs _rounded-md _shadow-none _p-sm'
+        className={`Button -${theme} ${isActive ? '-active' : ''}`
         }
         onClick={onClick}>
         {children}

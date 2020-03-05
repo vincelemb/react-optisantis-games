@@ -10,7 +10,7 @@ export const PROJECTS = {
     Cardiaque: {
         entryPath: 'projects/cardiaque/src',
         entryPoint: 'index.tsx',
-    },
+    }
 };
 
 const buildEntries = () => {

@@ -1,5 +1,4 @@
 import React, { createContext, useState } from 'react';
-// @ts-ignore
 
 export type TimeContextType = {
     seconds: number;
