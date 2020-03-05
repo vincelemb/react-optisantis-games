@@ -1,22 +1,20 @@
-import React from 'react'
+import React from 'react';
 
 type ButtonProps = {
-    label?: string;
-    number?: number;
-    activeClass?:string;
+    activeClass?: string;
     onClick: (event) => void;
-}
+};
 
+const Button: React.FC<ButtonProps> = ({ children, activeClass, onClick }: React.PropsWithChildren<ButtonProps>) => (
+    <button
+        className={
+            activeClass &&
+            activeClass +
+                ' _cursor-pointer _outline-none _leading-normal _border-solid _border _bg-transparent _m-xxs _rounded-md _shadow-none _p-sm'
+        }
+        onClick={onClick}>
+        {children}
+    </button>
+);
 
-const Button: React.FC<ButtonProps> = (props: React.PropsWithChildren<ButtonProps>) => 
-
-    (
-        <button className={props.activeClass && props.activeClass +' _cursor-pointer _outline-none _leading-normal _border-solid _border _bg-transparent _m-xxs _rounded-md _shadow-none _p-sm'} onClick={props.onClick}>
-            <span className="_block">{props.number && props.number }</span>    
-            <span className="_block">{props.label && props.label}</span>    
-            {props.children}
-        </button>
-    )
-
-
-export default Button
+export default Button;
