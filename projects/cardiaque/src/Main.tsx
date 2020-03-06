@@ -40,10 +40,8 @@ const Main = () => {
     let width = useCurrentWidth();
     const [activeTab, setActiveTab] = useState<boolean>(false);
 
-    // console.log(width);
     useEffect(() => {
         width > 991 ? setActiveTab(true) : setActiveTab(false);
-        // console.log(windowWidth);
     }, [width]);
 
     useEffect(() => {
