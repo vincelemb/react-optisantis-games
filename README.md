@@ -23,16 +23,12 @@ yarn install
 
 ### Link global package
 
-Pour pouvoir utiliser les fichiers sources en dehors des projets, vous devez créer un `symlink` avec `npm`.
+Pour pouvoir utiliser les fichiers sources en dehors des projets, vous devez créer un `symlink` avec le dossier `global`.
 
 ```bash
-# <project-name> étant le nom du projet ciblé,
-# faire cette manipulation pour chaques projet.
-
-cd projects/<project-name> && npm link ../../global
+# Créer un symlink pour tous les dossier présents dans `projects/`.
+yarn pckg:link
 ```
-
-
 
 ## Developpement
 
