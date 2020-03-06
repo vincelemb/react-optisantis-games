@@ -28,7 +28,7 @@ yarn install
 yarn dev
 ```
 
-Lors du premier lancement du script `yarn dev`, on `link` le `global` avec tous les dossiers présents dans le dossier `projects`. Ce qui permet ensuite de pouvoir importer les fichiers présents dans le dossir `global` via `import { <name> } from '@optisantis/outil-global`.
+Lors du premier lancement du script `yarn dev`, on `link` le `global` avec tous les dossiers présents dans le dossier `projects`. Ce qui permet ensuite de pouvoir importer les fichiers présents dans le dossier `global` via `import { <name> } from '@optisantis/outil-global`.
 
 ### Urls
 
@@ -51,16 +51,8 @@ Le css utilise la dépendance [`tailwind`](https://tailwindcss.com/), nous avons
 .
 ├── dist
 ├── global
-│   ├── components
-│   ├── context
-│   ├── logics
-│   ├── styles
-│   └── type
 ├── node_modules
 ├── projects
-│   ├── cardiaque
-│   ├── chrono
-│   └── memory
 ├── scripts
 └── webpack
 ```
