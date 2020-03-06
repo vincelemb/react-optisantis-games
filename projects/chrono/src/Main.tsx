@@ -14,11 +14,9 @@ import {
 import { InfoSvg } from '@optisantis/outil-global/components/svg';
 import chronoType from './type/chronoType';
 import './styles/index.scss';
+import { useCountdownOverlay, useAudioPlayer } from '@optisantis/outil-global/logics';
+import { CountdownContext, TimerContext } from '@optisantis/outil-global/context';
 import useScoreTimer from './logics/useScoreTimer';
-import useCountdownOverlay from '@optisantis/outil-global/logics/useCountdownOverlay';
-import { TimerContext } from '@optisantis/outil-global/context/TimerContext';
-import { CountdownContext } from '@optisantis/outil-global/context/CountdownContext';
-import useAudioPlayer from '@optisantis/outil-global/logics/useAudioPlayer';
 
 const Main = () => {
     const [timeActive, setTimeActive] = useState<boolean>(false);

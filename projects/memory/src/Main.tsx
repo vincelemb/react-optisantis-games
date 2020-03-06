@@ -1,7 +1,17 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Path } from '@optisantis/outil-global/config';
 import memoryImages from './assets/images.json';
-import { Button, Card, Confetti, ScoreClick, Popup, Container, Layout, Tab, BgImage } from '@optisantis/outil-global/components';
+import {
+    Button,
+    Card,
+    Confetti,
+    ScoreClick,
+    Popup,
+    Container,
+    Layout,
+    Tab,
+    BgImage,
+} from '@optisantis/outil-global/components';
 import { ClickSvg, TimeSvg, ReloadSvg } from '@optisantis/outil-global/components/svg';
 import memoryType from './type/memoryType';
 import './styles/index.scss';
@@ -221,21 +231,21 @@ const Main = () => {
      * @param {Array} array
      */
     function shuffle(array) {
-        // let counter = array.length;
+        let counter = array.length;
 
-        // // While there are elements in the array
-        // while (counter > 0) {
-        //     // Pick a random index
-        //     let index = Math.floor(Math.random() * counter);
+        // While there are elements in the array
+        while (counter > 0) {
+            // Pick a random index
+            let index = Math.floor(Math.random() * counter);
 
-        //     // Decrease counter by 1
-        //     counter--;
+            // Decrease counter by 1
+            counter--;
 
-        //     // And swap the last element with it
-        //     let temp = array[counter];
-        //     array[counter] = array[index];
-        //     array[index] = temp;
-        // }
+            // And swap the last element with it
+            let temp = array[counter];
+            array[counter] = array[index];
+            array[index] = temp;
+        }
         return array;
     }
 
