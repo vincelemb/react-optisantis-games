@@ -6,10 +6,11 @@
 
 | Outils                    | Status       | Livraison   |
 | ------------------------- | ------------ | ----------- |
-| **Memory**                | `🚧 En cours` | `à definir` |
-| **Chrono**                | `🚧 En cours` | `à definir` |
-| **Cardiaque**             | `🚧 En cours` | `à definir` |
+| **Memory**                | `🚧 En cours` | `20 mars`   |
+| **Chrono**                | `🚧 En cours` | `20 mars`   |
+| **Cardiaque**             | `🚧 En cours` | `20 mars`   |
 | **Portitions de la main** | `🎯 Prévu`    | `à definir` |
+| **Vidéos**                | `🚧 En cours` | `20 mars`   |
 
 ## Installation
 
@@ -21,24 +22,13 @@ Pour installer toutes les dépendances :
 yarn install
 ```
 
-### Link global package
-
-Pour pouvoir utiliser les fichiers sources en dehors des projets, vous devez créer un `symlink` avec `npm`.
-
-```bash
-# <project-name> étant le nom du projet ciblé,
-# faire cette manipulation pour chaques projet.
-
-cd projects/<project-name> && npm link ../../global
-```
-
-
-
 ## Developpement
 
 ```bash
 yarn dev
 ```
+
+Lors du premier lancement du script `yarn dev`, on `link` le `global` avec tous les dossiers présents dans le dossier `projects`. Ce qui permet ensuite de pouvoir importer les fichiers présents dans le dossier `global` via `import { <name> } from '@optisantis/outil-global`.
 
 ### Urls
 
@@ -46,13 +36,7 @@ Pour accéder au `Hot Module Replacement` vous devez accéder à cette url :
 
 `http://localhost:8089/projects/<project-name>/public/`
 
-## Production
-
-```bash
-yarn build
-```
-
-## Styles
+### Styles
 
 ```bash
 # Créer un fichier tailwind.css dans global/
@@ -60,3 +44,20 @@ yarn css
 ```
 
 Le css utilise la dépendance [`tailwind`](https://tailwindcss.com/), nous avons donc besoin de générer un fichier css contenant toutes les classes utilitaires nécessaires.
+
+## Architecture
+
+```
+.
+├── dist
+├── global
+├── node_modules
+├── projects
+├── scripts
+└── webpack
+```
+
+`global` contient tous les fichiers réutilisablent dans les différents `projects`.
+
+`projects` contients tous les dossiers qui deviendrons un outils servis dans l'API via le dossier `public`.
+

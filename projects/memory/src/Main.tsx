@@ -12,6 +12,7 @@ import {
     Tab,
     BgImage,
 } from '@optisantis/outil-global/components';
+import OptionsSection from './components/OptionsSection';
 import { ClickSvg, TimeSvg, ReloadSvg } from '@optisantis/outil-global/components/svg';
 import memoryType from './type/memoryType';
 import './styles/index.scss';
@@ -130,10 +131,6 @@ const Main = () => {
         }
     }, [winPairs]);
 
-    // useEffect(() => {
-    //     //TO DO : QUAND LE TIMER PASSE A UNE MINUTE le formater avec l'affichage et l'enregistrement dans le tableau
-    // }, [saveScore]);
-
     useEffect(() => {
         setIndexLevel(saveScore.findIndex((index) => index.level === numberCard));
     }, [reset]);
@@ -161,49 +158,6 @@ const Main = () => {
         setIsModlaHide(true);
         setTimeActive(false);
         setIsConfetti(false);
-    }
-
-    function renderLevelBtns() {
-        const Buttons: JSX.Element[] = [];
-        numbers &&
-            numbers.map((number, index) => {
-                Buttons.push(
-                    <Button
-                        key={index}
-                        label={'cartes'}
-                        number={number}
-                        activeClass={
-                            numberCard === numbers[index] ? '_bg-primary _text-white' : '_text-primary _border-primary'
-                        }
-                        onClick={() => {
-                            toggleClass(index);
-                            reset();
-                        }}
-                    />
-                );
-                return numbers;
-            });
-        return <div className="_flex _flex-wrap _justify-center _px-md _py-sm _rounded-small">{Buttons}</div>;
-    }
-
-    function renderThemeBtns() {
-        const ButtonsTheme: JSX.Element[] = [];
-        Object.keys(themes).map((key, value) => {
-            ButtonsTheme.push(
-                <Button
-                    key={key}
-                    label={themes[key]}
-                    activeClass={images === themes[key] ? '_bg-white _text-primary' : '_text-white _border-white'}
-                    onClick={() => {
-                        setImages(themes[key]);
-                        changetheme(Object.keys(themes)[value]);
-                        reset();
-                    }}
-                />
-            );
-            return themes;
-        });
-        return <div className="_flex _justify-center _px-md _py-sm _rounded-small _flex-wrap">{ButtonsTheme}</div>;
     }
 
     /**
@@ -306,10 +260,6 @@ const Main = () => {
         );
     };
 
-    // const displayWinSentence = (type:any) =>{
-    //     return saveScore[indexLevel] ? saveScore[indexLevel].type === type ? '_block ' : '_hidden' : "_hidden"
-    // }
-
     return (
         <BgImage imageUrl={'./assets/img/lake.jpg'}>
             {renderConfetti()}
@@ -335,14 +285,16 @@ const Main = () => {
                 <div className="_flex _px-sm">
                     {/* Options Panel */}
                     <section className={`_mr-md lg:_mr-none _my-xl _w-full ${pannelLeft ? '_block' : 'lg:_hidden '}`}>
-                        <div className="_bg-darkenprimary _rounded-small ">
-                            <h2 className="_text-center _text-white _m-none _pt-sm">Thème</h2>
-                            {renderThemeBtns()}
-                        </div>
-                        <div className="_bg-white _rounded-small _mt-sm">
-                            <h2 className="_text-center _text-primary _m-none _pt-sm">Niveau de difficulté</h2>
-                            {renderLevelBtns()}
-                        </div>
+                        <OptionsSection
+                            title="Thème"
+                            options={['Fruit et Légumes', 'Médical', 'Météo', 'Sommeil', 'Sport']}
+                            theme="dark"
+                        />
+                        <OptionsSection
+                            title="Niveau de difficulté"
+                            options={['12', '16', '20', '24', '28']}
+                            theme="light"
+                        />
                         <div className="_bg-darkenprimary _mt-sm _rounded-small ">
                             <h2 className="_text-center _text-white _m-none _pt-sm">Score</h2>
                             <span className="_text-center _text-white _block _mt-xxs">{`(${numberCard} cartes)`}</span>

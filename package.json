@@ -10,10 +10,11 @@
         "projects/*"
     ],
     "scripts": {
-        "dev": "webpack-dev-server --config ./webpack/webpack.dev.babel.js",
+        "dev": "yarn pckg:link && webpack-dev-server --config ./webpack/webpack.dev.babel.js",
         "prod": "webpack --config ./webpack/webpack.prod.babel.js",
         "css": "tailwind build global/tailwind.css -c tailwind.config.js -o global/tailwind.css",
-        "test": "jest"
+        "test": "jest",
+        "pckg:link": "yarn ts-node scripts/linkPackages.ts"
     },
     "eslintConfig": {
         "extends": "react-app"
@@ -71,6 +72,7 @@
         "autoprefixer": "^9.7.3",
         "babel-loader": "^8.0.6",
         "babel-plugin-macros": "^2.8.0",
+        "chalk": "^3.0.0",
         "core-js": "^3.6.4",
         "css-loader": "^3.4.2",
         "enzyme": "^3.11.0",
@@ -88,6 +90,7 @@
         "tailwindcss": "^1.1.4",
         "terser-webpack-plugin": "^2.3.4",
         "ts-jest": "^25.2.1",
+        "ts-node": "^8.6.2",
         "typescript": "3.7.2",
         "webpack": "^4.42.0",
         "webpack-build-notifier": "^2.0.0",
