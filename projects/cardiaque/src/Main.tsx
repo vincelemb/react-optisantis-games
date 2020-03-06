@@ -12,7 +12,7 @@ import {
 } from '@optisantis/outil-global/components';
 import { InfoSvg } from '@optisantis/outil-global/components/svg';
 import './styles/index.scss';
-import { useCurrentWidth, useCountdownOverlay, useCountdown, useAudioPlayer } from '@optisantis/outil-global/logics';
+import { useCountdownOverlay, useCountdown, useAudioPlayer } from '@optisantis/outil-global/logics';
 import { CountdownContext } from '@optisantis/outil-global/context';
 
 const Main = () => {
@@ -28,7 +28,6 @@ const Main = () => {
 
     const { setCountdownSeconds, setCountdownOverlaySeconds } = useContext(CountdownContext);
 
-    const [pannelLeft, setPannelLeft] = useState<boolean>(true);
     const [changeDataCountdown, setChangeDataCountdown] = useState<boolean>(false);
 
     const [firstBip, setFirstBip] = useState<number>(0);
@@ -36,13 +35,6 @@ const Main = () => {
     const [timeNumber, setTimeNumber] = useState<number>(5);
     const [play, setPlay] = useState<boolean>(null);
     const [animationState, setAnimationState] = useState<string>('paused');
-
-    let width = useCurrentWidth();
-    const [activeTab, setActiveTab] = useState<boolean>(false);
-
-    useEffect(() => {
-        width > 991 ? setActiveTab(true) : setActiveTab(false);
-    }, [width]);
 
     useEffect(() => {
         if (play === null) {
@@ -104,52 +96,52 @@ const Main = () => {
     return (
         <BgImage imageUrl={`${Path.imgPath}hero.jpg`}>
             <Container maxWidth="991px" isCenteredX>
-                <TabsGroup
-                    disableTabsGroup={activeTab}
-                    borderBottomStyle={false}
-                    isCard={false}
-                    contents={[
-                        {
-                            title: 'Options',
-                            subcontent: (
-                                <TabsGroup
-                                    borderBottomStyle={true}
-                                    isCard={true}
-                                    contents={[
-                                        {
-                                            title: 'étapes',
-                                            subcontent: (
-                                                <OrderedList
-                                                    lists={[
-                                                        {
-                                                            content: `Faites l'exercice 3 fois par jour, de préférence assis, les yeux ouverts ou fermés, le dos bien droit et les pieds posés à plat au sol.`,
-                                                        },
-                                                        {
-                                                            content: `Respirez 6 fois par minute : inspirez en comptant jusqu'à 5, puis expirez en comptant jusqu'à 5. Le signal sonore vous aide à vous repérer.`,
-                                                        },
-                                                        {
-                                                            content: `Idéalement, pratiquez cet exercice pendant 5 minutes`,
-                                                        },
-                                                    ]}
-                                                />
-                                            ),
-                                        },
-                                        {
-                                            title: 'le saviez-vous ?',
-                                            subcontent: `Cette technique de relaxation se base sur des exercices de respiration pour
-                                                atteindre un état d'équilibre du système nerveux autonome (notre "pilote
-                                                automatique"). En agissant sur la variabilité du rythme cardiaque, il est possible
-                                                de gérer son état émotionnel et d’améliorer son bien-être physique et psychique :
-                                                moins de stress, meilleur sommeil, meilleure concentration…`,
-                                        },
-                                    ]}
-                                />
-                            ),
-                        },
-                        {
-                            title: 'Jouer',
-                            subcontent: (
-                                <div className="_ml-xxl">
+                <main className="_p-sm">
+                    <TabsGroup
+                        noTabsonDesktop={true}
+                        contents={[
+                            {
+                                title: 'Options',
+                                subcontent: (
+                                    <aside className="_my-md">
+                                        <TabsGroup
+                                            borderBottomStyle={true}
+                                            isCard={true}
+                                            contents={[
+                                                {
+                                                    title: 'étapes',
+                                                    subcontent: (
+                                                        <OrderedList
+                                                            lists={[
+                                                                {
+                                                                    content: `Faites l'exercice 3 fois par jour, de préférence assis, les yeux ouverts ou fermés, le dos bien droit et les pieds posés à plat au sol.`,
+                                                                },
+                                                                {
+                                                                    content: `Respirez 6 fois par minute : inspirez en comptant jusqu'à 5, puis expirez en comptant jusqu'à 5. Le signal sonore vous aide à vous repérer.`,
+                                                                },
+                                                                {
+                                                                    content: `Idéalement, pratiquez cet exercice pendant 5 minutes`,
+                                                                },
+                                                            ]}
+                                                        />
+                                                    ),
+                                                },
+                                                {
+                                                    title: 'le saviez-vous ?',
+                                                    subcontent: `Cette technique de relaxation se base sur des exercices de respiration pour
+                                                        atteindre un état d'équilibre du système nerveux autonome (notre "pilote
+                                                        automatique"). En agissant sur la variabilité du rythme cardiaque, il est possible
+                                                        de gérer son état émotionnel et d’améliorer son bien-être physique et psychique :
+                                                        moins de stress, meilleur sommeil, meilleure concentration…`,
+                                                },
+                                            ]}
+                                        />
+                                    </aside>
+                                ),
+                            },
+                            {
+                                title: 'Jouer',
+                                subcontent: (
                                     <section className={`_items-center _relative _my-xl`}>
                                         <Modal
                                             title="Partie terminée"
@@ -254,11 +246,11 @@ const Main = () => {
                                         />
                                         <Audio id="audio" audioFile={'bip.mp3'}></Audio>
                                     </section>
-                                </div>
-                            ),
-                        },
-                    ]}
-                />
+                                ),
+                            },
+                        ]}
+                    />
+                </main>
             </Container>
         </BgImage>
     );

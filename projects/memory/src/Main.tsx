@@ -11,12 +11,13 @@ import {
     Layout,
     Tab,
     BgImage,
+    TabsGroup,
 } from '@optisantis/outil-global/components';
 import OptionsSection from './components/OptionsSection';
 import { ClickSvg, TimeSvg, ReloadSvg } from '@optisantis/outil-global/components/svg';
 import memoryType from './type/memoryType';
 import './styles/index.scss';
-import useScoreTimer from './logics/useScoreTimer';
+import { useScoreTimer } from '@optisantis/outil-global/logics';
 import TimeFormat from './utils/TimeFormat';
 import { TimerContext } from '@optisantis/outil-global/context/TimerContext';
 
@@ -49,9 +50,6 @@ const Main = () => {
 
     const { seconds } = useScoreTimer(timeActive);
     const { setSeconds, setMinutes } = useContext(TimerContext);
-
-    const [activeTab, setActiveTab] = useState<boolean>(true);
-    const [pannelLeft, setPannelLeft] = useState<boolean>(true);
 
     const Cards: JSX.Element[] = [];
 
@@ -263,158 +261,158 @@ const Main = () => {
     return (
         <BgImage imageUrl={'./assets/img/lake.jpg'}>
             {renderConfetti()}
-            <div className="_rounded-small _border _border-solid _border-primary _mt-md _mx-sm _justify-around _hidden lg:_flex _cursor-pointer">
-                <Tab
-                    isActive={activeTab}
-                    toogleTab={() => {
-                        setPannelLeft(true);
-                        return !activeTab ? setActiveTab(!activeTab) : null;
-                    }}>
-                    <span>Options</span>
-                </Tab>
-                <Tab
-                    isActive={!activeTab}
-                    toogleTab={() => {
-                        setPannelLeft(false);
-                        return activeTab ? setActiveTab(!activeTab) : null;
-                    }}>
-                    <span>Jouer</span>
-                </Tab>
-            </div>
             <Container maxWidth="991px" isCenteredX>
-                <div className="_flex _px-sm">
-                    {/* Options Panel */}
-                    <section className={`_mr-md lg:_mr-none _my-xl _w-full ${pannelLeft ? '_block' : 'lg:_hidden '}`}>
-                        <OptionsSection
-                            title="Thème"
-                            options={['Fruit et Légumes', 'Médical', 'Météo', 'Sommeil', 'Sport']}
-                            theme="dark"
-                        />
-                        <OptionsSection
-                            title="Niveau de difficulté"
-                            options={['12', '16', '20', '24', '28']}
-                            theme="light"
-                        />
-                        <div className="_bg-darkenprimary _mt-sm _rounded-small ">
-                            <h2 className="_text-center _text-white _m-none _pt-sm">Score</h2>
-                            <span className="_text-center _text-white _block _mt-xxs">{`(${numberCard} cartes)`}</span>
-                            <div className="_flex _justify-center _py-xs">
-                                <div className="_m-xs">
-                                    <div className="_flex _items-center _mb-xs">
-                                        <TimeSvg svgWidth="25px"></TimeSvg>
-                                        <span className="_ml-xs _text-white">Temps</span>
-                                    </div>
-                                    <div className="_flex _justify-start">
-                                        <ScoreClick
-                                            isIcon
-                                            iconPosition="left"
-                                            count={
-                                                saveScore[indexLevel]
-                                                    ? TimeFormat(saveScore[indexLevel].seconds)
-                                                    : '00:00'
-                                            }></ScoreClick>
-                                    </div>
-                                </div>
+                <main className="_p-sm">
+                    <TabsGroup
+                        noTabsonDesktop={true}
+                        contents={[
+                            {
+                                title: 'Options',
+                                subcontent: (
+                                    <aside className="_mr-md">
+                                        <section className={`_mr-md lg:_mr-none _my-xl _w-full`}>
+                                            <OptionsSection
+                                                title="Thème"
+                                                options={['Fruit et Légumes', 'Médical', 'Météo', 'Sommeil', 'Sport']}
+                                                theme="dark"
+                                            />
+                                            <OptionsSection
+                                                title="Niveau de difficulté"
+                                                options={['12', '16', '20', '24', '28']}
+                                                theme="light"
+                                            />
+                                            <div className="_bg-darkenprimary _mt-sm _rounded-small ">
+                                                <h2 className="_text-center _text-white _m-none _pt-sm">Score</h2>
+                                                <span className="_text-center _text-white _block _mt-xxs">{`(${numberCard} cartes)`}</span>
+                                                <div className="_flex _justify-center _py-xs">
+                                                    <div className="_m-xs">
+                                                        <div className="_flex _items-center _mb-xs">
+                                                            <TimeSvg svgWidth="25px"></TimeSvg>
+                                                            <span className="_ml-xs _text-white">Temps</span>
+                                                        </div>
+                                                        <div className="_flex _justify-start">
+                                                            <ScoreClick
+                                                                isIcon
+                                                                iconPosition="left"
+                                                                count={
+                                                                    saveScore[indexLevel]
+                                                                        ? TimeFormat(saveScore[indexLevel].seconds)
+                                                                        : '00:00'
+                                                                }></ScoreClick>
+                                                        </div>
+                                                    </div>
 
-                                <div className="_m-xs">
-                                    <div className="_flex _items-center _mb-xs">
-                                        <ClickSvg svgWidth="25px"></ClickSvg>
-                                        <span className="_ml-xs _text-white">Clics</span>
-                                    </div>
-                                    <div className="_flex _justify-start">
-                                        <ScoreClick
-                                            isIcon
-                                            iconPosition="left"
-                                            count={
-                                                saveScore[indexLevel] ? saveScore[indexLevel].click : '00'
-                                            }></ScoreClick>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* Game Panel */}
-                    <section
-                        className={`_flex _flex-col _w-full ${
-                            pannelLeft === false ? '_block' : 'lg:_hidden'
-                        } _items-center _relative _my-xl`}>
-                        <div className="_mx-xxs _flex _justify-between _w-full _items-center _text-white _pb-xs">
-                            <div className="_flex _items-center ">
-                                <span>Temps : </span>
-                                <span className="_text-xl"> {TimeFormat(seconds)}</span>
-                            </div>
-                            <div className="_flex _items-center">
-                                <span className="_mr-xxs">Clics :</span>
-                                <span className="_text-xl">{click}</span>
-                            </div>
-                        </div>
-                        <div className="_flex _items-center _justify-center">
-                            {/* Popup Panel */}
-                            <Popup title="Partie terminée" displayPopup={isModlaHide}>
-                                {winClickSentence === true && (
-                                    <span className="_text-golden">Nouveaux record de clics</span>
-                                )}
-                                {winTimeSentence === true && (
-                                    <span className="_text-golden">Nouveaux record de temps</span>
-                                )}
-                                <div className="_bg-darkenprimary _rounded-small _w-3/4 _mt-xs">
-                                    <div className="_flex _flex-wrap _justify-around">
-                                        <div className="_m-xs">
+                                                    <div className="_m-xs">
+                                                        <div className="_flex _items-center _mb-xs">
+                                                            <ClickSvg svgWidth="25px"></ClickSvg>
+                                                            <span className="_ml-xs _text-white">Clics</span>
+                                                        </div>
+                                                        <div className="_flex _justify-start">
+                                                            <ScoreClick
+                                                                isIcon
+                                                                iconPosition="left"
+                                                                count={
+                                                                    saveScore[indexLevel]
+                                                                        ? saveScore[indexLevel].click
+                                                                        : '00'
+                                                                }></ScoreClick>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </aside>
+                                ),
+                            },
+                            {
+                                title: 'Jouer',
+                                subcontent: (
+                                    <section>
+                                        <div className="_mx-xxs _flex _justify-between _w-full _items-center _text-white _pb-xs">
                                             <div className="_flex _items-center ">
-                                                <TimeSvg svgWidth="25px"></TimeSvg>
-                                                <span className="_ml-xs _text-white">Temps</span>
+                                                <span>Temps : </span>
+                                                <span className="_text-xl"> {TimeFormat(seconds)}</span>
                                             </div>
-                                            <span className="_text-xl _text-white"> {TimeFormat(seconds)}</span>
-                                            <div className="_flex _justify-start">
-                                                <ScoreClick
-                                                    isIcon
-                                                    iconPosition="left"
-                                                    count={
-                                                        saveScore[indexLevel]
-                                                            ? TimeFormat(saveScore[indexLevel].seconds)
-                                                            : '00:00'
-                                                    }></ScoreClick>
-                                            </div>
-                                        </div>
-
-                                        <div className="_m-xs">
                                             <div className="_flex _items-center">
-                                                <ClickSvg svgWidth="25px"></ClickSvg>
-                                                <span className="_ml-xs _text-white">Clics</span>
-                                            </div>
-                                            <span className="_text-xl _text-white">{click}</span>
-                                            <div className="_flex _justify-start">
-                                                <ScoreClick
-                                                    isIcon
-                                                    iconPosition="left"
-                                                    count={
-                                                        saveScore[indexLevel] ? saveScore[indexLevel].click : '00'
-                                                    }></ScoreClick>
+                                                <span className="_mr-xxs">Clics :</span>
+                                                <span className="_text-xl">{click}</span>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <section className="_mt-xs _w-full _flex _justify-end _relative _b-none">
-                                    <button
-                                        className="_text-primary _bg-white _m-xs _rounded-md _py-xs _px-sm _border-none _cursor-pointer"
-                                        onClick={() => reset()}>
-                                        <span>Rejouer</span>
-                                    </button>
-                                </section>
-                            </Popup>
-                            {/* Cards */}
-                            {renderCards()}
-                        </div>
-                        <div className="_mt-sm _mb-lg _w-full _text-right">
-                            <button
-                                className="_bg-white _rounded-rounded _w-xxl _h-xxl _border-none _p-xs _cursor-pointer _outline-none"
-                                onClick={() => reset()}>
-                                <ReloadSvg></ReloadSvg>
-                            </button>
-                        </div>
-                    </section>
-                </div>
+                                        <div className="_flex _items-center _justify-center">
+                                            {/* Popup Panel */}
+                                            <Popup title="Partie terminée" displayPopup={isModlaHide}>
+                                                {winClickSentence === true && (
+                                                    <span className="_text-golden">Nouveaux record de clics</span>
+                                                )}
+                                                {winTimeSentence === true && (
+                                                    <span className="_text-golden">Nouveaux record de temps</span>
+                                                )}
+                                                <div className="_bg-darkenprimary _rounded-small _w-3/4 _mt-xs">
+                                                    <div className="_flex _flex-wrap _justify-around">
+                                                        <div className="_m-xs">
+                                                            <div className="_flex _items-center ">
+                                                                <TimeSvg svgWidth="25px"></TimeSvg>
+                                                                <span className="_ml-xs _text-white">Temps</span>
+                                                            </div>
+                                                            <span className="_text-xl _text-white">
+                                                                {' '}
+                                                                {TimeFormat(seconds)}
+                                                            </span>
+                                                            <div className="_flex _justify-start">
+                                                                <ScoreClick
+                                                                    isIcon
+                                                                    iconPosition="left"
+                                                                    count={
+                                                                        saveScore[indexLevel]
+                                                                            ? TimeFormat(saveScore[indexLevel].seconds)
+                                                                            : '00:00'
+                                                                    }></ScoreClick>
+                                                            </div>
+                                                        </div>
+
+                                                        <div className="_m-xs">
+                                                            <div className="_flex _items-center">
+                                                                <ClickSvg svgWidth="25px"></ClickSvg>
+                                                                <span className="_ml-xs _text-white">Clics</span>
+                                                            </div>
+                                                            <span className="_text-xl _text-white">{click}</span>
+                                                            <div className="_flex _justify-start">
+                                                                <ScoreClick
+                                                                    isIcon
+                                                                    iconPosition="left"
+                                                                    count={
+                                                                        saveScore[indexLevel]
+                                                                            ? saveScore[indexLevel].click
+                                                                            : '00'
+                                                                    }></ScoreClick>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <section className="_mt-xs _w-full _flex _justify-end _relative _b-none">
+                                                    <button
+                                                        className="_text-primary _bg-white _m-xs _rounded-md _py-xs _px-sm _border-none _cursor-pointer"
+                                                        onClick={() => reset()}>
+                                                        <span>Rejouer</span>
+                                                    </button>
+                                                </section>
+                                            </Popup>
+                                            {/* Cards */}
+                                            {renderCards()}
+                                        </div>
+                                        <div className="_mt-sm _mb-lg _w-full _text-right">
+                                            <button
+                                                className="_bg-white _rounded-rounded _w-xxl _h-xxl _border-none _p-xs _cursor-pointer _outline-none"
+                                                onClick={() => reset()}>
+                                                <ReloadSvg></ReloadSvg>
+                                            </button>
+                                        </div>
+                                    </section>
+                                ),
+                            },
+                        ]}
+                    />
+                </main>
             </Container>
         </BgImage>
     );
