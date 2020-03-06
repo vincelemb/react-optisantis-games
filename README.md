@@ -45,6 +45,14 @@ yarn css
 
 Le css utilise la dépendance [`tailwind`](https://tailwindcss.com/), nous avons donc besoin de générer un fichier css contenant toutes les classes utilitaires nécessaires.
 
+### Images
+
+Pour l'outil Memory, un fichier `images.json` est nécessaire pour la grille de jeux. Pour générer le fichier il vous suffit d'avoir un dossier avec des images dans `projects/memeory/public/assets/images`. Ensuite soit, lors de `yarn dev`, le fichier ce mettra à jour, soit vous pouvez forcer sa mise à jour avec :
+
+```
+yarn pckg:images
+```
+
 ## Architecture
 
 ```
