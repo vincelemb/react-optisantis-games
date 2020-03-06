@@ -1,6 +1,6 @@
 import React, { createContext, useState } from 'react';
 
-export const THEMES = ['Fruit et Légumes', 'Médical', 'Météo', 'Sommeil', 'Sport'];
+export const THEMES = ['Fruits et Légumes', 'Médical', 'Météo', 'Sommeil', 'Sport'];
 
 export type ThemeContext = {
     theme: string;

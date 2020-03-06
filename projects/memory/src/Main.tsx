@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Path } from '@optisantis/outil-global/config';
-import { snakeCase } from 'lodash';
+import { snakeCase, shuffle } from 'lodash';
 import memoryImages from './assets/images.json';
 
 import {
@@ -27,13 +27,14 @@ import { ThemeContext, THEMES } from './contexts/ThemeContext';
 const Main = () => {
     const { level, setLevel } = useContext(LevelContext);
     const { theme, setTheme } = useContext(ThemeContext);
+    const themeNameParsed = snakeCase(theme);
 
     const [isFlipped, setIsFlipped] = useState<number[]>([]);
     const [winPairs, setWinPairs] = useState<any[]>([]);
     const [idCards, setIdCards] = useState<any>([]);
     const [images, setImages] = useState<any>(THEMES[0]);
-    const [imagesTheme, setImagesTheme] = useState<string>('fruits_legumes');
-    const [imagesArray, setImagesArray] = useState<any>(memoryImages.fruits_legumes);
+    const [imagesTheme, setImagesTheme] = useState<string>(themeNameParsed);
+    const [imagesArray, setImagesArray] = useState<any>(memoryImages[themeNameParsed]);
     const [currentPair, setCurrentPair] = useState<string[]>([]);
     const [click, setClick] = useState<number>(0);
     const [timeActive, setTimeActive] = useState<boolean>(false);
@@ -148,15 +149,14 @@ const Main = () => {
      * @param number
      */
     function renderImg(categorie: any, number: number) {
-        console.log(imagesTheme, theme)
-
         const Img: JSX.Element[] = [];
         let urlArray: string[] = Object.values(categorie);
+
         for (let index = 0; index < number / 2; index++) {
             Img.push(
                 <img
                     className="_h-full"
-                    src={Path.imgPath + imagesTheme + '/' + urlArray[index]}
+                    src={Path.imgPath + themeNameParsed + '/' + urlArray[index]}
                     key={'image-' + index}
                     alt="Memory Images"></img>
             );
@@ -168,7 +168,7 @@ const Main = () => {
      * Permet de randomize la position des valeurs dans le tableau
      * @param {Array} array
      */
-    function shuffle(array) {
+    // function shuffle(array) {
         // let counter = array.length;
 
         // // While there are elements in the array
@@ -184,8 +184,8 @@ const Main = () => {
         //     array[counter] = array[index];
         //     array[index] = temp;
         // }
-        return array;
-    }
+        // return array;
+    // }
 
     /**
      * Animation confetti lors du remplissage de la victoire de l'utilisateur

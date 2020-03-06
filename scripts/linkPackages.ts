@@ -11,7 +11,7 @@ const getDirectoriesName = (path: string): string[] =>
         .filter((dirent) => dirent.isDirectory())
         .map((dirent) => dirent.name);
 
-const projectsNames = getDirectoriesName(resolve(__dirname, '../projects'));
+const projectsNames = getDirectoriesName(resolve(pathToProjects));
 
 projectsNames.forEach((name) => {
     const path = resolve(pathToProjects, name);
