@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
-import { ThemeContext, THEMES } from '../contexts/ThemeContext';
-import { LevelContext, LEVELS } from '../contexts/LevelContext';
+import { GameContext, THEMES, LEVELS } from '../contexts/GameContext';
 
 import { Button } from '@optisantis/outil-global/components';
 import { ClickSvg, TimeSvg } from '@optisantis/outil-global/components/svg';
@@ -8,10 +7,12 @@ import { ClickSvg, TimeSvg } from '@optisantis/outil-global/components/svg';
 import OptionsSection from '../components/OptionsSection';
 import ScoreIndicator from '../components/ScoreIndicator';
 
-const PanelOptions = () => {
-    const { level, setLevel } = useContext(LevelContext);
-    const { theme, setTheme } = useContext(ThemeContext);
-    const pannelLeft = true;
+interface PanelOptionsProps {
+    hidden: boolean;
+}
+
+const PanelOptions: React.FC<PanelOptionsProps> = ({ hidden }) => {
+    const { level, setLevel, theme, setTheme } = useContext(GameContext);
 
     const renderButton = (
         buttons: string[],
@@ -31,7 +32,7 @@ const PanelOptions = () => {
     };
 
     return (
-        <section className={`_mr-md lg:_mr-none _my-xl _w-full ${pannelLeft ? '_block' : 'lg:_hidden '}`}>
+        <section className={`_mr-md lg:_mr-none _my-xl _w-full ${hidden ? '_block' : 'lg:_hidden '}`}>
             <OptionsSection title="Thème" theme="dark">
                 {renderButton(THEMES, theme, 'light', setTheme())}
             </OptionsSection>
