@@ -11,6 +11,7 @@ const Card: React.FC<CardProps> = ({ flipped, found, onClick, children }) => {
         <button
             className={`card _bg-white ${flipped ? '-isFlipped' : ''} ${found ? '-isWin' : ''}`}
             draggable={false}
+            disabled={flipped || found}
             onClick={onClick && onClick}>
             {children}
         </button>

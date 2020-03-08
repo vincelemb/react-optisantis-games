@@ -1,18 +1,18 @@
 import { useEffect, useContext } from 'react';
 import { TimerContext } from '@optisantis/outil-global/context/TimerContext';
 
-export default function useScoreTimer(timeActive: boolean) {
+export default function useScoreTimer(isPlaying: boolean) {
     const { seconds, setSeconds } = useContext(TimerContext);
 
     useEffect(() => {
         let timerInterval: NodeJS.Timeout | undefined = undefined;
 
         if (setSeconds) {
-            if (timeActive) {
+            if (isPlaying) {
                 timerInterval = setInterval(() => {
                     setSeconds((seconds) => seconds + 1);
                 }, 1000);
-            } else if (!timeActive && seconds !== 0 && timerInterval) {
+            } else if (!isPlaying && seconds !== 0 && timerInterval) {
                 clearInterval(timerInterval);
             }
             return () => {
@@ -20,7 +20,7 @@ export default function useScoreTimer(timeActive: boolean) {
             };
         }
         return;
-    }, [timeActive, seconds]);
+    }, [isPlaying, seconds]);
 
     return { seconds };
 }

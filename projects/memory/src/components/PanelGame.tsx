@@ -4,19 +4,12 @@ import { snakeCase, isEqual, sortBy, shuffle, flatten } from 'lodash';
 import { Path } from '@optisantis/outil-global/config';
 import TimeFormat from '../utils/TimeFormat';
 import { GameContext } from '../contexts/GameContext';
-import useScoreTimer from '../logics/useScoreTimer';
-import memoryType from '../type/memoryType';
-
 import memoryImages from '../assets/images.json';
 
-import { ScoreClick, Layout } from '@optisantis/outil-global/components';
-import {
-    ReloadSvg,
-    TimeSvg,
-    ClickSvg,
-} from '@optisantis/outil-global/components/svg';
-import Card from '../components/Card';
-import Popup from '../components/Popup';
+import { Layout } from '@optisantis/outil-global/components';
+import { ReloadSvg } from '@optisantis/outil-global/components/svg';
+import Card from './Card';
+import ModalWon from './ModalWon';
 
 interface PanelGameProps {
     hidden: boolean;
@@ -24,119 +17,82 @@ interface PanelGameProps {
 
 const PanelGame: React.FC<PanelGameProps> = ({ hidden }) => {
     const {
+        seconds,
+        isPlaying,
+        setIsPlaying,
         theme,
         level,
         pairs,
         setPairs,
         cardsFlipped,
         setCardsFlipped,
-        foundPairs,
-        setFoundPairs,
         clicks,
         setClicks,
         setIsWon,
-        isWon,
         reset,
+        cardsProps,
+        setCardsProps,
+        updateCard,
     } = useContext(GameContext);
 
     const [cards, setCards] = useState<JSX.Element[]>([]);
     const themeNameParsed = snakeCase(theme);
 
-    // @TODO : Replace this block -------------------------
-    const [winClickSentence, setWinClickSentence] = useState<boolean>(true);
-    const [winTimeSentence, setWinTimeSentence] = useState<boolean>(true);
-    const [timeActive, setTimeActive] = useState<boolean>(false);
-    const [saveScore, setSaveScore] = useState<memoryType[] | any>([]);
-    const [indexLevel, setIndexLevel] = useState<number>(
-        saveScore.findIndex((index) => index.level === level)
-    );
+    useEffect(() => {
+        const imagesName: string[] = Object.values(
+            memoryImages[themeNameParsed]
+        );
 
-    const { seconds } = useScoreTimer(timeActive);
-    // ----------------------------------------------------
+        const images = imagesName
+            .filter((image, idx) => {
+                return idx < Number(level) / 2;
+            })
+            .map(
+                (imageName) => `${Path.imgPath}${themeNameParsed}/${imageName}`
+            )
+            .map((image, id) => {
+                return [
+                    { id, image, found: false, flipped: false },
+                    {
+                        id: id + Number(level) / 2,
+                        image,
+                        found: false,
+                        flipped: false,
+                    },
+                ];
+            });
+
+        setPairs(images.map((images) => images.map(({ id }) => id)));
+        setCardsProps(shuffle(flatten(images)));
+    }, [theme, level]);
 
     useEffect(() => {
-        const Cards: JSX.Element[][] = [];
-        let urlArray: string[] = Object.values(memoryImages[themeNameParsed]);
-        const numberOfPairs = Number(level) / 2;
-
-        for (let i = 0; i < numberOfPairs; i++) {
-            const idxPair = i + numberOfPairs;
-
-            Cards.push([
+        if (cardsProps.length) {
+            const Cards = cardsProps.map((props) => (
                 <Card
-                    key={i}
-                    flipped={!!cardsFlipped.filter((id) => id === i).length}
-                    found={
-                        !!foundPairs.filter(
-                            (pairIds) => pairIds.filter((id) => id === i).length
-                        ).length
-                    }
-                    onClick={() => {
-                        setCardsFlipped([...cardsFlipped, i]);
-                    }}>
+                    key={props.id}
+                    flipped={props.flipped}
+                    found={props.found}
+                    onClick={setCardsFlipped.bind(null, [
+                        ...cardsFlipped,
+                        props.id,
+                    ])}>
                     <img
                         className="_h-full"
-                        src={Path.imgPath + themeNameParsed + '/' + urlArray[i]}
-                        key={'image-' + i}
+                        src={props.image}
+                        key={'image-' + props.id}
                     />
-                </Card>,
-                <Card
-                    key={idxPair}
-                    flipped={
-                        !!cardsFlipped.filter((id) => id === idxPair).length
-                    }
-                    found={
-                        !!foundPairs.filter(
-                            (pairIds) =>
-                                pairIds.filter((id) => id === idxPair).length
-                        ).length
-                    }
-                    onClick={() => {
-                        setCardsFlipped([...cardsFlipped, idxPair]);
-                        setTimeActive(true);
-                    }}>
-                    <img
-                        className="_h-full"
-                        src={Path.imgPath + themeNameParsed + '/' + urlArray[i]}
-                        key={'image-' + i}
-                    />
-                </Card>,
-            ]);
+                </Card>
+            ));
+
+            setCards(Cards);
         }
+    }, [cardsFlipped, cardsProps]);
 
-        if (!pairs.length) {
-            setPairs(
-                Cards.map((pairs) => pairs.map((pair) => Number(pair.key)))
-            );
-        }
-
-        // Refaire rendu avec le même shuffle, changer uniquement les cartes qui on leur props modifier
-        if (!cards.length) {
-            setCards(shuffle(flatten(Cards)));
-        } else {
-            console.log('coucou')
-            setCards(cards);
-        }
-    }, [cardsFlipped, theme, level, foundPairs]);
-
-    // useEffect(() => {
-    //     console.log(isWon);
-    //     console.log(pairs);
-    //     console.log(cards);
-    //     console.log(foundPairs);
-
-    //     if (
-    //         !isWon &&
-    //         pairs.length &&
-    //         cards.length &&
-    //         !foundPairs.length &&
-    //         !cardsFlipped.length
-    //     ) {
-    //         setCards(shuffle(flatten(cards)));
-    //     }
-    // }, [pairs]);
-
+    // @TODO : Refacto this useEffect
     useEffect(() => {
+        if (cardsFlipped.length && clicks === 0) setIsPlaying(true);
+
         if (cardsFlipped.length && cardsFlipped.length === 2) {
             const sortedCardsFlipped = sortBy(cardsFlipped, (cardId) => cardId);
             const hasFlippedPairs = pairs.filter((pairIds) =>
@@ -145,7 +101,7 @@ const PanelGame: React.FC<PanelGameProps> = ({ hidden }) => {
 
             // Found pairs
             if (hasFlippedPairs.length) {
-                setFoundPairs([...foundPairs, cardsFlipped]);
+                updateCard(flatten(hasFlippedPairs), 'found');
                 setPairs(
                     pairs.filter(
                         (pairIds) => !isEqual(pairIds, sortedCardsFlipped)
@@ -154,19 +110,24 @@ const PanelGame: React.FC<PanelGameProps> = ({ hidden }) => {
             }
 
             setClicks(clicks + 1);
+
             // @TODO: Refacto this 💩 code
             // Wait for all change to setCardsFlipped to none
-            setTimeout(() => setCardsFlipped([]), 500);
+            setTimeout(() => setCardsFlipped([]), 700);
+        }
+
+        // Retourne met à jour le props flipped
+        if (cardsProps.length) {
+            updateCard(cardsFlipped, 'flipped');
         }
     }, [cardsFlipped]);
 
     useEffect(() => {
-        if (!pairs.length && foundPairs.length) {
+        if (!pairs.length && clicks) {
             setIsWon(true);
-
-            setTimeActive(false);
+            setIsPlaying(false);
         }
-    }, [foundPairs]);
+    }, [pairs]);
 
     return (
         <section
@@ -186,76 +147,7 @@ const PanelGame: React.FC<PanelGameProps> = ({ hidden }) => {
             </div>
 
             <div className="_flex _items-center _justify-center">
-                <Popup title="Partie terminée" hidden={!isWon}>
-                    {winClickSentence === true && (
-                        <span className="_text-golden">
-                            Nouveaux record de clics
-                        </span>
-                    )}
-                    {winTimeSentence === true && (
-                        <span className="_text-golden">
-                            Nouveaux record de temps
-                        </span>
-                    )}
-                    <div className="_bg-darkenprimary _rounded-small _w-3/4 _mt-xs">
-                        <div className="_flex _flex-wrap _justify-around">
-                            <div className="_m-xs">
-                                <div className="_flex _items-center ">
-                                    <TimeSvg svgWidth="25px"></TimeSvg>
-                                    <span className="_ml-xs _text-white">
-                                        Temps
-                                    </span>
-                                </div>
-                                <span className="_text-xl _text-white">
-                                    {' '}
-                                    {TimeFormat(seconds)}
-                                </span>
-                                <div className="_flex _justify-start">
-                                    <ScoreClick
-                                        isIcon
-                                        iconPosition="left"
-                                        count={
-                                            saveScore[indexLevel]
-                                                ? TimeFormat(
-                                                      saveScore[indexLevel]
-                                                          .seconds
-                                                  )
-                                                : '00:00'
-                                        }></ScoreClick>
-                                </div>
-                            </div>
-
-                            <div className="_m-xs">
-                                <div className="_flex _items-center">
-                                    <ClickSvg svgWidth="25px"></ClickSvg>
-                                    <span className="_ml-xs _text-white">
-                                        Clics
-                                    </span>
-                                </div>
-                                <span className="_text-xl _text-white">
-                                    {clicks}
-                                </span>
-                                <div className="_flex _justify-start">
-                                    <ScoreClick
-                                        isIcon
-                                        iconPosition="left"
-                                        count={
-                                            saveScore[indexLevel]
-                                                ? saveScore[indexLevel].click
-                                                : '00'
-                                        }></ScoreClick>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <section className="_mt-xs _w-full _flex _justify-end _relative _b-none">
-                        <button
-                            className="_text-primary _bg-white _m-xs _rounded-md _py-xs _px-sm _border-none _cursor-pointer"
-                            onClick={() => reset()}>
-                            <span>Rejouer</span>
-                        </button>
-                    </section>
-                </Popup>
+                <ModalWon />
 
                 <Layout col={4} spacing="_p-xxs" desktopLayout>
                     {cards}
