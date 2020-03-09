@@ -20,21 +20,35 @@ const useRecords = () => {
             const themeParsed = snakeCase(theme);
 
             if (records[level]) {
-                setRecords({
-                    ...records,
-                    [level]: {
-                        [themeParsed]: {
-                            clicks: compareRecords(
-                                records[level][themeParsed].clicks,
-                                clicks
-                            ),
-                            time: compareRecords(
-                                records[level][themeParsed].time,
-                                seconds
-                            ),
+                if (records[level][themeParsed]) {
+                    setRecords({
+                        ...records,
+                        [level]: {
+                            ...records[level],
+                            [themeParsed]: {
+                                clicks: compareRecords(
+                                    records[level][themeParsed].clicks,
+                                    clicks
+                                ),
+                                time: compareRecords(
+                                    records[level][themeParsed].time,
+                                    seconds
+                                ),
+                            },
                         },
-                    },
-                });
+                    });
+                } else {
+                    setRecords({
+                        ...records,
+                        [level]: {
+                            ...records[level],
+                            [themeParsed]: {
+                                clicks,
+                                time: seconds,
+                            },
+                        },
+                    });
+                }
             } else {
                 setRecords({
                     ...records,

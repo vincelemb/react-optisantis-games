@@ -1,29 +1,45 @@
 import React, { useContext } from 'react';
 import { snakeCase } from 'lodash';
 import { GameContext } from '../contexts/GameContext';
+import { RecordsContext } from '../contexts/RecordsContext';
+import { TimerContext } from '@optisantis/outil-global/context/TimerContext';
 import TimeFormat from '../utils/TimeFormat';
-import useGame from '../logics/useGame';
 import { ScoreClick } from '@optisantis/outil-global/components';
 import { TimeSvg, ClickSvg } from '@optisantis/outil-global/components/svg';
 
-const ModalWon: React.FC = () => {
-    const { reset, clicks, isDone, records, seconds } = useGame();
-    const { level, theme } = useContext(GameContext);
+type ModalProps = {
+    onClick: () => void,
+    hidden: boolean,
+}
+
+const Modal: React.FC<ModalProps> = ({ onClick, hidden }) => {
+    const { seconds } = useContext(TimerContext);
+    const { records } = useContext(RecordsContext);
+    const { level, theme, clicks } = useContext(GameContext);
     const themeParsed = snakeCase(theme);
 
     return (
         <div
-            hidden={!isDone}
+            hidden={hidden}
             className={`${
-                !isDone ? '_none' : '_flex'
+                hidden ? '_none' : '_flex'
             } _flex-col _justify-center _items-center _absolute _w-3/5 _h-auto _z-10 _px-xs _py-xxs _rounded-small _bg-primary`}>
             <h2 className="_text-white _text-lg _mb-xxs">Partie terminée</h2>
-            {/* {winClickSentence === true && (
-                <span className="_text-golden">Nouveaux record de clics</span>
-            )}
-            {winTimeSentence === true && (
-                <span className="_text-golden">Nouveaux record de temps</span>
-            )} */}
+            {records[level] &&
+                records[level][themeParsed] &&
+                clicks <= records[level][themeParsed].clicks && (
+                    <span className="_text-golden">
+                        Nouveaux record de clics
+                    </span>
+                )}
+
+            {records[level] &&
+                records[level][themeParsed] &&
+                seconds <= records[level][themeParsed].time && (
+                    <span className="_text-golden">
+                        Nouveaux record de temps
+                    </span>
+                )}
             <div className="_bg-darkenprimary _rounded-small _w-3/4 _mt-xs">
                 <div className="_flex _flex-wrap _justify-around">
                     <div className="_m-xs">
@@ -31,7 +47,9 @@ const ModalWon: React.FC = () => {
                             <TimeSvg svgWidth="25px"></TimeSvg>
                             <span className="_ml-xs _text-white">Temps</span>
                         </div>
-                        <span className="_text-xl _text-white">{seconds}</span>
+                        <span className="_text-xl _text-white">
+                            {TimeFormat(seconds)}
+                        </span>
                         <div className="_flex _justify-start">
                             <ScoreClick
                                 isIcon
@@ -66,7 +84,7 @@ const ModalWon: React.FC = () => {
             <section className="_mt-xs _w-full _flex _justify-end _relative _b-none">
                 <button
                     className="_text-primary _bg-white _m-xs _rounded-md _py-xs _px-sm _border-none _cursor-pointer"
-                    onClick={reset}>
+                    onClick={onClick}>
                     <span>Rejouer</span>
                 </button>
             </section>
@@ -74,4 +92,4 @@ const ModalWon: React.FC = () => {
     );
 };
 
-export default ModalWon;
+export default Modal;

@@ -29,7 +29,7 @@ const useGame = () => {
 
         if (clicks === 0) setIsPlaying(true);
 
-        if (ids.length <= 2) {
+        if (ids.length < 2) {
             setFlipped({ ids: [...ids, id], imgs: [...imgs, img] });
         }
     };
@@ -56,7 +56,7 @@ const useGame = () => {
         setIsDone(false);
         setIsPlaying(false);
         setSeconds(0);
-        setTimeout(() => setDeck(generateCards(theme, level)), 600);
+        setDeck(generateCards(theme, level));
     };
 
     useEffect((): void => {

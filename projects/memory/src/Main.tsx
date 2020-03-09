@@ -5,7 +5,7 @@ import Options from './components/Options';
 import Game from './components/Game';
 
 const Main = () => {
-    const [activeTab, setActiveTab] = useState<boolean>(false);
+    const [activeTab, setActiveTab] = useState<boolean>(true);
 
     return (
         <BgImage imageUrl={'./assets/img/lake.jpg'}>
