@@ -9,11 +9,7 @@ import { ClickSvg, TimeSvg } from '@optisantis/outil-global/components/svg';
 import OptionsSection from '../components/OptionsSection';
 import ScoreIndicator from '../components/ScoreIndicator';
 
-interface OptionsProps {
-    hidden: boolean;
-}
-
-const Options: React.FC<OptionsProps> = ({ hidden }) => {
+const Options: React.FC = () => {
     const { level, setLevel, theme, setTheme } = useContext(GameContext);
     const { records } = useGame();
 
@@ -39,10 +35,7 @@ const Options: React.FC<OptionsProps> = ({ hidden }) => {
     };
 
     return (
-        <aside
-            className={`_mr-md lg:_mr-none _my-xl _w-full ${
-                hidden ? '_block' : 'lg:_hidden '
-            }`}>
+        <aside className={`_mr-md lg:_mr-none _my-xl _w-full`}>
             <OptionsSection title="Thème" theme="dark">
                 {renderButton(THEMES, theme, 'light', setTheme())}
             </OptionsSection>

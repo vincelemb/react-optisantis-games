@@ -5,20 +5,12 @@ import { Layout } from '@optisantis/outil-global/components';
 import { ReloadSvg } from '@optisantis/outil-global/components/svg';
 import Modal from './Modal';
 
-interface GameProps {
-    hidden: boolean;
-}
-
-const Game: React.FC<GameProps> = ({ hidden }) => {
+const Game: React.FC = () => {
     const { cards, clicks, reset, isPlaying, isDone } = useGame();
     const { seconds } = useScoreTimer(isPlaying);
 
     return (
-        <main
-            hidden={hidden}
-            className={`${
-                hidden ? '_flex' : 'lg:_hidden '
-            } _flex-col _w-full _items-center _relative _my-xl`}>
+        <main className={`_flex-col _w-full _items-center _relative _my-xl`}>
             <div className="_mx-xxs _flex _justify-between _w-full _items-center _text-white _pb-xs">
                 <div className="_flex _items-center ">
                     <span>Temps :</span>
