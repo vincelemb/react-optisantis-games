@@ -25,8 +25,14 @@ const PlayerControls: React.FC<PlayerControlsProps> = ({ play, onClick, ...audio
         <button
             className="_bg-white _rounded-rounded _w-xxxl _h-xxxl _border-none _cursor-pointer _outline-none _mx-sm _p-none"
             onClick={onClick.pause}>
-            <div className="_flex _items-center _justify-center _ml-xxs">
-                {play ? <PauseSvg svgWidth="25px"></PauseSvg> : <PlaySvg svgWidth="25px"></PlaySvg>}
+            <div className="_flex _items-center _justify-center ">
+                {play ? (
+                    <PauseSvg svgWidth="25px"></PauseSvg>
+                ) : (
+                    <div className="_ml-xxs _flex">
+                        <PlaySvg svgWidth="25px"></PlaySvg>
+                    </div>
+                )}
             </div>
         </button>
         <AudioButton id={'music'} {...audioProps} toggleMusic={onClick.audio}></AudioButton>

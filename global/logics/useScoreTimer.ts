@@ -1,8 +1,11 @@
 import { useEffect, useContext } from 'react';
-import { TimerContext } from '@optisantis/outil-global/context/TimerContext';
+import { TimerContext } from '../context/TimerContext';
 import TimeFormat from '../utils/TimeFormat';
 
-export default function useScoreTimer(isPlaying: boolean) {
+export default function useScoreTimer(
+    isPlaying: boolean,
+    milliseconds: number = 1000
+) {
     const { seconds, setSeconds } = useContext(TimerContext);
 
     useEffect(() => {
@@ -12,7 +15,7 @@ export default function useScoreTimer(isPlaying: boolean) {
             if (isPlaying) {
                 timerInterval = setInterval(() => {
                     setSeconds((seconds) => seconds + 1);
-                }, 1000);
+                }, milliseconds);
             } else if (!isPlaying && seconds !== 0 && timerInterval) {
                 clearInterval(timerInterval);
             }

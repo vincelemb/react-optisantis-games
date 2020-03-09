@@ -3,14 +3,14 @@ import { snakeCase } from 'lodash';
 import { GameContext } from '../contexts/GameContext';
 import { RecordsContext } from '../contexts/RecordsContext';
 import { TimerContext } from '@optisantis/outil-global/context/TimerContext';
-import TimeFormat from '../utils/TimeFormat';
+import TimeFormat from '@optisantis/outil-global/utils/TimeFormat';
 import { ScoreClick } from '@optisantis/outil-global/components';
 import { TimeSvg, ClickSvg } from '@optisantis/outil-global/components/svg';
 
 type ModalProps = {
-    onClick: () => void,
-    hidden: boolean,
-}
+    onClick: () => void;
+    hidden: boolean;
+};
 
 const Modal: React.FC<ModalProps> = ({ onClick, hidden }) => {
     const { seconds } = useContext(TimerContext);

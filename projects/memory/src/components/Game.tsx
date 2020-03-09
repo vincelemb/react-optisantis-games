@@ -1,6 +1,6 @@
 import React from 'react';
 import useGame from '../logics/useGame';
-import useScoreTimer from '../logics/useScoreTimer';
+import { useScoreTimer } from '@optisantis/outil-global/logics';
 import { Layout } from '@optisantis/outil-global/components';
 import { ReloadSvg } from '@optisantis/outil-global/components/svg';
 import Modal from './Modal';
@@ -19,7 +19,6 @@ const Game: React.FC<GameProps> = ({ hidden }) => {
             className={`${
                 hidden ? '_flex' : 'lg:_hidden '
             } _flex-col _w-full _items-center _relative _my-xl`}>
-
             <div className="_mx-xxs _flex _justify-between _w-full _items-center _text-white _pb-xs">
                 <div className="_flex _items-center ">
                     <span>Temps :</span>

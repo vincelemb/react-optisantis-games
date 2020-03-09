@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { snakeCase } from 'lodash';
 import { GameContext, THEMES, LEVELS } from '../contexts/GameContext';
 import useGame from '../logics/useGame';
-import TimeFormat from '../utils/TimeFormat';
+import TimeFormat from '@optisantis/outil-global/utils/TimeFormat';
 
 import { Button } from '@optisantis/outil-global/components';
 import { ClickSvg, TimeSvg } from '@optisantis/outil-global/components/svg';

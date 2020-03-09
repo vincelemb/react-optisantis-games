@@ -7,20 +7,37 @@ type TabProps = {
 };
 
 const Tab: React.FC<TabProps> = (props: React.PropsWithChildren<TabProps>) => {
-    const borderBottomStyle =
-        props.borderBottomStyle && props.borderBottomStyle
-            ? '_border-0 _text-primary _border-b-2 _border-solid _border-primary'
-            : '_text-white _bg-primary';
+    const tabStyle = () => {
+        if (props.borderBottomStyle) {
+            return (
+                <ul className="_w-full _justify-around _flex _cursor-pointer _m-none _px-sm _pt-sm">
+                    <li
+                        className={`${
+                            props.isActive && props.isActive
+                                ? '_border-0 _text-primary _border-b-2 _border-solid _border-primary'
+                                : ''
+                        } _text-primary _flex _justify-center _w-full _p-xxs`}
+                        onClick={props.toogleTab && props.toogleTab}>
+                        {props.children}
+                    </li>
+                </ul>
+            );
+        } else {
+            return (
+                <ul className="_w-full _p-none _border _border-solid _border-primary _mt-md  _justify-around _hidden lg:_flex _cursor-pointer">
+                    <li
+                        className={`${
+                            props.isActive && props.isActive ? '_text-white _bg-primary' : ''
+                        } _text-primary _flex _justify-center _w-full _p-xxs`}
+                        onClick={props.toogleTab && props.toogleTab}>
+                        {props.children}
+                    </li>
+                </ul>
+            );
+        }
+    };
 
-    return (
-        <li
-            className={`${
-                props.isActive && props.isActive ? borderBottomStyle : ''
-            } _text-primary _flex _justify-center _w-full _p-xxs`}
-            onClick={props.toogleTab && props.toogleTab}>
-            {props.children}
-        </li>
-    );
+    return tabStyle();
 };
 
 export default Tab;
