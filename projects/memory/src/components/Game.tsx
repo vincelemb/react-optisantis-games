@@ -14,7 +14,7 @@ const Game: React.FC<GameProps> = ({ hidden }) => {
     const { seconds } = useScoreTimer(isPlaying);
 
     return (
-        <section
+        <main
             hidden={hidden}
             className={`${
                 hidden ? '_flex' : 'lg:_hidden '
@@ -45,7 +45,7 @@ const Game: React.FC<GameProps> = ({ hidden }) => {
                     <ReloadSvg></ReloadSvg>
                 </button>
             </div>
-        </section>
+        </main>
     );
 };
 

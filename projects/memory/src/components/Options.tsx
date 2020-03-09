@@ -39,7 +39,7 @@ const Options: React.FC<OptionsProps> = ({ hidden }) => {
     };
 
     return (
-        <section
+        <aside
             className={`_mr-md lg:_mr-none _my-xl _w-full ${
                 hidden ? '_block' : 'lg:_hidden '
             }`}>
@@ -80,7 +80,7 @@ const Options: React.FC<OptionsProps> = ({ hidden }) => {
                     }
                 />
             </OptionsSection>
-        </section>
+        </aside>
     );
 };
 
