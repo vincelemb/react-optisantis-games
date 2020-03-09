@@ -1,19 +1,20 @@
 import React from 'react';
 
 type CardProps = {
-    flipped?: boolean;
+    clicked?: boolean;
     found?: boolean;
     onClick?: (event: any) => void;
+    img: string;
 };
 
-const Card: React.FC<CardProps> = ({ flipped, found, onClick, children }) => {
+const Card: React.FC<CardProps> = ({ clicked, found, onClick, img }) => {
     return (
         <button
-            className={`card _bg-white ${flipped ? '-isFlipped' : ''} ${found ? '-isWin' : ''}`}
+            className={`card _bg-white ${clicked ? '-isFlipped' : ''} ${found ? '-isWin' : ''}`}
             draggable={false}
-            disabled={flipped || found}
-            onClick={onClick && onClick}>
-            {children}
+            disabled={clicked || found}
+            onClick={onClick}>
+            <img src={img}></img>
         </button>
     );
 };

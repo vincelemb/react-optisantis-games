@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 
 import { GameContext } from '../contexts/GameContext';
 import TimeFormat from '../utils/TimeFormat';
-import memoryType from '../type/memoryType';
+import memoryType from '../types/memoryType';
 
 import { ScoreClick } from '@optisantis/outil-global/components';
 import { TimeSvg, ClickSvg } from '@optisantis/outil-global/components/svg';

@@ -7,11 +7,11 @@ import { ClickSvg, TimeSvg } from '@optisantis/outil-global/components/svg';
 import OptionsSection from '../components/OptionsSection';
 import ScoreIndicator from '../components/ScoreIndicator';
 
-interface PanelOptionsProps {
+interface OptionsProps {
     hidden: boolean;
 }
 
-const PanelOptions: React.FC<PanelOptionsProps> = ({ hidden }) => {
+const Options: React.FC<OptionsProps> = ({ hidden }) => {
     const { level, setLevel, theme, setTheme } = useContext(GameContext);
 
     const renderButton = (
@@ -24,7 +24,11 @@ const PanelOptions: React.FC<PanelOptionsProps> = ({ hidden }) => {
             const activeClass = button === active;
 
             return (
-                <Button key={idx} onClick={onClick.bind(null, button)} isActive={activeClass} theme={theme}>
+                <Button
+                    key={idx}
+                    onClick={onClick.bind(null, button)}
+                    isActive={activeClass}
+                    theme={theme}>
                     {button}
                 </Button>
             );
@@ -32,16 +36,24 @@ const PanelOptions: React.FC<PanelOptionsProps> = ({ hidden }) => {
     };
 
     return (
-        <section className={`_mr-md lg:_mr-none _my-xl _w-full ${hidden ? '_block' : 'lg:_hidden '}`}>
+        <section
+            className={`_mr-md lg:_mr-none _my-xl _w-full ${
+                hidden ? '_block' : 'lg:_hidden '
+            }`}>
             <OptionsSection title="Thème" theme="dark">
                 {renderButton(THEMES, theme, 'light', setTheme())}
             </OptionsSection>
 
             <OptionsSection title="Niveau de difficulté" theme="light">
-                {renderButton(LEVELS, level, 'dark', setLevel())}
+                {renderButton(
+                    LEVELS.map((level) => level.toString()),
+                    level,
+                    'dark',
+                    setLevel()
+                )}
             </OptionsSection>
 
-            <OptionsSection title="Score" desc={`(${level} cartes)`} theme="dark">
+            {/* <OptionsSection title="Score" desc={`(${level} cartes)`} theme="dark">
                 <ScoreIndicator
                     title="Temps"
                     icon={<TimeSvg svgWidth="25px" />}
@@ -55,9 +67,9 @@ const PanelOptions: React.FC<PanelOptionsProps> = ({ hidden }) => {
                     // record={saveScore[indexLevel] ? saveScore[indexLevel].click : '00'}
                     record={'00'}
                 />
-            </OptionsSection>
+            </OptionsSection> */}
         </section>
     );
 };
 
-export default PanelOptions;
+export default Options;
