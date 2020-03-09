@@ -1,25 +1,20 @@
 import React, { useContext, useState } from 'react';
-
-import { GameContext } from '../contexts/GameContext';
 import TimeFormat from '../utils/TimeFormat';
 import memoryType from '../types/memoryType';
-
+import useGame from '../logics/useGame';
 import { ScoreClick } from '@optisantis/outil-global/components';
 import { TimeSvg, ClickSvg } from '@optisantis/outil-global/components/svg';
-import Popup from './Popup';
 
 const ModalWon: React.FC = () => {
-    const { reset, isWon, level, clicks, seconds } = useContext(GameContext);
-
-    // @TODO : Replace this block -------------------------
-    const [saveScore, setSaveScore] = useState<memoryType[] | any>([]);
-    const [indexLevel, setIndexLevel] = useState<number>(
-        saveScore.findIndex((index) => index.level === level)
-    );
-    // ----------------------------------------------------
+    const { reset, clicks, isDone } = useGame();
 
     return (
-        <Popup title="Partie terminée" hidden={!isWon}>
+        <div
+            hidden={!isDone}
+            className={`${
+                !isDone ? '_none' : '_flex'
+            } _flex-col _justify-center _items-center _absolute _w-3/5 _h-auto _z-10 _px-xs _py-xxs _rounded-small _bg-primary`}>
+            <h2 className="_text-white _text-lg _mb-xxs">Partie terminée</h2>
             {/* {winClickSentence === true && (
                 <span className="_text-golden">Nouveaux record de clics</span>
             )}
@@ -33,11 +28,11 @@ const ModalWon: React.FC = () => {
                             <TimeSvg svgWidth="25px"></TimeSvg>
                             <span className="_ml-xs _text-white">Temps</span>
                         </div>
-                        <span className="_text-xl _text-white">
+                        {/* <span className="_text-xl _text-white">
                             {' '}
                             {TimeFormat(seconds)}
-                        </span>
-                        <div className="_flex _justify-start">
+                        </span> */}
+                        {/* <div className="_flex _justify-start">
                             <ScoreClick
                                 isIcon
                                 iconPosition="left"
@@ -48,7 +43,7 @@ const ModalWon: React.FC = () => {
                                           )
                                         : '00:00'
                                 }></ScoreClick>
-                        </div>
+                        </div> */}
                     </div>
 
                     <div className="_m-xs">
@@ -57,7 +52,7 @@ const ModalWon: React.FC = () => {
                             <span className="_ml-xs _text-white">Clics</span>
                         </div>
                         <span className="_text-xl _text-white">{clicks}</span>
-                        <div className="_flex _justify-start">
+                        {/* <div className="_flex _justify-start">
                             <ScoreClick
                                 isIcon
                                 iconPosition="left"
@@ -66,7 +61,7 @@ const ModalWon: React.FC = () => {
                                         ? saveScore[indexLevel].click
                                         : '00'
                                 }></ScoreClick>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
@@ -77,7 +72,7 @@ const ModalWon: React.FC = () => {
                     <span>Rejouer</span>
                 </button>
             </section>
-        </Popup>
+        </div>
     );
 };
 

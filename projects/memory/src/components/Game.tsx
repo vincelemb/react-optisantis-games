@@ -3,13 +3,14 @@ import useGame from '../logics/useGame';
 
 import { Layout } from '@optisantis/outil-global/components';
 import { ReloadSvg } from '@optisantis/outil-global/components/svg';
+import ModalWon from './ModalWon';
 
 interface GameProps {
     hidden: boolean;
 }
 
 const Game: React.FC<GameProps> = ({ hidden }) => {
-    const [cards, clicks, reset] = useGame();
+    const { cards, clicks, reset } = useGame();
 
     return (
         <section
@@ -29,7 +30,7 @@ const Game: React.FC<GameProps> = ({ hidden }) => {
             </div>
 
             <div className="_flex _items-center _justify-center">
-                {/* <ModalWon /> */}
+                <ModalWon />
 
                 <Layout col={4} spacing="_p-xxs" desktopLayout>
                     {cards}

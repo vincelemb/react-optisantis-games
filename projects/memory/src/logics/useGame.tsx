@@ -68,7 +68,7 @@ const useGame = () => {
 
     const isDone: boolean = found.length === deck.length / 2;
 
-    return [cards, clicks, reset, isDone];
+    return { cards, clicks, reset, isDone };
 };
 
 export default useGame;
