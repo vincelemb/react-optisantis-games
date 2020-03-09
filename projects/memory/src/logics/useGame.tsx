@@ -18,11 +18,12 @@ const useGame = () => {
         setFound,
         isPlaying,
         setIsPlaying,
+        isDone,
+        setIsDone,
     } = useContext(GameContext);
     const { records } = useRecords();
     const { setSeconds } = useContext(TimerContext);
     const [deck, setDeck] = useState<Cards[]>(generateCards(theme, level));
-    const [isDone, setIsDone] = useState<boolean>(false);
 
     const clickCard = (id: number, img: string): void => {
         const { ids, imgs } = flipped;

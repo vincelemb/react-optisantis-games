@@ -24,6 +24,8 @@ export type GameContext = {
     setFlipped: React.Dispatch<React.SetStateAction<CardsFlipped>> | any;
     found: string[];
     setFound: React.Dispatch<React.SetStateAction<string[]>> | any;
+    isDone: boolean;
+    setIsDone: React.Dispatch<React.SetStateAction<boolean>> | any;
 };
 
 export const GameContext = createContext<GameContext>({
@@ -39,6 +41,8 @@ export const GameContext = createContext<GameContext>({
     setFlipped: undefined,
     found: [],
     setFound: undefined,
+    isDone: false,
+    setIsDone: undefined,
 });
 
 export const GameProvider = ({ children }) => {
@@ -48,6 +52,7 @@ export const GameProvider = ({ children }) => {
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
     const [flipped, setFlipped] = useState<CardsFlipped>(FLIPPED_RESET);
     const [found, setFound] = useState<string[]>([]);
+    const [isDone, setIsDone] = useState<boolean>(false);
 
     return (
         <GameContext.Provider
@@ -64,6 +69,8 @@ export const GameProvider = ({ children }) => {
                 setFlipped,
                 found,
                 setFound,
+                isDone,
+                setIsDone,
             }}>
             {children}
         </GameContext.Provider>

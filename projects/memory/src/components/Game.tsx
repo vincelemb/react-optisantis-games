@@ -19,6 +19,7 @@ const Game: React.FC<GameProps> = ({ hidden }) => {
             className={`${
                 hidden ? '_flex' : 'lg:_hidden '
             } _flex-col _w-full _items-center _relative _my-xl`}>
+
             <div className="_mx-xxs _flex _justify-between _w-full _items-center _text-white _pb-xs">
                 <div className="_flex _items-center ">
                     <span>Temps :</span>
