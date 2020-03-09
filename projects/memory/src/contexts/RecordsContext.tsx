@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import React, { createContext, useState } from 'react';
 
 type RecordObject = {
     [level: number]: { clicks: number; time: string };
