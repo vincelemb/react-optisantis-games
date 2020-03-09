@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/components/Card.scss';
 
 type CardProps = {
     clicked?: boolean;
@@ -10,7 +11,9 @@ type CardProps = {
 const Card: React.FC<CardProps> = ({ clicked, found, onClick, img }) => {
     return (
         <button
-            className={`card _bg-white ${clicked ? '-isFlipped' : ''} ${found ? '-isWin' : ''}`}
+            className={`Card ${clicked ? '-isFlipped' : ''} ${
+                found ? '-isWin' : ''
+            }`}
             draggable={false}
             disabled={clicked || found}
             onClick={onClick}>

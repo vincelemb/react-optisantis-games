@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
+import { snakeCase } from 'lodash';
 import { GameContext, THEMES, LEVELS } from '../contexts/GameContext';
+import useGame from '../logics/useGame';
+import TimeFormat from '../utils/TimeFormat';
 
 import { Button } from '@optisantis/outil-global/components';
 import { ClickSvg, TimeSvg } from '@optisantis/outil-global/components/svg';
-
 import OptionsSection from '../components/OptionsSection';
 import ScoreIndicator from '../components/ScoreIndicator';
 
@@ -13,6 +15,7 @@ interface OptionsProps {
 
 const Options: React.FC<OptionsProps> = ({ hidden }) => {
     const { level, setLevel, theme, setTheme } = useContext(GameContext);
+    const { records } = useGame();
 
     const renderButton = (
         buttons: string[],
@@ -47,27 +50,36 @@ const Options: React.FC<OptionsProps> = ({ hidden }) => {
             <OptionsSection title="Niveau de difficulté" theme="light">
                 {renderButton(
                     LEVELS.map((level) => level.toString()),
-                    level,
+                    level.toString(),
                     'dark',
                     setLevel()
                 )}
             </OptionsSection>
 
-            {/* <OptionsSection title="Score" desc={`(${level} cartes)`} theme="dark">
+            <OptionsSection
+                title="Score"
+                desc={`(${level} cartes)`}
+                theme="dark">
                 <ScoreIndicator
                     title="Temps"
                     icon={<TimeSvg svgWidth="25px" />}
-                    // record={saveScore[indexLevel] ? TimeFormat(saveScore[indexLevel].seconds) : '00:00'}
-                    record={'00:00'}
+                    record={
+                        records[level] && records[level][snakeCase(theme)]
+                            ? TimeFormat(records[level][snakeCase(theme)].time)
+                            : '00:00'
+                    }
                 />
 
                 <ScoreIndicator
                     title="Clics"
                     icon={<ClickSvg svgWidth="25px" />}
-                    // record={saveScore[indexLevel] ? saveScore[indexLevel].click : '00'}
-                    record={'00'}
+                    record={
+                        records[level] && records[level][snakeCase(theme)]
+                            ? records[level][snakeCase(theme)].clicks
+                            : 0
+                    }
                 />
-            </OptionsSection> */}
+            </OptionsSection>
         </section>
     );
 };

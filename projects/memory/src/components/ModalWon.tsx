@@ -1,12 +1,15 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
+import { snakeCase } from 'lodash';
+import { GameContext } from '../contexts/GameContext';
 import TimeFormat from '../utils/TimeFormat';
-import memoryType from '../types/memoryType';
 import useGame from '../logics/useGame';
 import { ScoreClick } from '@optisantis/outil-global/components';
 import { TimeSvg, ClickSvg } from '@optisantis/outil-global/components/svg';
 
 const ModalWon: React.FC = () => {
-    const { reset, clicks, isDone } = useGame();
+    const { reset, clicks, isDone, records, seconds } = useGame();
+    const { level, theme } = useContext(GameContext);
+    const themeParsed = snakeCase(theme);
 
     return (
         <div
@@ -28,22 +31,17 @@ const ModalWon: React.FC = () => {
                             <TimeSvg svgWidth="25px"></TimeSvg>
                             <span className="_ml-xs _text-white">Temps</span>
                         </div>
-                        {/* <span className="_text-xl _text-white">
-                            {' '}
-                            {TimeFormat(seconds)}
-                        </span> */}
-                        {/* <div className="_flex _justify-start">
+                        <span className="_text-xl _text-white">{seconds}</span>
+                        <div className="_flex _justify-start">
                             <ScoreClick
                                 isIcon
                                 iconPosition="left"
                                 count={
-                                    saveScore[indexLevel]
-                                        ? TimeFormat(
-                                              saveScore[indexLevel].seconds
-                                          )
-                                        : '00:00'
+                                    records[level] &&
+                                    records[level][themeParsed] &&
+                                    TimeFormat(records[level][themeParsed].time)
                                 }></ScoreClick>
-                        </div> */}
+                        </div>
                     </div>
 
                     <div className="_m-xs">
@@ -52,16 +50,16 @@ const ModalWon: React.FC = () => {
                             <span className="_ml-xs _text-white">Clics</span>
                         </div>
                         <span className="_text-xl _text-white">{clicks}</span>
-                        {/* <div className="_flex _justify-start">
+                        <div className="_flex _justify-start">
                             <ScoreClick
                                 isIcon
                                 iconPosition="left"
                                 count={
-                                    saveScore[indexLevel]
-                                        ? saveScore[indexLevel].click
-                                        : '00'
+                                    records[level] &&
+                                    records[level][themeParsed] &&
+                                    records[level][themeParsed].clicks
                                 }></ScoreClick>
-                        </div> */}
+                        </div>
                     </div>
                 </div>
             </div>

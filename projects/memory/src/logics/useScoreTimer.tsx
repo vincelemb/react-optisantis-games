@@ -1,5 +1,6 @@
 import { useEffect, useContext } from 'react';
 import { TimerContext } from '@optisantis/outil-global/context/TimerContext';
+import TimeFormat from '../utils/TimeFormat';
 
 export default function useScoreTimer(isPlaying: boolean) {
     const { seconds, setSeconds } = useContext(TimerContext);
@@ -22,5 +23,5 @@ export default function useScoreTimer(isPlaying: boolean) {
         return;
     }, [isPlaying, seconds]);
 
-    return { seconds };
+    return { seconds: TimeFormat(seconds) };
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import useGame from '../logics/useGame';
-
+import useScoreTimer from '../logics/useScoreTimer';
+import useRecords from '../logics/useRecords';
 import { Layout } from '@optisantis/outil-global/components';
 import { ReloadSvg } from '@optisantis/outil-global/components/svg';
 import ModalWon from './ModalWon';
@@ -10,7 +11,8 @@ interface GameProps {
 }
 
 const Game: React.FC<GameProps> = ({ hidden }) => {
-    const { cards, clicks, reset } = useGame();
+    const { cards, clicks, reset, isPlaying } = useGame();
+    const { seconds } = useScoreTimer(isPlaying);
 
     return (
         <section
@@ -20,8 +22,8 @@ const Game: React.FC<GameProps> = ({ hidden }) => {
             } _flex-col _w-full _items-center _relative _my-xl`}>
             <div className="_mx-xxs _flex _justify-between _w-full _items-center _text-white _pb-xs">
                 <div className="_flex _items-center ">
-                    {/* <span>Temps : </span> */}
-                    {/* <span className="_text-xl"> {TimeFormat(seconds)}</span> */}
+                    <span>Temps : </span>
+                    <span className="_text-xl"> {seconds}</span>
                 </div>
                 <div className="_flex _items-center">
                     <span className="_mr-xxs">Clics :</span>
