@@ -1,4 +1,4 @@
-export default function TimeFormat(seconds) {
+export default function TimeFormat(seconds: number) {
     let displaySeconds: number;
     let displayMinutes: number;
 

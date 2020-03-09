@@ -1,12 +1,21 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import Main from './Main';
+
 import { TimerProvider } from '@optisantis/outil-global/context/TimerContext';
+import { GameProvider } from './contexts/GameContext';
+import { RecordsProvider } from './contexts/RecordsContext';
+
+import './styles/index.scss';
+import Main from './Main';
 
 function App() {
     return (
         <TimerProvider>
-            <Main />
+            <RecordsProvider>
+                <GameProvider>
+                    <Main />
+                </GameProvider>
+            </RecordsProvider>
         </TimerProvider>
     );
 }

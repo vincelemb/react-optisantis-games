@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Path } from '@optisantis/outil-global/config';
 import {
     Container,
-    Tab,
     BgImage,
     Modal,
     HeartBeat,
@@ -13,10 +12,8 @@ import {
 } from '@optisantis/outil-global/components';
 import { InfoSvg } from '@optisantis/outil-global/components/svg';
 import './styles/index.scss';
-import useCountdownOverlay from '@optisantis/outil-global/logics/useCountdownOverlay';
-import useCountdown from '@optisantis/outil-global/logics/useCountdown';
-import { CountdownContext } from '@optisantis/outil-global/context/CountdownContext';
-import useAudioPlayer from '@optisantis/outil-global/logics/useAudioPlayer';
+import { useCountdownOverlay, useCountdown, useAudioPlayer } from '@optisantis/outil-global/logics';
+import { CountdownContext } from '@optisantis/outil-global/context';
 
 const Main = () => {
     const [timeActive, setTimeActive] = useState<boolean>(false);
@@ -31,8 +28,6 @@ const Main = () => {
 
     const { setCountdownSeconds, setCountdownOverlaySeconds } = useContext(CountdownContext);
 
-    const [activeTab, setActiveTab] = useState<boolean>(true);
-    const [pannelLeft, setPannelLeft] = useState<boolean>(true);
     const [changeDataCountdown, setChangeDataCountdown] = useState<boolean>(false);
 
     const [firstBip, setFirstBip] = useState<number>(0);
@@ -100,160 +95,162 @@ const Main = () => {
 
     return (
         <BgImage imageUrl={`${Path.imgPath}hero.jpg`}>
-            <div className="_rounded-small _border _border-solid _border-primary _mt-md _mx-sm _justify-around _hidden lg:_flex _cursor-pointer">
-                <Tab
-                    isActive={activeTab}
-                    toogleTab={() => {
-                        setPannelLeft(true);
-                        return !activeTab ? setActiveTab(!activeTab) : null;
-                    }}>
-                    <span>Options</span>
-                </Tab>
-                <Tab
-                    isActive={!activeTab}
-                    toogleTab={() => {
-                        setPannelLeft(false);
-                        return activeTab ? setActiveTab(!activeTab) : null;
-                    }}>
-                    <span>Jouer</span>
-                </Tab>
-            </div>
             <Container maxWidth="991px" isCenteredX>
-                <div className="_flex _px-sm">
+                <main className="_p-sm">
                     <TabsGroup
+                        noTabsonDesktop={true}
                         contents={[
                             {
-                                title: 'étapes',
+                                title: 'Options',
                                 subcontent: (
-                                    <OrderedList
-                                        lists={[
-                                            {
-                                                content: `Faites l'exercice 3 fois par jour, de préférence assis, les yeux ouverts ou fermés, le dos bien droit et les pieds posés à plat au sol.`,
-                                            },
-                                            {
-                                                content: `Respirez 6 fois par minute : inspirez en comptant jusqu'à 5, puis expirez en comptant jusqu'à 5. Le signal sonore vous aide à vous repérer.`,
-                                            },
-                                            {
-                                                content: `Idéalement, pratiquez cet exercice pendant 5 minutes`,
-                                            },
-                                        ]}
-                                    />
+                                    <aside className="_my-md">
+                                        <TabsGroup
+                                            borderBottomStyle={true}
+                                            isCard={true}
+                                            contents={[
+                                                {
+                                                    title: 'étapes',
+                                                    subcontent: (
+                                                        <OrderedList
+                                                            lists={[
+                                                                {
+                                                                    content: `Faites l'exercice 3 fois par jour, de préférence assis, les yeux ouverts ou fermés, le dos bien droit et les pieds posés à plat au sol.`,
+                                                                },
+                                                                {
+                                                                    content: `Respirez 6 fois par minute : inspirez en comptant jusqu'à 5, puis expirez en comptant jusqu'à 5. Le signal sonore vous aide à vous repérer.`,
+                                                                },
+                                                                {
+                                                                    content: `Idéalement, pratiquez cet exercice pendant 5 minutes`,
+                                                                },
+                                                            ]}
+                                                        />
+                                                    ),
+                                                },
+                                                {
+                                                    title: 'le saviez-vous ?',
+                                                    subcontent: `Cette technique de relaxation se base sur des exercices de respiration pour
+                                                        atteindre un état d'équilibre du système nerveux autonome (notre "pilote
+                                                        automatique"). En agissant sur la variabilité du rythme cardiaque, il est possible
+                                                        de gérer son état émotionnel et d’améliorer son bien-être physique et psychique :
+                                                        moins de stress, meilleur sommeil, meilleure concentration…`,
+                                                },
+                                            ]}
+                                        />
+                                    </aside>
                                 ),
                             },
                             {
-                                title: 'le saviez-vous ?',
-                                subcontent: `Cette technique de relaxation se base sur des exercices de respiration pour
-                                atteindre un état d'équilibre du système nerveux autonome (notre "pilote
-                                automatique"). En agissant sur la variabilité du rythme cardiaque, il est possible
-                                de gérer son état émotionnel et d’améliorer son bien-être physique et psychique :
-                                moins de stress, meilleur sommeil, meilleure concentration…`,
+                                title: 'Jouer',
+                                subcontent: (
+                                    <section className={`_items-center _relative _my-xl`}>
+                                        <Modal
+                                            title="Partie terminée"
+                                            isModal={isModal}
+                                            isOverlay={true}
+                                            onCloseBtnClick={() => {
+                                                setCountdownOverlaySeconds(0);
+                                            }}>
+                                            <span className="_text-white">
+                                                {changeDataCountdown === false ? 'Début dans :' : 'Reprise dans :'}
+                                            </span>
+                                            <span className="_text-xxl _text-white _py-sm">
+                                                {countdownOverlaySeconds}
+                                            </span>
+                                            <div
+                                                className="_w-4/5 _bg-white _rounded-small _border-solid _border-2 _p-sm _border-white _flex"
+                                                style={{ backgroundColor: 'rgba(255,255,255,.3)' }}>
+                                                <div className="_mr-xs">
+                                                    <InfoSvg
+                                                        fillColor="#fff"
+                                                        svgWidth="20px"
+                                                        svgHeight="20px"></InfoSvg>
+                                                </div>
+                                                <span className="_text-white">
+                                                    Essayez de respirer par le ventre pendant cet exercice
+                                                </span>
+                                            </div>
+                                        </Modal>
+
+                                        <section className="_w-full _flex _justify-center _items-center">
+                                            <div className="_flex _flex-col">
+                                                {play !== null && (
+                                                    <span
+                                                        className="_text-center _text-xl _text-white _w-full"
+                                                        role="status"
+                                                        aria-live="polite">
+                                                        {stepCardio}
+                                                    </span>
+                                                )}
+                                                <div className="c-cardio-player _relative _flex _justify-center _items-center">
+                                                    <HeartBeat
+                                                        playingStep={stepAnimation}
+                                                        isPlaying={play}
+                                                        playingState={animationState}></HeartBeat>
+                                                    {play !== null && (
+                                                        <span className="_text-center _text-xxl _text-white _z-10">{`${secondsToTime(
+                                                            countdownSeconds
+                                                        )}`}</span>
+                                                    )}
+                                                    {play === null && (
+                                                        <div className="_w-3/5 _flex _justify-between _items-center">
+                                                            <div className="_relative">
+                                                                <button
+                                                                    className="_relative _z-10 _rounded-rounded _bg-black _min-w-xxl _min-h-xxl _max-h-xxl _opacity-10"
+                                                                    onClick={() =>
+                                                                        timeNumber > 1
+                                                                            ? setTimeNumber(timeNumber - 1)
+                                                                            : null
+                                                                    }></button>
+                                                                <div className="less"></div>
+                                                            </div>
+                                                            <div className="_flex _flex-col _items-center">
+                                                                <span
+                                                                    className="_text-xxl _text-white  _text-center _z-10"
+                                                                    role="status"
+                                                                    aria-live="polite">
+                                                                    {timeNumber}
+                                                                </span>
+                                                                <span className="_text-white _z-10">min</span>
+                                                            </div>
+                                                            <div className="_relative">
+                                                                <button
+                                                                    className=" _relative _z-10 _rounded-rounded _bg-black _min-w-xxl _min-h-xxl _max-h-xxl _opacity-10"
+                                                                    onClick={() =>
+                                                                        timeNumber < 10
+                                                                            ? setTimeNumber(timeNumber + 1)
+                                                                            : null
+                                                                    }></button>
+                                                                <div className="more"></div>
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </section>
+
+                                        <PlayerControls
+                                            play={play}
+                                            isPlaying={musicPlaying}
+                                            audioFile={'Wind.mp3'}
+                                            onClick={{
+                                                reset: () => reset(),
+                                                pause: () => {
+                                                    setCountdownOverlaySeconds(changeDataCountdown ? 3 : 5);
+                                                    setPlay(!play);
+                                                },
+                                                audio: () => {
+                                                    setResetMusic(false);
+                                                    setMusicPlaying(!musicPlaying);
+                                                },
+                                            }}
+                                        />
+                                        <Audio id="audio" audioFile={'bip.mp3'}></Audio>
+                                    </section>
+                                ),
                             },
                         ]}
                     />
-
-                    {/* Game Panel */}
-                    <section
-                        className={`_flex _flex-col _w-full ${
-                            pannelLeft === false ? '_block' : 'lg:_hidden'
-                        } _items-center _relative _my-xl`}>
-                        {/* Modal Panel */}
-
-                        <Modal
-                            title="Partie terminée"
-                            isModal={isModal}
-                            isOverlay={true}
-                            onCloseBtnClick={() => {
-                                setCountdownOverlaySeconds(0);
-                            }}>
-                            <span className="_text-white">
-                                {changeDataCountdown === false ? 'Début dans :' : 'Reprise dans :'}
-                            </span>
-                            <span className="_text-xxl _text-white _py-sm">{countdownOverlaySeconds}</span>
-                            <div
-                                className="_w-4/5 _bg-white _rounded-small _border-solid _border-2 _p-sm _border-white _flex"
-                                style={{ backgroundColor: 'rgba(255,255,255,.3)' }}>
-                                <div className="_mr-xs">
-                                    <InfoSvg fillColor="#fff" svgWidth="20px" svgHeight="20px"></InfoSvg>
-                                </div>
-                                <span className="_text-white">
-                                    Essayez de respirer par le ventre pendant cet exercice
-                                </span>
-                            </div>
-                        </Modal>
-
-                        {/* Cards */}
-                        <section className="_w-full _flex _justify-center _items-center">
-                            <div className="_flex _flex-col">
-                                {play !== null && (
-                                    <span
-                                        className="_text-center _text-xl _text-white _w-full"
-                                        role="status"
-                                        aria-live="polite">
-                                        {stepCardio}
-                                    </span>
-                                )}
-                                <div className="c-cardio-player _relative _flex _justify-center _items-center">
-                                    <HeartBeat
-                                        playingStep={stepAnimation}
-                                        isPlaying={play}
-                                        playingState={animationState}></HeartBeat>
-                                    {play !== null && (
-                                        <span className="_text-center _text-xxl _text-white _z-10">{`${secondsToTime(
-                                            countdownSeconds
-                                        )}`}</span>
-                                    )}
-                                    {play === null && (
-                                        <div className="_w-3/5 _flex _justify-between _items-center">
-                                            <div className="_relative">
-                                                <button
-                                                    className="_relative _z-10 _rounded-rounded _bg-black _min-w-xxl _min-h-xxl _max-h-xxl _opacity-10"
-                                                    onClick={() =>
-                                                        timeNumber > 1 ? setTimeNumber(timeNumber - 1) : null
-                                                    }></button>
-                                                <div className="less"></div>
-                                            </div>
-                                            <div className="_flex _flex-col _items-center">
-                                                <span
-                                                    className="_text-xxl _text-white  _text-center _z-10"
-                                                    role="status"
-                                                    aria-live="polite">
-                                                    {timeNumber}
-                                                </span>
-                                                <span className="_text-white _z-10">min</span>
-                                            </div>
-                                            <div className="_relative">
-                                                <button
-                                                    className=" _relative _z-10 _rounded-rounded _bg-black _min-w-xxl _min-h-xxl _max-h-xxl _opacity-10"
-                                                    onClick={() =>
-                                                        timeNumber < 10 ? setTimeNumber(timeNumber + 1) : null
-                                                    }></button>
-                                                <div className="more"></div>
-                                            </div>
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
-                        </section>
-
-                        <PlayerControls
-                            play={play}
-                            isPlaying={musicPlaying}
-                            audioFile={'Wind.mp3'}
-                            onClick={{
-                                reset: () => reset(),
-                                pause: () => {
-                                    setCountdownOverlaySeconds(changeDataCountdown ? 3 : 5);
-                                    setPlay(!play);
-                                },
-                                audio: () => {
-                                    setResetMusic(false);
-                                    setMusicPlaying(!musicPlaying);
-                                },
-                            }}
-                        />
-                        <Audio id="audio" audioFile={'bip.mp3'}></Audio>
-                    </section>
-                </div>
+                </main>
             </Container>
         </BgImage>
     );
