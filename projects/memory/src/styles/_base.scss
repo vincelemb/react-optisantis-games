@@ -16,10 +16,3 @@ $baseWidth: 100%;
 .Grid {
     flex-wrap: wrap;
 }
-
-.memory-bg {
-    overflow: auto;
-    background-image: url('http://localhost:8089/assets/img/lake.jpg');
-    background-size: cover;
-    height: 100vh;
-}

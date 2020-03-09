@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { GameContext, FLIPPED_RESET } from '../contexts/GameContext';
 import { TimerContext } from '@optisantis/outil-global/context/TimerContext';
-import TimeFormat from '../utils/TimeFormat';
 import useRecords from './useRecords';
 import { Cards } from '../types/cards';
 import generateCards from '../utils/generateCards';
@@ -21,7 +20,7 @@ const useGame = () => {
         setIsPlaying,
     } = useContext(GameContext);
     const { records } = useRecords();
-    const { seconds } = useContext(TimerContext);
+    const { setSeconds } = useContext(TimerContext);
     const [deck, setDeck] = useState<Cards[]>(generateCards(theme, level));
     const [isDone, setIsDone] = useState<boolean>(false);
 
@@ -56,6 +55,7 @@ const useGame = () => {
         setClicks(0);
         setIsDone(false);
         setIsPlaying(false);
+        setSeconds(0);
         setTimeout(() => setDeck(generateCards(theme, level)), 600);
     };
 
@@ -94,7 +94,6 @@ const useGame = () => {
         isDone,
         records,
         isPlaying,
-        seconds: TimeFormat(seconds),
     };
 };
 

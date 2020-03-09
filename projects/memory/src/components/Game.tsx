@@ -1,7 +1,6 @@
 import React from 'react';
 import useGame from '../logics/useGame';
 import useScoreTimer from '../logics/useScoreTimer';
-import useRecords from '../logics/useRecords';
 import { Layout } from '@optisantis/outil-global/components';
 import { ReloadSvg } from '@optisantis/outil-global/components/svg';
 import ModalWon from './ModalWon';
