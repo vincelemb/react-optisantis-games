@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 
-const getWidth = () => window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+const getWidth = () =>
+    window.innerWidth ||
+    document.documentElement.clientWidth ||
+    document.body.clientWidth;
 
 export default function useCurrentWitdh() {
     // save current window width in the state object
@@ -10,7 +13,7 @@ export default function useCurrentWitdh() {
     // it does not have any dependencies.
     useEffect(() => {
         // timeoutId for debounce mechanism
-        let timeoutId = null;
+        let timeoutId: any;
         const resizeListener = () => {
             // prevent execution of previous setTimeout
             clearTimeout(timeoutId);

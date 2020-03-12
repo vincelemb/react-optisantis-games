@@ -26,5 +26,5 @@ export default function useScoreTimer(
         return;
     }, [isPlaying, seconds]);
 
-    return { seconds: TimeFormat(seconds) };
+    return { seconds: seconds, secondsFormat: TimeFormat(seconds) };
 }

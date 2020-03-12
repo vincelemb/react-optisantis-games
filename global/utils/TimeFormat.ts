@@ -9,7 +9,10 @@ export default function TimeFormat(seconds: number) {
     displayMinutes = Math.floor(seconds / 60);
     displaySeconds = seconds - displayMinutes * 60;
 
-    let finalTime = numberTimeFormat(displayMinutes, '0', 2) + ':' + numberTimeFormat(displaySeconds, '0', 2);
+    let finalTime =
+        numberTimeFormat(displayMinutes, '0', 2) +
+        ':' +
+        numberTimeFormat(displaySeconds, '0', 2);
 
     return finalTime;
 }

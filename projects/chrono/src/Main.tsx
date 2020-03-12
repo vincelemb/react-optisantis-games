@@ -14,8 +14,15 @@ import {
 import { InfoSvg } from '@optisantis/outil-global/components/svg';
 import chronoType from './type/chronoType';
 import './styles/index.scss';
-import { useCountdownOverlay, useAudioPlayer, useScoreTimer } from '@optisantis/outil-global/logics';
-import { CountdownContext, TimerContext } from '@optisantis/outil-global/context';
+import {
+    useCountdownOverlay,
+    useAudioPlayer,
+    useScoreTimer,
+} from '@optisantis/outil-global/logics';
+import {
+    CountdownContext,
+    TimerContext,
+} from '@optisantis/outil-global/context';
 
 const Main = () => {
     const [timeActive, setTimeActive] = useState<boolean>(false);
@@ -38,12 +45,16 @@ const Main = () => {
     const { setCountdownOverlaySeconds } = useContext(CountdownContext);
 
     // CHRONO
-    const [changeDataCountdown, setChangeDataCountdown] = useState<boolean>(false);
+    const [changeDataCountdown, setChangeDataCountdown] = useState<boolean>(
+        false
+    );
 
     const [play, setPlay] = useState<boolean>(null);
     const [animationState, setAnimationState] = useState<string>('paused');
 
     useEffect(() => {
+        console.log(typeof seconds);
+        console.log(typeof chronoStep.stepSeconds[step]);
         if (timeActive === true) {
             if (seconds > chronoStep.stepSeconds[step]) {
                 setStep(step + 1);
@@ -118,19 +129,22 @@ const Main = () => {
                                                                         {
                                                                             color:
                                                                                 chronoStep.stepColor &&
-                                                                                chronoStep.stepColor[0],
+                                                                                chronoStep
+                                                                                    .stepColor[0],
                                                                             content: `Fermez la bouche et inspirez tranquillement par le nez en comptant jusqu'à 4.`,
                                                                         },
                                                                         {
                                                                             color:
                                                                                 chronoStep.stepColor &&
-                                                                                chronoStep.stepColor[1],
+                                                                                chronoStep
+                                                                                    .stepColor[1],
                                                                             content: `Retenez votre souffle en comptant jusqu'à 7.`,
                                                                         },
                                                                         {
                                                                             color:
                                                                                 chronoStep.stepColor &&
-                                                                                chronoStep.stepColor[2],
+                                                                                chronoStep
+                                                                                    .stepColor[2],
                                                                             content: `Expirez bruyamment par la bouche en comptant jusqu'à 8 et en faisant le son "whoosh".`,
                                                                         },
                                                                     ]}
@@ -138,7 +152,8 @@ const Main = () => {
                                                             ),
                                                         },
                                                         {
-                                                            title: 'Avant de commencer',
+                                                            title:
+                                                                'Avant de commencer',
                                                             content: `Fermez les yeux et expirez tout l'air de vos poumons. Touchez votre palais du bout de la langue, juste derrière les incisives, et conservez cette position pendant l'exercice`,
                                                         },
                                                     ],
@@ -164,14 +179,19 @@ const Main = () => {
                                                 setCountdownOverlaySeconds(0);
                                             }}>
                                             <span className="_text-white">
-                                                {changeDataCountdown === false ? 'Début dans :' : 'Reprise dans :'}
+                                                {changeDataCountdown === false
+                                                    ? 'Début dans :'
+                                                    : 'Reprise dans :'}
                                             </span>
                                             <span className="_text-xxl _text-white _py-sm">
                                                 {countdownOverlaySeconds}
                                             </span>
                                             <div
                                                 className="_w-4/5 _bg-white _rounded-small _border-solid _border-2 _p-sm _border-white _flex"
-                                                style={{ backgroundColor: 'rgba(255,255,255,.3)' }}>
+                                                style={{
+                                                    backgroundColor:
+                                                        'rgba(255,255,255,.3)',
+                                                }}>
                                                 <div className="_mr-xs">
                                                     <InfoSvg
                                                         fillColor="#fff"
@@ -179,7 +199,8 @@ const Main = () => {
                                                         svgHeight="20px"></InfoSvg>
                                                 </div>
                                                 <span className="_text-white">
-                                                    Essayez de respirer par le ventre pendant cet exercice
+                                                    Essayez de respirer par le
+                                                    ventre pendant cet exercice
                                                 </span>
                                             </div>
                                         </Modal>
@@ -190,26 +211,38 @@ const Main = () => {
                                                         className="_text-center _text-xl _text-white _w-full"
                                                         role="status"
                                                         aria-live="polite">
-                                                        {chronoStep.stepName[step]}
+                                                        {
+                                                            chronoStep.stepName[
+                                                                step
+                                                            ]
+                                                        }
                                                     </span>
                                                 )}
                                                 <div className="c-chrono-player _relative _flex _justify-center _items-center">
                                                     <CircleGrow
                                                         isPlaying={play}
                                                         playingStep={step}
-                                                        borderColor={chronoStep.stepColor[step]}
-                                                        playingState={animationState}></CircleGrow>
+                                                        borderColor={
+                                                            chronoStep
+                                                                .stepColor[step]
+                                                        }
+                                                        playingState={
+                                                            animationState
+                                                        }></CircleGrow>
                                                     {play === null && (
                                                         <span
                                                             className="_text-lg _text-primary _p-xs _text-center _z-10"
                                                             role="status"
                                                             aria-live="polite">
-                                                            Cliquez sur lecture pour commencer
+                                                            Cliquez sur lecture
+                                                            pour commencer
                                                         </span>
                                                     )}
                                                     {play !== null && (
                                                         <span className="_text-center _text-xxl _text-primary _z-10">
-                                                            {displayCount(seconds)}
+                                                            {displayCount(
+                                                                seconds
+                                                            )}
                                                         </span>
                                                     )}
                                                 </div>
@@ -222,16 +255,24 @@ const Main = () => {
                                             onClick={{
                                                 reset: () => reset(),
                                                 pause: () => {
-                                                    setCountdownOverlaySeconds(changeDataCountdown ? 3 : 5);
+                                                    setCountdownOverlaySeconds(
+                                                        changeDataCountdown
+                                                            ? 3
+                                                            : 5
+                                                    );
                                                     setPlay(!play);
                                                 },
                                                 audio: () => {
                                                     setResetMusic(false);
-                                                    setMusicPlaying(!musicPlaying);
+                                                    setMusicPlaying(
+                                                        !musicPlaying
+                                                    );
                                                 },
                                             }}
                                         />
-                                        <Audio id="audio" audioFile={'bip.mp3'}></Audio>
+                                        <Audio
+                                            id="audio"
+                                            audioFile={'bip.mp3'}></Audio>
                                     </section>
                                 ),
                             },

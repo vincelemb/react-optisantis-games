@@ -7,14 +7,14 @@ import Modal from './Modal';
 
 const Game: React.FC = () => {
     const { cards, clicks, reset, isPlaying, isDone } = useGame();
-    const { seconds } = useScoreTimer(isPlaying);
+    const { secondsFormat } = useScoreTimer(isPlaying);
 
     return (
         <main className={`_flex-col _w-full _items-center _relative _my-xl`}>
             <div className="_mx-xxs _flex _justify-between _w-full _items-center _text-white _pb-xs">
                 <div className="_flex _items-center ">
                     <span>Temps :</span>
-                    <span className="_text-xl _ml-xxs"> {seconds}</span>
+                    <span className="_text-xl _ml-xxs"> {secondsFormat}</span>
                 </div>
                 <div className="_flex _items-center">
                     <span>Clics :</span>
