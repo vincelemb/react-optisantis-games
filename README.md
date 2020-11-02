@@ -4,13 +4,11 @@
 
 `🎯 Prévu`, `🚧 En cours`, `🎉 Terminé`
 
-| Outils                    | Status       | Livraison   |
-| ------------------------- | ------------ | ----------- |
-| **Memory**                | `🚧 En cours` | `20 mars`   |
-| **Chrono**                | `🚧 En cours` | `20 mars`   |
-| **Cardiaque**             | `🚧 En cours` | `20 mars`   |
-| **Portitions de la main** | `🎯 Prévu`    | `à definir` |
-| **Vidéos**                | `🚧 En cours` | `20 mars`   |
+| Outils        | Status                      |
+| ------------- | --------------------------- |
+| **Memory**    | `🚧 écriture test unitaire` |
+| **Chrono**    | `🚧 écriture test unitaire` |
+| **Cardiaque** | `🚧 écriture test unitaire` |
 
 ## Installation
 
@@ -68,4 +66,3 @@ yarn pckg:images
 `global` contient tous les fichiers réutilisablent dans les différents `projects`.
 
 `projects` contients tous les dossiers qui deviendrons un outils servis dans l'API via le dossier `public`.
-
