@@ -66,3 +66,17 @@ yarn pckg:images
 `global` contient tous les fichiers réutilisablent dans les différents `projects`.
 
 `projects` contients tous les dossiers qui deviendrons un outils servis dans l'API via le dossier `public`.
+
+## Apercu 
+
+### Memory
+`http://localhost:8089/projects/memory/public/`
+![memory](https://user-images.githubusercontent.com/35501355/97896589-94b08280-1d35-11eb-8e31-25033e27d28b.png)
+
+### Cohérence Cardiaque
+`http://localhost:8089/projects/cardiaque/public/`
+![cardiaque](https://user-images.githubusercontent.com/35501355/97896796-de996880-1d35-11eb-8c61-5dae292aed92.png)
+
+### Chronomètre 4.7.8
+`http://localhost:8089/projects/chrono/public/`
+![chrono](https://user-images.githubusercontent.com/35501355/97897051-3932c480-1d36-11eb-907b-016f822eae82.png)
