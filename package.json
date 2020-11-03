@@ -11,8 +11,8 @@
         "projects/*"
     ],
     "scripts": {
-        "start": "yarn pckg:images && yarn pckg:link",
-        "build": "webpack-dev-server --config ./webpack/webpack.dev.babel.js",
+        
+        "build": "yarn pckg:images && yarn pckg:link && webpack-dev-server --config ./webpack/webpack.dev.babel.js", 
         "prod": "webpack --config ./webpack/webpack.prod.babel.js",
         "css": "tailwind build global/tailwind.css -c tailwind.config.js -o global/tailwind.css",
         "test": "jest",
