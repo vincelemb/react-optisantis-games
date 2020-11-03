@@ -11,7 +11,8 @@
         "projects/*"
     ],
     "scripts": {
-        "start": "node server.js yarn pckg:images && yarn pckg:link", 
+        "start": "yarn pckg:images && yarn pckg:link",
+        "heroku-postbuild": "webpack -p --config ./webpack.prod.config.js --progress",
         "prod": "webpack --config ./webpack/webpack.prod.babel.js",
         "css": "tailwind build global/tailwind.css -c tailwind.config.js -o global/tailwind.css",
         "test": "jest",
