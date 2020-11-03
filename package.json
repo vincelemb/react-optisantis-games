@@ -12,7 +12,6 @@
     ],
     "scripts": {
         "heroku-postbuild": "yarn pckg:images && yarn pckg:link && webpack -p --config ./webpack/webpack.prod.babel.js --progress",
-        "prod": "webpack --config ./webpack/webpack.prod.babel.js",
         "css": "tailwind build global/tailwind.css -c tailwind.config.js -o global/tailwind.css",
         "test": "jest",
         "pckg:link": "yarn ts-node scripts/linkPackages.ts",
